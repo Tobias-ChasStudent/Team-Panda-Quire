@@ -1,13 +1,21 @@
 'use strict'
 
-const textArea = document.getElementById('textarea');
-const currentDocument = 'docId817326123';
+const editor = document.getElementById('editor');
+let editorContents = document.getElementById('editor').innerHTML;
+const currentDocument = 'idDoc817326123';
 
-
-const storeValue = function() {
-    localStorage.setItem(currentDocument, textArea.value);
+const editorGetValue = function() {
+    editor.innerHTML = localStorage.getItem(currentDocument);
 }
 
+const editorStoreValue = function() {
+    editorContents = document.getElementById('editor').innerHTML;
+    localStorage.setItem(currentDocument, editorContents);
+}
+
+editorGetValue();
+
+//autosave
 setInterval(() => {
-    storeValue();
+    editorStoreValue();
 }, 5000);
