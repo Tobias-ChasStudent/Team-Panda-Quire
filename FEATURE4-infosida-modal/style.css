@@ -1,6 +1,6 @@
 .info-modal {
     border: none !important;
-    border-radius: 10%;
+    border-radius: 5%;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     padding: 1.6rem;
     max-width: 400px;
@@ -14,19 +14,16 @@
 
 .close-modal-btn {
     display: block;
-  margin-top: 2rem;
-  width: calc(44px * var(--ratio));
-  height: 44px;
-  border-radius: calc(3px * var(--ratio));
-  border: none;
-  letter-spacing: ccalc(3 * var(--leading, 0.025em));
-  color: #6B7280;
-  background-color: #EEF1F7;
-  font-size: large;
-  padding: 1rem 2rem 2rem 2rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  border: 0.01rem solid black;
+    margin-top: 2rem;
+    height: 44px;
+    border: none;
+    color: #6B7280;
+    background-color: #EEF1F7;
+    font-size: large;
+    padding: 1rem 2rem 2rem 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    border: 0.01rem solid black;
 }
 
 .form {
