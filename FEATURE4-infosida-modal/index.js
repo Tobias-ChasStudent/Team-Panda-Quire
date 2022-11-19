@@ -29,5 +29,3 @@ const clickedInfoCheckbox = localStorage.getItem('info-checkbox');
 if(clickedInfoCheckbox) {
     infoModal.close();
 }
-
-localStorage.clear();
