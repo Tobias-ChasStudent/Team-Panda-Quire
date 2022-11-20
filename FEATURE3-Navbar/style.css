@@ -3,7 +3,7 @@
     padding: 0;
 }
 nav {
-    background-color: #0065b3;
+    background-color: #006dc0;
     padding: 5px;
     position: fixed;
     width: 100vw;
@@ -28,7 +28,7 @@ li#settings {
 nav ul li img {
     width: 100%;
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 550px) {
     nav {
         width: max-content;
         padding: 0;
