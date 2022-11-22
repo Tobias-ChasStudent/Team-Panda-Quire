@@ -8,11 +8,11 @@
     font-family: Arial, Helvetica, sans-serif;
     left: 0;
     padding: 1rem;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
 }
 
 .info-modal::backdrop {
@@ -21,16 +21,10 @@
 }
 
 .logo {
-    height: 10vh;
-    width: auto;
+    height: auto;
+    width: 10vw;
 }
 
-/* .slide-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
- */
 .slideshow-container {
     display: flex;
     height: 100%;
@@ -44,17 +38,16 @@
 }
 
 .close-modal-btn {
-    display: block;
-    margin-top: 2rem;
-    height: 1rem;
-    border: none;
-    color: #ffffff;
-    background-color: #3777f5;
-    font-size: large;
-    padding: 1rem 2rem 2rem 2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    border-radius: 10px;
+    border: 2px solid #46B9E0;
+    background-color: #46B9E0;
+    color: white;
+}
+
+.my-slides-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .my-slides h1 {
@@ -69,6 +62,10 @@
     margin-top: 2rem;
 }
 
+.close-modal-btn {
+    border-radius: 10px;
+}
+
 .close-modal-btn:hover {
     cursor: pointer;
     background-color: #2c70b5;
@@ -76,33 +73,76 @@
 
 .slide-buttons{
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-top: 5vh;
+    margin-top: 1vh;
+    width: 100%;
 }
 
-.previous-button, .next-button {
-    padding: 0.4rem 0.6rem;
-    background-color: #4d88ff;
-    color: white;
+.previous-button, .next-button, .close-modal-btn, .previous-button-ghost {
+    font-size: 1.5rem;
+    padding: 0.3rem 0.7rem;
+    border: 2px solid  #46B9E0;
     border: none;
+    margin: 0.5rem;
 }
 
 .previous-button:hover, .next-button:hover {
-    background-color: #3779fd;
+    cursor: pointer;
+}
+
+.previous-button, .previous-button-ghost {
+    background-color: white;
+    color: #46B9E0;
+    border: 2px solid  #46B9E0;
+}
+
+.next-button {
+    background-color: #46B9E0;
+    color: white;
+}
+
+.checkbox-container {
+    display: flex;
+}
+
+.next-button:hover {
+    background-color: #2daad3;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .card-index {
-    letter-spacing: 0.1rem;
+    display: flex;
+}
+
+.nav-dot {
+    border: 0.5px solid black;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 50%;
+    margin: 0.2rem;
+}
+
+.nav-dot-current {
+    background-color: rgb(128, 125, 125);
 }
 
 .hide {
     display: none;
 }
 
+.make-invisible {
+    visibility: hidden;
+}
+
 @media screen and (min-width: 900px) {
     .info-modal {
-        height: 70vh;
-        width: 20vw;
+        height: 80vh;
+        width: 30vw;
     }
 }

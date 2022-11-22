@@ -52,34 +52,39 @@
             <div class="slideshow-container">
                 <div class="slideshow-wrapper">
                     <div class="my-slides">
-                        <!-- <header class="slide-header"> -->
+                        <div class="my-slides-content">
                             <img src="img/Q-icon.png" alt="business-logo" class="logo">
                             <h1>Welcome to Quire</h1>
-                        <!-- </header> -->
-                        <p>This is a next-gen note-taking platform</p>
+                            <p>This is a next-gen note-taking platform</p>
+                        </div>
                     </div>
                     <div class="my-slides">
-                        <!-- <header class="slide-header"> -->
+                        <div class="my-slides-content">
                             <img src="img/Q-icon.png" alt="business-logo" class="logo">
                             <h1>Features</h1>
-                        <!-- </header> -->
-                        <p>You can take notes and stuff!</p>
+                            <p>You can take notes and stuff!</p>
+                        </div>
                     </div>
 
                     <div class="my-slides">
-                        <!-- <header class="slide-header"> -->
+                        <div class="my-slides-content">
                             <img src="img/Q-icon.png" alt="business-logo" class="logo">
                             <h1>Tip</h1>
-                        <!-- </header> -->
-                        <p>Your notes are saved within 5 seconds of not editing it!</p>
-                        <button class="button close-modal-btn">Get Started</button>
-                        <input type="checkbox" id="info-checkbox" name="info-checkbox">
-                        <label for="info-checkbox">Don't show again</label>
+                            <p>Your notes are saved within 5 seconds of not editing it!</p>
+                        </div>
                     </div>
-                    <div class="slide-buttons">
-                        <button class="previous-button">&#10094;</button>
+                    <div class="modal-footer">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="info-checkbox" name="info-checkbox">
+                            <label id="label-info-checkbox" for="info-checkbox">Don't show again</label>
+                        </div>
                         <div class="card-index"></div>
-                        <button class="next-button">&#10095;</button>
+                        <div class="slide-buttons">
+                            <button class="previous-button-ghost">Back</button>
+                            <button class="previous-button">Back</button>    
+                            <button class="next-button">Next</button>
+                            <button class="button close-modal-btn">Start</button>
+                        </div>
                     </div>
                 </div>
             </div>
