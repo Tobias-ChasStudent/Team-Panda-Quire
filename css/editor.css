@@ -1,0 +1,96 @@
+#editor {
+    margin: 2em;
+}
+
+#editorBar {
+    display: flex;
+
+    background-color: white;
+    height: 2.5em;
+    border-bottom: 1px solid lightgray;
+}
+
+.btnsEditor, .selectEditor {
+    border: none;
+    background-color: white;
+    height: 2em;
+    margin: 0.25em 0 0 0.5em;
+    font-size: 1em;
+}
+
+.btnsEditor {
+    width: 2em;
+}
+
+.btnsEditor:hover, .selectEditor:hover {
+    background-color: lightgray;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+#btnBold {font-weight: bold;}
+#btnItalic {font-style: italic;}
+#btnUnderline {text-decoration-line: underline;}
+#btnUnorderedList {}
+#btnOrderedList {}
+
+
+#btnH1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+#btnH2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#btnH3 {
+    font-size: 1.17em;
+    font-weight: bold;
+    
+}
+
+
+/* Content styles */
+ul {
+    margin: 0.25em 1em;
+}
+
+ol {
+    margin: 0.25em 1em;
+}
+
+li {
+    margin-left: 1em;
+}
+
+/* Default heading styles 
+https://stackoverflow.com/questions/5410066/what-are-the-default-font-sizes-in-pixels-for-the-html-heading-tags-h1-h2#5410145 
+*/
+h1 {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    margin-block-start: .67em;
+    margin-block-end: .67em;
+  }
+  
+  h2,
+  :-moz-any(article, aside, nav, section)
+  h1 {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-block-start: .83em;
+    margin-block-end: .83em;
+  }
+  
+  h3,
+  :-moz-any(article, aside, nav, section)
+  :-moz-any(article, aside, nav, section)
+  h1 {
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
