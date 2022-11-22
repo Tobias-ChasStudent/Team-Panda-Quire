@@ -60,7 +60,7 @@ aside {
 main {
     grid-row: 2/4;
     grid-column: 2/4;
-    background-color: gray;
+    background-color: white;
 }
 @media screen and (min-width: 400px) {
     nav ul li {
@@ -119,6 +119,5 @@ main {
     main {
         grid-row: 1/4;
         grid-column: 3/4;
-        background-color: gray;
     }
 }

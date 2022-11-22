@@ -29,16 +29,20 @@
 
         </aside>
         <main class="main">
-            <button class="btnsEditor" id="btnBold">B</button>
-            <button class="btnsEditor" id="btnItalic">i</button>
-            <button class="btnsEditor" id="btnUnorderedList">UL</button>
-            <button class="btnsEditor" id="btnOrderedList">OL</button>
-            <select name="" id="selectHeading">
-                <option value="">Select a heading</option>
-                <option value="h1" class="btnsEditor" id="btnH1">Heading 1</option>
-                <option value="h2" class="btnsEditor" id="btnH2">Heading 2</option>
-                <option value="h3" class="btnsEditor" id="btnH3">Heading 3</option>
-            </select>
+            <div id="editorBar">
+                <button class="btnsEditor" id="btnBold">B</button>
+                <button class="btnsEditor" id="btnItalic">i</button>
+                <button class="btnsEditor" id="btnUnderline">U</button>
+                <button class="btnsEditor" id="btnUnorderedList"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
+                <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
+                <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
+                <select name="" id="selectHeading" class="selectEditor">
+                    <option value="">Heading</option>
+                    <option value="h1" class="btnsEditor" id="btnH1">Page Title</option>
+                    <option value="h2" class="btnsEditor" id="btnH2">Heading 2</option>
+                    <option value="h3" class="btnsEditor" id="btnH3">Heading 3</option>
+                </select>
+            </div>
             <div id="editor" contenteditable="true">
 
             </div>
