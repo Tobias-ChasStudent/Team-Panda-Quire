@@ -18,8 +18,18 @@ const editorButtons = {
 
 const eventListenerToEditorBtns = function () {
     for (const btn of btnsEditor) {
-        const id = btn.getAttribute('id');
-        btn.addEventListener('click', function() {document.execCommand(...editorButtons[id])});
+        const type = btn.parentElement
+        if (type.id == 'selectHeading') {
+            type.addEventListener('change', function(event) {
+                const idBtn = event.target.value;
+                document.execCommand(...editorButtons[idBtn]);
+            });
+        } else {
+        const idBtn = btn.getAttribute('id');
+        btn.addEventListener('click', function() {
+            document.execCommand(...editorButtons[idBtn]);
+        });
+        }
     }
 }
 
