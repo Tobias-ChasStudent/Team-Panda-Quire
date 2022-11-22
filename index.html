@@ -14,7 +14,6 @@
 </head>
 <body>
     <div class="container">
-
         <nav class=" navbar"> 
             <ul>
                 <li class="nav-item" id="logo" title="Quire Logo"><img src="./img/Q-icon.png" alt=""></li>
@@ -23,12 +22,9 @@
                 <li class="nav-item" id="settings" title="Settings" ><img src="./img/settings-icon.png" alt=""></li>
             </ul>
         </nav>
-
         <aside class="aside">
 
         </aside>
-
-
         <main class="main">
             <button class="btnsEditor" id="btnBold">B</button>
             <button class="btnsEditor" id="btnItalic">i</button>
@@ -37,19 +33,14 @@
             <select name="" id="selectHeading">
                 <option value="">Select a heading</option>
                 <option value="h1" class="btnsEditor" id="btnH1">Heading 1</option>
-                <option value="h2">Heading 2</option>
-                <option value="h3">Heading 3</option>
+                <option value="h2" class="btnsEditor" id="btnH2">Heading 2</option>
+                <option value="h3" class="btnsEditor" id="btnH3">Heading 3</option>
             </select>
-            <input type="button" value="Make Heading1" onClick="makeHeading1();"> 
-
             <div id="editor" contenteditable="true">
 
             </div>
         </main>
     </div>
-
-
-
     <button class="button open-modal-btn">Info</button>
     <dialog class="info-modal" id="info-modal">
         
@@ -63,8 +54,6 @@
                         </header>
                         <p>This is a next-gen note-taking platform</p>
                     </div>
-                    
-
                     <div class="my-slides" style="width:100%">
                         <header class="slide-header">
                             <h2>Features</h2>
@@ -83,7 +72,6 @@
                         <input type="checkbox" id="info-checkbox" name="info-checkbox">
                         <label for="info-checkbox">Don't show again</label>
                     </div>
-                    
                     <div class="slide-buttons">
                         <button class="previous-button">&#10094;</button>
                         <div class="card-index"></div>
