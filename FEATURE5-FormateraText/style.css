@@ -1,0 +1,23 @@
+body {
+    height: 100vh;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+}
+
+#editor {
+    height: 100%;
+    width: 100%;
+    outline: none;
+}
+
+.btnsEditor {
+    font-size: 1rem;
+
+}
+
+#btnBold {
+    font-weight: bold;
+}
