@@ -23,21 +23,30 @@ infoCheckbox.addEventListener('click', () => {
 })
 
 function isChecked() {
-if(infoCheckbox.checked) {
-    localStorage.setItem('info-checkbox', 'true');
-}
+  if(infoCheckbox.checked) {
+      localStorage.setItem('info-checkbox', 'true');
+  } else if (infoCheckbox.checked == false) {
+    localStorage.setItem('info-checkbox', 'false');
+  }
 }
 
 //remove modal next time if checkbox checked
 const clickedInfoCheckbox = localStorage.getItem('info-checkbox');
-if(clickedInfoCheckbox) {
+if(clickedInfoCheckbox == "true") {
     infoModal.close();
+    infoCheckbox.checked = true;
+} else if(infoCheckbox.checked == "false") {
+  infoCheckbox.showModal();
+  infoCheckbox.checked = false;
 }
+
 
 //scroll through modal content
 const previousButton = document.querySelector('.previous-button');
+const previousButtonGhost = document.querySelector('.previous-button-ghost');
 const nextButton = document.querySelector('.next-button');
 const cardIndex = document.querySelector('.card-index');
+const labelInfoCheckbox = document.querySelector('#label-info-checkbox');
 
 let slideIndex = 1;
 
@@ -67,16 +76,35 @@ function showDivs(slideIndex) {
 
   if(slideIndex==1) {
     previousButton.classList.add('hide');
+    previousButtonGhost.classList.remove('hide');
   } else if(slideIndex > 1) {
     previousButton.classList.remove('hide');
+    previousButtonGhost.classList.add('hide');
+    previousButtonGhost.classList.add('make-invisible');
   }
   
   if(slideIndex == x.length) {
     nextButton.classList.add('hide');
+    closeModalBtn.classList.remove('hide');
+    infoCheckbox.classList.remove('hide');
+    labelInfoCheckbox.classList.remove('hide');
+    
   } else if (slideIndex < x.length) {
     nextButton.classList.remove('hide');
+    closeModalBtn.classList.add('hide');
+    infoCheckbox.classList.add('hide');
+    labelInfoCheckbox.classList.add('hide');
   }
 
-  //display where user is in info-content
-  cardIndex.textContent = slideIndex + '/' + x.length;
+  //show what page user is on
+  cardIndex.innerHTML = null;
+
+  for(i = 0; i < x.length; i++) {
+    let navDot = document.createElement('div');
+    navDot.className = "nav-dot";
+    cardIndex.appendChild(navDot);
+  }
+
+  let navDotArray = Array.from(document.querySelectorAll('.nav-dot'));
+  navDotArray[slideIndex-1].classList.add('nav-dot-current');
 }
