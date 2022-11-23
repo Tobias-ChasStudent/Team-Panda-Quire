@@ -1,10 +1,10 @@
 
 .info-modal {
     border: none !important;
-    border-radius: 5%;
+    border-radius: 2em;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    width: 70vw;
-    height: 70vh;
+    width: 20em;
+    height: 20em;
     font-family: Arial, Helvetica, sans-serif;
     left: 0;
     padding: 1rem;
@@ -62,9 +62,7 @@
     margin-top: 2rem;
 }
 
-.close-modal-btn {
-    border-radius: 10px;
-}
+
 
 .close-modal-btn:hover {
     cursor: pointer;
@@ -84,6 +82,7 @@
     border: 2px solid  #46B9E0;
     border: none;
     margin: 0.5rem;
+    border-radius: 10px;
 }
 
 .previous-button:hover, .next-button:hover {
@@ -140,9 +139,9 @@
     visibility: hidden;
 }
 
-@media screen and (min-width: 900px) {
+/* @media screen and (min-width: 900px) {
     .info-modal {
         height: 80vh;
         width: 30vw;
     }
-}
+} */
