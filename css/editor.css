@@ -1,11 +1,12 @@
 #editor {
     margin: 2em;
     outline: none;
+    min-height: calc(100vh - 4em - 2.5em - 4em);
+    /* background-color: lightblue; */
 }
 
 #editorBar {
     display: flex;
-
     background-color: white;
     height: 2.5em;
     border-bottom: 1px solid lightgray;

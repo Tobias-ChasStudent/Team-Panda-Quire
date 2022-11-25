@@ -11,7 +11,12 @@
 }
 
 nav {
-    background-color: rgb(100, 102, 212);
+    /* background-color: rgb(100, 102, 212); */
+    background: linear-gradient(45deg, #fd8081, #817efc);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
 }
 
 nav ul {
@@ -19,31 +24,47 @@ nav ul {
     align-items: center;
     list-style: none;
     flex-direction: row;
-    margin: auto;
+    margin: 0;
 }
 nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 4em;
-    padding: 1em;
     cursor: pointer;
+    margin-left: 0;
+    text-align: center;
+    height: 4em;
+    color: white;
 }
 
-li#settings {
-    margin-left: auto;
+nav ul li i {
+    font-size: 1.5rem;
+}
+
+.right-nav-ul li:hover {
+    background-color: #fd8081;
+}
+
+.left-nav-ul li:hover {
+    background-color: #817efc;
 }
 
 /* TA BORT EFTER FA */
 nav ul li img {
-    width: 100%;
+    width: 70%;
+    height: auto;
 }
 
 aside {
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    box-shadow: 3px 2px 10px -2px #888;   
     width: 10em;
     transform: scaleX(0);
 }
 
 .nav-item:hover {
-    background-color: rgb(81, 82, 166);
+    background-color: rgb(132, 133, 202);
 }
 
 @media (min-width: 900px) {
@@ -57,7 +78,7 @@ aside {
     }
 
     main {
-
+        width: 100%;
 
     }
 }
