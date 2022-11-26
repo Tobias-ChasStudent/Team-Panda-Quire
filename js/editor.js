@@ -3,14 +3,11 @@
 const btnCreate = document.querySelector("#createDoc")
 const asideDocs = document.querySelector(".aside")
 let editor = document.getElementById('editor');
+const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 let editorContents = "";
 
-//Properties array to store saved docs' properties like tags and favourite boolean 
-let properties = []
-
-//Store all document text
-let docTexts = []
+let propertiesArray = []
 
 //Get a unique id
 let date = new Date()
@@ -18,46 +15,18 @@ let docID = date.getTime()
 docID = String(docID)
 
 //If there isn't a localstorage item with the name "docTextsID", make one
-if (!localStorage.getItem("docTextsID")) {
+if (!localStorage.getItem('Properties')) {
 
-    //Make the object in which we store the text and id
-    let currentDocumentContent = {
-        id: docID,
-        Text: editorContents,
-        index: 0
-    }
+    let date = new Date()
+    docID = date.getTime()
 
-    //Make the object in which we store the index, textpreview and title
-    let currentDocProperties = {
-        index: 0,
-        title: prompt("Please name your first document"),
-        textPreview: currentDocumentContent.Text.substring(0, 20)
-    }
+        console.log(propertiesArray)
+        console.log('PROPARR' +propertiesArray)
 
-    //push objects with properties into property array
-    properties.push(currentDocProperties);
-
-    //Add it to local storage
-    localStorage.setItem("Properties", JSON.stringify(properties))
-
-    console.log(currentDocProperties.textPreview);
-
-    //Set an attribute that is the same as the docID
-    editor.setAttribute("data-docuid", currentDocumentContent.index)
-
-    //Push the object into docTexts
-    docTexts.push(currentDocumentContent)
-
-    //Convert it into JSON
-    docTexts = JSON.stringify(docTexts)
-
-    //Create the first instance of the stored array in local storage
-    localStorage.setItem("docTextsID", docTexts)
-
-    console.log(localStorage.getItem("docTextsID"));
+    localStorage.setItem("Properties", JSON.stringify(propertiesArray))
 
 } else {
-    let arrDocTextsID = JSON.parse(localStorage.getItem("docTextsID"))
+    let arrDocTextsID = JSON.parse(localStorage.getItem("Properties"))
     let allIDs = []
     arrDocTextsID.forEach(docObj => {
         allIDs.push(docObj.index)
@@ -71,13 +40,6 @@ if (!localStorage.getItem("docTextsID")) {
     editor.setAttribute("data-docuID", latestDoc)
     console.log(editor.getAttribute("data-docuID"));
 }
-
-//Update aside element with local storage items
-function loopThroughLocal() {
-
-}
-
-
 
 const editorButtons = {
     btnBold: ['bold'],
@@ -110,58 +72,66 @@ const eventListenerToEditorBtns = function () {
 /* Store all docs in aside */
 
 
-
 /* Create new docs */
 btnCreate.addEventListener("click", createDoc)
 
 function createDoc() {
+    
     console.log("Create doc button press");
 
+    //Update the element
+   /*  editor = document.getElementById('editor'); */
+    console.log(editor);
+    //Get the current editor contents
+    editorContents = document.getElementById('editor').innerHTML;
+    console.log(editorContents);
+    
     //Make sure the document is saved
-    editorStoreValue()
+   /*  editorStoreValue() */
 
     //Create a new document...
     editor.innerHTML = "";
 
     //Parse text and properties local storage
-    let propertiesArray = JSON.parse(localStorage.getItem("Properties"))
-    let docTextArray = JSON.parse(localStorage.getItem("docTextsID"))
+    propertiesArray = JSON.parse(localStorage.getItem("Properties"))
 
     console.log(propertiesArray);
 
-    //Make the object in which we store the text and id
-    let currentDocumentContent = {
+    // let date = new Date()
+    docID = Date.now()
+
+    let currentDocProperties = {
         id: docID,
         Text: editorContents,
-        index: docTextArray.length
+        /* index: propertiesArray.length-1, */
+        title: docTitle.value,
+        timeStamp: Date.now(),
+        textPreview: editorContents.substring(0, 20)
     }
-
-    //Make the object in which we store the index, textpreview and title
-    let currentDocProperties = {
-        index: propertiesArray.length,
-        title: prompt("Please name your new document"),
-        textPreview: currentDocumentContent.Text.substring(0, 20)
-    }
-
-    console.log(currentDocumentContent.index, currentDocProperties.index);
-
+    
+    console.log(propertiesArray)
     propertiesArray.push(currentDocProperties)
-    docTextArray.push(currentDocumentContent)
+    console.log('PROPARR' + propertiesArray)
 
     localStorage.setItem("Properties", JSON.stringify(propertiesArray))
-    localStorage.setItem("docTextsID", JSON.stringify(docTextArray))
+
+    //Empty aside to then repopulate
+    asideDocs.innerHTML = ""
+
+    //push properties-array into aside-list
+    loadAside();
 }
 
 const editorGetValue = function () {
-    if (JSON.parse(localStorage.getItem("docTextsID")) !== undefined) {
+    if (JSON.parse(localStorage.getItem("data-docuID")) !== undefined) {
         //Get the saved json array and convert it into a normal array
-        let savedArray = JSON.parse(localStorage.getItem("docTextsID"))
+        let savedArray = JSON.parse(localStorage.getItem("data-docuID"))
 
         console.log(savedArray);
         //console.log(JSON.parse(localStorage.getItem("docTextsID")));
 
         //console.log(savedArray[0].Text);
-        editor.innerHTML = savedArray[0].Text;
+       /*  editor.innerHTML = savedArray[1].Text; */
         //console.log(editor.innerHTML);
     }
 }
@@ -176,9 +146,9 @@ const editorStoreValue = function () {
     console.log(editorContents);
 
     //If the text stored in localstorage is not the same as the text in the editor, there must've been a change. Therefore we give the document a new id
-    if (JSON.parse(localStorage.getItem("docTextsID"))) {
+    if (JSON.parse(localStorage.getItem("data-docuID"))) {
         //Store the docTextsID array in a variable
-        let arrDocTextsID = JSON.parse(localStorage.getItem("docTextsID"))
+        /* let arrDocTextsID = JSON.parse(localStorage.getItem("data-docuID")) */
 
         console.log(arrDocTextsID);
 
@@ -195,10 +165,10 @@ const editorStoreValue = function () {
                 console.log(arrDocTextsID[currentEditor].Text, " - is not equal to -", editor.innerHTML);
 
                 //Get a unique id
-                let date = new Date()
-                docID = date.getTime()
+                /* let date = new Date()
+                docID = date.getTime() */
 
-                //Change the id of the object
+              /*   //Change the id of the object
                 arrDocTextsID[currentEditor].id = docID
 
                 //Set the data attribute
@@ -212,57 +182,65 @@ const editorStoreValue = function () {
 
                 arrDocTextsID = JSON.stringify(arrDocTextsID);
 
-                //Send it into localstorage
-                localStorage.setItem("docTextsID", arrDocTextsID);
-
                 //Extract the properties array from localstorage
-                let propertiesArray = JSON.parse(localStorage.getItem("Properties"));
+                let propertiesArray = JSON.parse(localStorage.getItem("Properties")); */
 
                 //Change the preview to accurately depict the text
-                propertiesArray[currentEditor].textPreview = editor.textContent.substring(0, 20);
-
+               /*  propertiesArray[currentEditor].textPreview = editor.textContent.substring(0, 20);
+ */
                 //Check that it changed
                 console.log(propertiesArray);
-
-                //Empty aside
-                asideDocs.innerHTML = ""
-                //push properties-array into aside-list
-
-
-                //display aside content function
-                //loopThroughLocal();
-                //let propertiesArray = JSON.parse(localStorage.getItem("Properties"));
-                console.log(propertiesArray);
-
-                for (let i = 0; i < propertiesArray.length; i++) {
-                    let docListItem = document.createElement('section');
-                    docListItem.innerHTML = `
-                    <h3>${propertiesArray[i].title}</h3>
-                    <p>${propertiesArray[i].textPreview}</p>
-                    `
-                    asideDocs.appendChild(docListItem);
-                    console.log("Combined " + propertiesArray[i].title + " and " + propertiesArray[i].textPreview);
-                }
-
             }
         } else {
-            console.log(localStorage.getItem("docTextsID")[0].Text);
+            console.log(localStorage.getItem("data-docuID")[0].Text);
         }
     } else {
         //Check the textsID item in localsotrage
-        console.log(localStorage.getItem("docTextsID"));
+        console.log(localStorage.getItem("data-docuID"));
     }
     //console.log(docID);
 
 
 }
 
-
 eventListenerToEditorBtns();
 editorGetValue();
 
 
-//autosave
+/* //autosave
 setInterval(() => {
     editorStoreValue();
-}, 100000);
+}, 5000); */
+
+document.getElementById('btnSave').addEventListener("click", editorStoreValue)
+
+
+const parseDate = function(unixTime) {
+    const t = new Date(unixTime);
+
+    return `${t.getFullYear()}-${t.getMonth()}-${t.getDate()} ${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}`
+}
+
+function loadAside() {
+//Parse text and properties local storage
+let propertiesArray = JSON.parse(localStorage.getItem("Properties"))
+
+if (JSON.parse(localStorage.getItem("Properties")).length !== 0) {
+    for (let i = 0; i < propertiesArray.length; i++) {
+        let docListItem = document.createElement('section');
+        docListItem.innerHTML = `
+        <h3>${propertiesArray[i].title}</h3>
+        <p>${propertiesArray[i].textPreview}</p>
+        <p><em>${parseDate(propertiesArray[i].timeStamp)}</em></p>
+        `
+        
+        console.log('PROPARRAY: ' + propertiesArray);
+        asideDocs.appendChild(docListItem);
+        console.log("Combined " + propertiesArray[i].title + " and " + propertiesArray[i].textPreview);
+    }
+} else {
+    return
+}
+}
+
+loadAside();
