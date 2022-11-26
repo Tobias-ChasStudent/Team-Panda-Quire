@@ -17,50 +17,55 @@
 <body>
     <div class="container">
         <nav class=" navbar"> 
-            <ul>
-                <li class="nav-item" id="logo" title="Quire Logo"><img src="./img/Q-icon.png" alt=""></li>
-                <li class="nav-item" id="documents" title="Show docs"><img src="./img/doc-icon.png" alt=""></li>
-                <li class="nav-item" id="favourite" title="Show favourite docs"><img src="./img/star-icon.webp" alt=""></li>
-                <li class="nav-item" id="settings" title="Settings" ><img src="./img/settings-icon.png" alt=""></li>
-                <button class="button open-modal-btn">Info</button>
+            <ul class="left-nav-ul">
+                <li class="nav-item" id="logo" title="Quire Logo"><a href="index.html"><img src="./img/Q-icon.svg" alt=""></a></li>
+                <li class="nav-item" id="documents" title="Show docs"><i class="fa-solid fa-file"></i></li>
+                <li class="nav-item" id="favourite" title="Show favourite docs"><i class="fa-solid fa-star"></i></li>
+            </ul>
+            <ul class="right-nav-ul">
+                <li class="nav-item" id="settings" title="Settings" ><i class="fa-sharp fa-solid fa-gear"></i></li>
+                <li class="button open-modal-btn nav-item" title="Information"><i class="fa-solid fa-circle-info"></i></li>
             </ul>
         </nav>
-        <aside class="aside">
+        
+        <div class="main">
+            <aside class="aside">
+            </aside>
+            <main>
+                <div id="editorBar">
+                        <button class="btnsEditor" id="btnBold">B</button>
+                        <button class="btnsEditor" id="btnItalic">i</button>
+                        <button class="btnsEditor" id="btnUnderline">U</button>
+                        <button class="btnsEditor" id="btnUnorderedList"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
+                        <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
+                        <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
+                        <select name="" id="selectHeading" class="selectEditor">
+                            <option value="">Heading</option>
+                            <option value="btnH1" class="btnsEditor" id="btnH1">Page Title</option>
+                            <option value="btnH2" class="btnsEditor" id="btnH2">Heading 2</option>
+                            <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
+                        </select>
+                    </div>
+                    <div id="editor" contenteditable="true">
+                </div>
+            </main>
 
-        </aside>
-        <main class="main">
-            <div id="editorBar">
-                <button class="btnsEditor" id="btnBold">B</button>
-                <button class="btnsEditor" id="btnItalic">i</button>
-                <button class="btnsEditor" id="btnUnderline">U</button>
-                <button class="btnsEditor" id="btnUnorderedList"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
-                <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
-                <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
-                <select name="" id="selectHeading" class="selectEditor">
-                    <option value="">Heading</option>
-                    <option value="btnH1" class="btnsEditor" id="btnH1">Page Title</option>
-                    <option value="btnH2" class="btnsEditor" id="btnH2">Heading 2</option>
-                    <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
-                </select>
-            </div>
-            <div id="editor" contenteditable="true">
 
-            </div>
-        </main>
+        </div>
     </div>
     <dialog class="info-modal" id="info-modal">
             <div class="slideshow-container">
                 <div class="slideshow-wrapper">
                     <div class="my-slides">
                         <div class="my-slides-content">
-                            <img src="img/Q-icon.png" alt="business-logo" class="logo">
-                            <h1>Welcome to Quire</h1>
+                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
+                            <h1>Welcome</h1>
                             <p>This is a next-gen note-taking platform</p>
                         </div>
                     </div>
                     <div class="my-slides">
                         <div class="my-slides-content">
-                            <img src="img/Q-icon.png" alt="business-logo" class="logo">
+                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
                             <h1>Features</h1>
                             <p>You can take notes and stuff!</p>
                         </div>
@@ -68,7 +73,7 @@
 
                     <div class="my-slides">
                         <div class="my-slides-content">
-                            <img src="img/Q-icon.png" alt="business-logo" class="logo">
+                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
                             <h1>Tip</h1>
                             <p>Your notes are saved within 5 seconds of not editing it!</p>
                         </div>

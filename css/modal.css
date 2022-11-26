@@ -1,10 +1,10 @@
 
 .info-modal {
     border: none !important;
-    border-radius: 5%;
+    border-radius: 2em;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    width: 70vw;
-    height: 70vh;
+    width: 100vw;
+    height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     left: 0;
     padding: 1rem;
@@ -22,7 +22,7 @@
 
 .logo {
     height: auto;
-    width: 10vw;
+    width: 70%;
 }
 
 .slideshow-container {
@@ -50,6 +50,10 @@
     align-items: center;
 }
 
+.my-slides-content p {
+    margin: 1rem;
+}
+
 .my-slides h1 {
     background-image: linear-gradient(45deg, red, blue);
     background-clip: text;
@@ -62,9 +66,7 @@
     margin-top: 2rem;
 }
 
-.close-modal-btn {
-    border-radius: 10px;
-}
+
 
 .close-modal-btn:hover {
     cursor: pointer;
@@ -84,6 +86,7 @@
     border: 2px solid  #46B9E0;
     border: none;
     margin: 0.5rem;
+    border-radius: 10px;
 }
 
 .previous-button:hover, .next-button:hover {
@@ -116,6 +119,10 @@
     width: 100%;
 }
 
+#label-info-checkbox {
+    margin: 0.2rem;
+}
+
 .card-index {
     display: flex;
 }
@@ -140,9 +147,16 @@
     visibility: hidden;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 600px) {
     .info-modal {
-        height: 80vh;
-        width: 30vw;
+        height: 30em;
+        width: 25em;
     }
 }
+
+/* @media screen and (min-width: 900px) {
+    .info-modal {
+        height: 80vh;
+        width: 40vw;
+    }
+} */
