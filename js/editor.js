@@ -6,8 +6,9 @@ let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 let editorContents = "";
+let currentDoc = 0;
 
-let propertiesArray = []
+let documentsArray = []
 
 //Get a unique id
 let date = new Date()
@@ -15,23 +16,23 @@ let docID = date.getTime()
 docID = String(docID)
 
 //If there isn't a localstorage item with the name "docTextsID", make one
-if (!localStorage.getItem('Properties')) {
+if (!localStorage.getItem('Documents')) {
 
     let date = new Date()
     docID = date.getTime()
 
-        console.log(propertiesArray)
-        console.log('PROPARR' +propertiesArray)
+        console.log(documentsArray)
+        console.log('PROPARR' +documentsArray)
 
-    localStorage.setItem("Properties", JSON.stringify(propertiesArray))
+    localStorage.setItem("Documents", JSON.stringify(documentsArray))
 
 } else {
-    let arrDocTextsID = JSON.parse(localStorage.getItem("Properties"))
+    let arrDocTextsID = JSON.parse(localStorage.getItem("Documents"))
     let allIDs = []
     arrDocTextsID.forEach(docObj => {
-        allIDs.push(docObj.index)
+        allIDs.push(docObj.id)
     });
-    let latestDoc = Math.min(allIDs)
+    let latestDoc = Math.max(allIDs)
     console.log(latestDoc);
 
     console.log('allid: ' + allIDs);
@@ -93,9 +94,9 @@ function createDoc() {
     editor.innerHTML = "";
 
     //Parse text and properties local storage
-    propertiesArray = JSON.parse(localStorage.getItem("Properties"))
+    documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
-    console.log(propertiesArray);
+    console.log(documentsArray);
 
     // let date = new Date()
     docID = Date.now()
@@ -103,104 +104,51 @@ function createDoc() {
     let currentDocProperties = {
         id: docID,
         Text: editorContents,
-        /* index: propertiesArray.length-1, */
+        /* index: documentsArray.length-1, */
         title: docTitle.value,
         timeStamp: Date.now(),
         textPreview: editorContents.substring(0, 20)
     }
     
-    console.log(propertiesArray)
-    propertiesArray.push(currentDocProperties)
-    console.log('PROPARR' + propertiesArray)
+    console.log(documentsArray)
+    documentsArray.push(currentDocProperties)
+    console.log('PROPARR' + documentsArray)
 
-    localStorage.setItem("Properties", JSON.stringify(propertiesArray))
+    localStorage.setItem("Documents", JSON.stringify(documentsArray))
 
     //Empty aside to then repopulate
     asideDocs.innerHTML = ""
 
-    //push properties-array into aside-list
+    //push Documents-array into aside-list
     loadAside();
 }
 
 const editorGetValue = function () {
-    if (JSON.parse(localStorage.getItem("data-docuID")) !== undefined) {
+    if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
-        let savedArray = JSON.parse(localStorage.getItem("data-docuID"))
+        let savedArray = JSON.parse(localStorage.getItem("Documents")).reverse()
 
         console.log(savedArray);
         //console.log(JSON.parse(localStorage.getItem("docTextsID")));
 
         //console.log(savedArray[0].Text);
-       /*  editor.innerHTML = savedArray[1].Text; */
+        editor.innerHTML = savedArray[0].Text;
         //console.log(editor.innerHTML);
     }
 }
 
 const editorStoreValue = function () {
-    console.log(editor.getAttribute("data-docuid"));
-    //Update the element
-    editor = document.getElementById('editor');
-    console.log(editor);
-    //Get the current editor contents
-    editorContents = document.getElementById('editor').innerHTML;
-    console.log(editorContents);
-
-    //If the text stored in localstorage is not the same as the text in the editor, there must've been a change. Therefore we give the document a new id
-    if (JSON.parse(localStorage.getItem("data-docuID"))) {
-        //Store the docTextsID array in a variable
-        /* let arrDocTextsID = JSON.parse(localStorage.getItem("data-docuID")) */
-
-        console.log(arrDocTextsID);
-
-        //Check that the variable isn't undefined
-        if (arrDocTextsID !== undefined) {
-            console.log("arrDocTextsID is not undefined");
-
-            let currentEditor = editor.getAttribute("data-docuid");
-            console.log(currentEditor);
-
-            //Check if the text of the current editor doesn't match the stored text, ergo a change has been made
-            if (arrDocTextsID[currentEditor].Text != editor.innerHTML) {
-                console.log("Changes have been made");
-                console.log(arrDocTextsID[currentEditor].Text, " - is not equal to -", editor.innerHTML);
-
-                //Get a unique id
-                /* let date = new Date()
-                docID = date.getTime() */
-
-              /*   //Change the id of the object
-                arrDocTextsID[currentEditor].id = docID
-
-                //Set the data attribute
-                editor.setAttribute("data-docuID", arrDocTextsID[currentEditor].index);
-                console.log(arrDocTextsID[currentEditor].index);
-
-
-                //Change the text of the object to coincide with the editor;
-                arrDocTextsID[currentEditor].Text = editorContents
-                //console.log(typeof(docTexts));
-
-                arrDocTextsID = JSON.stringify(arrDocTextsID);
-
-                //Extract the properties array from localstorage
-                let propertiesArray = JSON.parse(localStorage.getItem("Properties")); */
-
-                //Change the preview to accurately depict the text
-               /*  propertiesArray[currentEditor].textPreview = editor.textContent.substring(0, 20);
- */
-                //Check that it changed
-                console.log(propertiesArray);
-            }
-        } else {
-            console.log(localStorage.getItem("data-docuID")[0].Text);
+    documentsArray = JSON.parse(localStorage.getItem("Documents"));
+    for(let i = 0; i < documentsArray.length; i++) {
+        if (currentDoc == documentsArray[i].id) {
+             documentsArray[i].Text = editor.innerHTML;
+             documentsArray[i].textPreview = editor.innerHTML.substring(0, 20)
+             localStorage.setItem("Documents", JSON.stringify(documentsArray))
         }
-    } else {
-        //Check the textsID item in localsotrage
-        console.log(localStorage.getItem("data-docuID"));
     }
-    //console.log(docID);
-
-
+    asideDocs.innerHTML = "";
+    loadAside();
+    
 }
 
 eventListenerToEditorBtns();
@@ -217,30 +165,58 @@ document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
 const parseDate = function(unixTime) {
     const t = new Date(unixTime);
-
-    return `${t.getFullYear()}-${t.getMonth()}-${t.getDate()} ${t.getHours()}:${t.getMinutes()}:${t.getSeconds()}`
+ 
+    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}:${t.getSeconds().toString().padStart(2, '0')}`
 }
+
+//sort by date
+/* documentsArray = JSON.parse(localStorage.getItem("Documents")) */
 
 function loadAside() {
 //Parse text and properties local storage
-let propertiesArray = JSON.parse(localStorage.getItem("Properties"))
+//show latest first
+documentsArray = JSON.parse(localStorage.getItem("Documents")).reverse()
 
-if (JSON.parse(localStorage.getItem("Properties")).length !== 0) {
-    for (let i = 0; i < propertiesArray.length; i++) {
+if (documentsArray.length !== 0) {
+
+    //eventlistener on sorting method?
+    //const ny = eductationArray.sort(({Completion:a}, {Completion: b}) => b-a);
+
+    for (let i = 0; i < documentsArray.length; i++) {
         let docListItem = document.createElement('section');
         docListItem.innerHTML = `
-        <h3>${propertiesArray[i].title}</h3>
-        <p>${propertiesArray[i].textPreview}</p>
-        <p><em>${parseDate(propertiesArray[i].timeStamp)}</em></p>
+        <h3>${documentsArray[i].title}</h3>
+        <p>${documentsArray[i].textPreview}</p>
+        <p><em>${parseDate(documentsArray[i].timeStamp)}</em></p>
         `
         
-        console.log('PROPARRAY: ' + propertiesArray);
+        console.log('PROPARRAY: ' + documentsArray);
         asideDocs.appendChild(docListItem);
-        console.log("Combined " + propertiesArray[i].title + " and " + propertiesArray[i].textPreview);
+        console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
     }
+    currentDoc = documentsArray[0].id;
+    editorGetValue();
 } else {
     return
 }
 }
 
 loadAside();
+
+
+
+
+
+/* function sortRecent() {
+        educations.innerHTML = null;
+        const ny = eductationArray.sort(({Completion:a}, {Completion: b}) => b-a);
+        eductationArray .forEach((course) => {
+            const eduDescription = document.createElement('div');
+            eduDescription.className = "education-list";
+            const eduEntries = Object.entries(course);
+            eduEntries.forEach(([key, value]) => {
+                eduDescription.innerHTML += `<span style="font-weight: bold;">${key}:</span> ${value} <br> `;
+                educations.appendChild(eduDescription);
+            })
+        })
+    } */
