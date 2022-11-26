@@ -10,6 +10,7 @@
     overflow: auto;
     background: linear-gradient(45deg, red, blue);
     opacity: 0.7;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .modal-content {
@@ -19,6 +20,7 @@
     border: 1px solid #888;
     width: 50%;
     border-radius: 10px;
+
 }
 
 .close {
@@ -33,4 +35,24 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+img {
+    width: 30%;
+    border-radius: 5px;
+}
+
+p,
+a,
+h3 {
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (min-width: 900px) {
+    .info-modal {
+        height: 80vh;
+        width: 20vw;
+    }
 }
