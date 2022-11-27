@@ -96,3 +96,17 @@ h1 {
     margin-block-start: 1em;
     margin-block-end: 1em;
   }
+/* Create btn */
+#createDoc {
+    border-radius: 100%;
+    padding: 10px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    border: none;
+    background-color: #0A0CAC;
+}
+#createDoc img {
+    width: 100%;
+}
