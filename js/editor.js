@@ -1,17 +1,18 @@
 'use strict'
 
 const sortDocOption = document.querySelector('#selectSort');
-const selectSort = document.querySelector('#selectSort');
-const btnCreate = document.querySelector("#createDoc")
+const btnCreate = document.querySelector("#createDoc");
 const docDiv = document.querySelector("#documentCards");
+const asideElement = document.querySelector("aside");
 let docCards = document.querySelectorAll('docCard');
 let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
+const btnShowAside = document.getElementById('showAside');
 let editorContents = "";
 let currentDoc = 0;
 
-let documentsArray = []
+let documentsArray = [];
 
 //Get a unique id
 let date = new Date()
@@ -144,6 +145,7 @@ function editorStoreValue() {
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
             localStorage.setItem("Documents", JSON.stringify(documentsArray));
+            //documentsArray[i].classList.add('active');
         }
     }
     docDiv.innerHTML = "";
@@ -153,7 +155,6 @@ function editorStoreValue() {
 eventListenerToEditorBtns();
 // editorGetValue();
 
-
 /* //autosave
 setInterval(() => {
     editorStoreValue();
@@ -161,24 +162,17 @@ setInterval(() => {
 
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
-
-
-
-
-function switchCurrentEditor(event) {
-    localStorage.setItem('currentDoc', event.id);
+function switchCurrentEditor(id) {
+    const allDocSections = document.querySelectorAll("#documentCards>section")
+    const doc = document.getElementById(id);
+    allDocSections.forEach(element => {
+        element.classList.remove("active");
+    });
+    doc.classList.add("active");
+    localStorage.setItem('currentDoc', id);
     editorGetValue();
 }
 
-/* sortDocOption.forEach(option => {
-    const type = option.parentElement;
-    if(type.id == "selectSort") {
-    type.addEventListener('change', (e) => {
-        sortDocs(e.target.value);
-        console.log(e.target.value);
-    })
-}
-}) */
 
 sortDocOption.addEventListener('change', (e) => {
     console.log('hej', e.target.value);
@@ -235,16 +229,16 @@ function loadAside() {
             docDiv.appendChild(docListItem);
             //console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
 
-            docListItem.addEventListener('click', (e) => {
-                const allDocSections = document.querySelectorAll("#documentCards>section")
-                allDocSections.forEach(element => {
-                    element.classList.remove("active")
-                });
-                switchCurrentEditor(e.target);
-                e.target.classList.add("active")
-                console.log(e.target.id);
+             docListItem.addEventListener('click', (e) => {
+                //switch what doc you want to edit
+                switchCurrentEditor(e.target.id);
+                if(window.innerWidth < 900) {
+                asideElement.classList.toggle('hidden')
+                }
             })
         }
+        switchCurrentEditor(currentDoc);
+
         //editorGetValue();
         /* eventListenerToDocCards(); */
     } else {
@@ -252,21 +246,8 @@ function loadAside() {
     }
 }
 
+btnShowAside.addEventListener('click', function() {
+    asideElement.classList.toggle('hidden')
+})
+
 sortDocs();
-
-
-
-
-/* function sortRecent() {
-        educations.innerHTML = null;
-        const ny = eductationArray.sort(({Completion:a}, {Completion: b}) => b-a);
-        eductationArray .forEach((course) => {
-            const eduDescription = document.createElement('div');
-            eduDescription.className = "education-list";
-            const eduEntries = Object.entries(course);
-            eduEntries.forEach(([key, value]) => {
-                eduDescription.innerHTML += `<span style="font-weight: bold;">${key}:</span> ${value} <br> `;
-                educations.appendChild(eduDescription);
-            })
-        })
-    } */

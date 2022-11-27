@@ -24,6 +24,7 @@
     width: 2em;
 }
 
+
 .btnsEditor:hover, .selectEditor:hover, #btnSave:hover {
     background-color: lightgray;
     border: 1px solid gray;
@@ -51,6 +52,19 @@
     
 }
 
+#documentCards>section {
+    padding: 0 1em 1em 1em;
+    border-left: 5px solid white
+}
+
+#documentCards>section:hover {
+    cursor: pointer;
+    border-left: 5px solid #f78087;
+}
+
+#documentCards>section>h3 {
+    margin-top: 0;
+}
 
 /* Content styles */
 ul {
@@ -120,4 +134,8 @@ h1 {
     background-color: rgb(196,127,186);
     transition: 0.5s;
     
+}
+
+.active {
+    border-left: 5px solid #f78087 !important;
 }
