@@ -56,10 +56,24 @@
     
 }
 
+
 #documentCards {
     margin-top: 1vh;
     border-top: 1px solid lightgray;
+    height: 80vh;
+    overflow: auto;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#documentCards::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#documentCards {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 
 .doclist-card {
     padding: 0.5em 1em 0.5em 1em;
@@ -86,7 +100,7 @@
 #selectSort {
     border: none;
     width: 100%;
-    padding-top: 0.4rem;
+    padding: 0.4rem;
     font-size: 1rem;
 }
 
