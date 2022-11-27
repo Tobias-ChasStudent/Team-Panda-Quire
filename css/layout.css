@@ -52,7 +52,7 @@ aside {
     background-color: lightgray;
 }
 
-.docCard {
+aside > div > section {
     padding: 1em;
 }
 
