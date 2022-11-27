@@ -251,3 +251,9 @@ btnShowAside.addEventListener('click', function() {
 })
 
 sortDocs();
+
+//show aside by default in desktop but not in mobile
+if(window.innerWidth < 900) {
+    asideElement.classList.toggle('hidden')
+    }
+asideElement.classList.toggle('hidden')
