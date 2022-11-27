@@ -12,7 +12,7 @@
     border-bottom: 1px solid lightgray;
 }
 
-.btnsEditor, .selectEditor {
+.btnsEditor, .selectEditor, #btnSave {
     border: none;
     background-color: white;
     height: 2em;
@@ -20,11 +20,11 @@
     font-size: 1em;
 }
 
-.btnsEditor {
+.btnsEditor, #btnSave {
     width: 2em;
 }
 
-.btnsEditor:hover, .selectEditor:hover {
+.btnsEditor:hover, .selectEditor:hover, #btnSave:hover {
     background-color: lightgray;
     border: 1px solid gray;
     border-radius: 2px;
@@ -103,10 +103,21 @@ h1 {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 60px;
+    width: 4em;
+    height: 4em;
     border: none;
-    background-color: #0A0CAC;
+    background-color: #817efc;
+    transition: .5s;
+    display: grid;
+    place-items: center;
 }
 #createDoc img {
-    width: 100%;
+    width: 80%;
+}
+
+#createDoc:hover {
+    cursor: pointer;
+    background-color: rgb(196,127,186);
+    transition: 0.5s;
+    
 }

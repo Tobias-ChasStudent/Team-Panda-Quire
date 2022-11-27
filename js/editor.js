@@ -117,14 +117,15 @@ function createDoc() {
     docDiv.innerHTML = ""
 
     //push Documents-array into aside-list
-    loadAside();
+    
+    sortDocs();
 }
 
 function editorGetValue() {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
         currentDoc = localStorage.getItem("currentDoc");
-        let savedArray = JSON.parse(localStorage.getItem("Documents")).reverse()
+        let savedArray = JSON.parse(localStorage.getItem("Documents"))
         if (currentDoc === 0) currentDoc = savedArray[0].id;
         let docObj = savedArray.find(o => o.id == currentDoc);
         // editor.innerHTML = savedArray[0].Text;
@@ -185,7 +186,7 @@ sortDocOption.addEventListener('change', (e) => {
 });
 
 
-function sortDocs(sort) {
+function sortDocs(sort = "modNewest") {
     
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
@@ -225,7 +226,7 @@ function loadAside() {
             let docListItem = document.createElement('section');
             docListItem.setAttribute('id', documentsArray[i].id)
             docListItem.innerHTML = `
-            <h3 id="${documentsArray[i].id}">${documentsArray[i].title}</h3>
+            <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
             <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
             <p id="${documentsArray[i].id}"><em id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</em></p>
         `
