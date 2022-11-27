@@ -1,3 +1,4 @@
+
 .modal {
     display: none;
     position: fixed;
@@ -20,7 +21,7 @@
     border: 1px solid #888;
     width: 50%;
     border-radius: 10px;
-
+    
 }
 
 .close {
@@ -37,22 +38,14 @@
     cursor: pointer;
 }
 
-img {
+img{
     width: 30%;
     border-radius: 5px;
 }
 
-p,
-a,
-h3 {
+p, a, h3{
     text-decoration: none;
-    color: black;
+    color:black;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-@media screen and (min-width: 900px) {
-    .info-modal {
-        height: 80vh;
-        width: 20vw;
-    }
-}
