@@ -52,6 +52,10 @@ aside {
     background-color: lightgray;
 }
 
+.docCard {
+    padding: 1em;
+}
+
 main {
     grid-row: 2/4;
     grid-column: 2/4;

@@ -1,7 +1,8 @@
 'use strict'
 
 const btnCreate = document.querySelector("#createDoc")
-const asideDocs = document.querySelector(".aside")
+const asideDocs = document.querySelector(".aside");
+let docCards = document.querySelectorAll('docCard');
 let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
@@ -127,13 +128,10 @@ const editorGetValue = function () {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
         let savedArray = JSON.parse(localStorage.getItem("Documents")).reverse()
-
-        console.log(savedArray);
-        //console.log(JSON.parse(localStorage.getItem("docTextsID")));
-
-        //console.log(savedArray[0].Text);
-        editor.innerHTML = savedArray[0].Text;
-        //console.log(editor.innerHTML);
+        if (currentDoc === 0) currentDoc = savedArray[0].id;
+        let docObj = savedArray.find(o => o.id == currentDoc);
+        // editor.innerHTML = savedArray[0].Text;
+        editor.innerHTML = docObj.Text;
     }
 }
 
@@ -152,7 +150,7 @@ const editorStoreValue = function () {
 }
 
 eventListenerToEditorBtns();
-editorGetValue();
+// editorGetValue();
 
 
 /* //autosave
@@ -165,8 +163,18 @@ document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
 const parseDate = function(unixTime) {
     const t = new Date(unixTime);
- 
     return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}:${t.getSeconds().toString().padStart(2, '0')}`
+}
+
+const eventListenerToDocCards = function () {
+    docCards = document.querySelectorAll('.docCard');
+    for (const card of docCards) {
+        card.addEventListener('click', function (event) {
+            console.log(event)
+            currentDoc = event.target.getAttribute('id');
+            editorGetValue();
+        });
+    }
 }
 
 //sort by date
@@ -176,6 +184,7 @@ function loadAside() {
 //Parse text and properties local storage
 //show latest first
 documentsArray = JSON.parse(localStorage.getItem("Documents")).reverse()
+currentDoc = documentsArray[0].id;
 
 if (documentsArray.length !== 0) {
 
@@ -184,6 +193,8 @@ if (documentsArray.length !== 0) {
 
     for (let i = 0; i < documentsArray.length; i++) {
         let docListItem = document.createElement('section');
+        docListItem.classList.add('docCard')
+        docListItem.setAttribute('id', documentsArray[i].id)
         docListItem.innerHTML = `
         <h3>${documentsArray[i].title}</h3>
         <p>${documentsArray[i].textPreview}</p>
@@ -194,8 +205,8 @@ if (documentsArray.length !== 0) {
         asideDocs.appendChild(docListItem);
         console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
     }
-    currentDoc = documentsArray[0].id;
     editorGetValue();
+    eventListenerToDocCards();
 } else {
     return
 }
