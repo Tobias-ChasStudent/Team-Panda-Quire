@@ -30,7 +30,7 @@
     <div class="main">
         <aside class="aside hidden">
             <select name="" id="selectSort" class="">
-                <option value="" selected>Sort by...</option>
+                <option value="" selected>Sort by</option>
                 <option class="sortOption" value="createdNewest">Created Newest</optionc>
                 <option class="sortOption" value="createdOldest">Created oldest</optionc>
                 <option class="sortOption" value="modNewest">Modified newest</optionc>
@@ -56,8 +56,10 @@
                 </select>
                 <button class="" id="btnSave"><i class="fa-solid fa-floppy-disk"></i></button>
             </div>
-            <label for="editor">title:</label>
-            <input type="text" name="editor" class="doc-title" value="">
+            <div class="title-input-wrap">
+                <label for="editor">Title</label>
+                <input type="text" name="editor" class="doc-title" value="">
+            </div>
             <div id="editor" contenteditable="true">
             </div>
             <div id="createDoc"><img src="./img/quill-icon.png" alt=""></div>

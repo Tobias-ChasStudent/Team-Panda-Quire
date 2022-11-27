@@ -219,10 +219,11 @@ function loadAside() {
         for (let i = 0; i < documentsArray.length; i++) {
             let docListItem = document.createElement('section');
             docListItem.setAttribute('id', documentsArray[i].id)
+            docListItem.className = 'doclist-card';
             docListItem.innerHTML = `
             <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
             <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
-            <p id="${documentsArray[i].id}"><em id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</em></p>
+            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</p>
         `
 
             //console.log('PROPARRAY: ' + documentsArray);
@@ -252,7 +253,7 @@ btnShowAside.addEventListener('click', function() {
 
 sortDocs();
 
-//show aside by default in desktop but not in mobile
+//show aside by default in desktop but not in mobie
 if(window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
     }

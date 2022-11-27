@@ -1,3 +1,7 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #editor {
     margin: 2em;
     outline: none;
@@ -52,18 +56,42 @@
     
 }
 
-#documentCards>section {
-    padding: 0 1em 1em 1em;
-    border-left: 5px solid white
+#documentCards {
+    margin-top: 1vh;
+    border-top: 1px solid lightgray;
 }
 
-#documentCards>section:hover {
+.doclist-card {
+    padding: 0.5em 1em 0.5em 1em;
+    border-bottom: 1px solid lightgray;
+}
+
+.doclist-card>:nth-child(2) {
+    font-weight: 100;
+}
+
+.doclist-card:hover {
     cursor: pointer;
-    border-left: 5px solid #f78087;
+    border-right: 5px solid #f78087;
 }
 
-#documentCards>section>h3 {
+.doclist-card>h3 {
     margin-top: 0;
+}
+
+.doclist-card>:nth-child(3) {
+    font-size: 0.7rem;
+}
+
+#selectSort {
+    border: none;
+    width: 100%;
+    padding-top: 0.4rem;
+    font-size: 1rem;
+}
+
+.title-input-wrap {
+    padding: 2vh;
 }
 
 /* Content styles */
@@ -137,5 +165,5 @@ h1 {
 }
 
 .active {
-    border-left: 5px solid #f78087 !important;
+    border-right: 5px solid #f78087 !important;
 }

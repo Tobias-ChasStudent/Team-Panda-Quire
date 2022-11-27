@@ -76,9 +76,8 @@ aside {
 
     aside {
         display: block;
-        width: 10em;
+        width: 15em;
         position: static;
-
     }
 
     .main {
