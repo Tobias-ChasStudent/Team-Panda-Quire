@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="14.233299mm"
+   height="13.101524mm"
+   viewBox="0 0 14.233299 13.101524"
+   version="1.1"
+   id="svg11939"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="Q-icon.svg"
+   inkscape:export-filename="/home/hampus/Documents/Utbildning/ChasAcademy/3_Projektmetodik_och_agila_metoder/Team-Panda-Quire/FEATURE7-logga/Q-icon.png"
+   inkscape:export-xdpi="300.49939"
+   inkscape:export-ydpi="300.49939"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview11941"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="7.2466938"
+     inkscape:cx="72.653822"
+     inkscape:cy="19.66414"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs11936" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-71.780429,-152.48262)">
+    <g
+       aria-label="O"
+       id="text256-8"
+       style="font-size:18.7811px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';text-align:center;text-anchor:middle;fill:#3a286d;stroke-width:0.0979722">
+      <path
+         d="m 77.98883,152.48262 q 2.421001,0 4.190899,1.84326 1.779069,1.83409 1.779069,4.58523 0,2.83367 -1.788239,4.70444 -1.788239,1.87078 -4.328456,1.87078 -2.567729,0 -4.319286,-1.82493 -1.742388,-1.82492 -1.742388,-4.72278 0,-2.96206 2.017501,-4.83283 1.751558,-1.62317 4.1909,-1.62317 z m -0.174239,0.66944 q -1.669023,0 -2.677774,1.23801 -1.256353,1.54064 -1.256353,4.51187 0,3.04459 1.302206,4.6861 0.99958,1.24718 2.641092,1.24718 1.751557,0 2.888694,-1.3664 1.146307,-1.36639 1.146307,-4.31011 0,-3.19132 -1.256352,-4.75947 -1.008751,-1.24718 -2.78782,-1.24718 z"
+         id="path12037" />
+    </g>
+    <g
+       id="g4423"
+       transform="translate(-7.934777,15.30997)">
+      <path
+         id="path246-1"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.421;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 84.910379,142.84196 c -0.569699,0.01 -1.369141,0.59603 -1.22567,1.06921 0.749136,2.47072 5.629055,5.50138 7.230153,4.87184 0.223108,-0.30376 0,0 0.223108,-0.30376 -0.146106,-1.58239 -0.80049,-1.71977 -3.171777,-3.5342 -1.243367,-0.95138 -1.65898,-1.24079 -2.712509,-2.00945 -0.09259,-0.0675 -0.211836,-0.0959 -0.343305,-0.0936 z"
+         sodipodi:nodetypes="csccsccc" />
+      <path
+         style="fill:#000009;fill-opacity:1;stroke:none;stroke-width:0.0314264;stroke-opacity:1"
+         d="m 91.207192,148.3759 c -3.573275,-1.88455 -5.057132,-2.51579 -7.23416,-5.12204 1.934649,2.73999 4.462643,4.10069 7.051172,5.39986 0.10154,-0.16057 0.07622,-0.11665 0.182988,-0.27782 z"
+         id="path5105-1"
+         sodipodi:nodetypes="cccc" />
+      <path
+         id="path23902-4"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.134939;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 84.910379,142.84196 c -0.333315,5.1e-4 -0.679463,0.16488 -0.913354,0.4126 0.416393,0.5935 0.939265,1.13832 1.45718,1.63701 -0.02566,-0.80193 0.0089,-1.06465 0.03561,-1.83937 -0.167702,-0.14712 -0.371037,-0.21062 -0.579436,-0.21024 z m -0.913876,0.41316 c -0.204502,0.21685 -0.323063,0.49743 -0.271559,0.78837 0.528494,0.39788 1.040016,0.61863 1.729261,0.84808 -0.583691,-0.426 -1.016258,-1.14937 -1.457702,-1.63645 z"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         style="fill:#000000;stroke:#000000;stroke-width:0.465;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 91.094413,148.64406 2.621593,1.39761"
+         id="path1812"
+         sodipodi:nodetypes="cc" />
+    </g>
+  </g>
+</svg>
