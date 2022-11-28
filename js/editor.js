@@ -21,7 +21,7 @@ docID = String(docID)
 
 const parseDate = function (unixTime) {
     const t = new Date(unixTime);
-    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}:${t.getSeconds().toString().padStart(2, '0')}`
+    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
 }
 
 //If there isn't a localstorage item with the name "docTextsID", make one
@@ -83,7 +83,6 @@ function createDoc() {
     //Get the current editor contents
     editorContents = document.getElementById('editor').innerHTML;
 
-
     //Make sre the document is saved
     /*  editorStoreValue() */
 
@@ -101,7 +100,7 @@ function createDoc() {
     let currentDocProperties = {
         id: docID,
         Text: "",
-        title: 'new title',
+        title: 'Page title',
         timeStamp: Date.now(),
         textPreview: editor.textContent.substring(0, 20)
     }
@@ -155,10 +154,13 @@ function editorStoreValue() {
 eventListenerToEditorBtns();
 // editorGetValue();
 
-/* //autosave
-setInterval(() => {
+//autosave
+/* setInterval(() => {
     editorStoreValue();
-}, 5000); */
+}, 1000); */
+
+//make cursor target end of string in #editor
+
 
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
@@ -258,3 +260,14 @@ if(window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
     }
 asideElement.classList.toggle('hidden')
+/* 
+
+//change title border bottom to fit content
+docTitle.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+resizeInput.call(input); // immediately call the function
+
+function resizeInput(n) {
+    // const val = n ? n : this.value.length;
+  this.style.width =  this.value.length + "ch";
+}
+ */

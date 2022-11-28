@@ -16,8 +16,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
 }
+
+/* .doc-title-parent{
+    justify-self: flex-end;
+} */
 
 nav ul {
     display: flex;
@@ -51,7 +54,6 @@ nav ul li i {
     background-color: #817efc;
 }
 
-/* TA BORT EFTER FA */
 nav ul li img {
     width: 70%;
     height: auto;
@@ -76,7 +78,7 @@ aside {
 
     aside {
         display: block;
-        width: 15em;
+        width: 25em;
         position: static;
     }
 

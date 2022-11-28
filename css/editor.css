@@ -3,25 +3,31 @@
 }
 
 #editor {
-    margin: 1em 2em 2em 2em;
+    margin: 2em 2em 2em 2em;
     outline: none;
     min-height: calc(100vh - 4em - 2.5em - 4em);
     /* background-color: lightblue; */
+    width: calc(100vw - (2 * 2em));
+    overflow-wrap: break-word;
 }
 
 #editorBar {
     display: flex;
     background-color: white;
-    height: 2.5em;
+    height: 2.5rem;
     border-bottom: 1px solid lightgray;
 }
 
-.btnsEditor, .selectEditor, #btnSave {
+.btnsEditor, .selectEditor, #btnSave, .doc-title {
     border: none;
     background-color: white;
     height: 2em;
     margin: 0.25em 0 0 0.5em;
     font-size: 1em;
+}
+
+#btnSave {
+    color: #6866fa;
 }
 
 .btnsEditor, #btnSave {
@@ -30,9 +36,27 @@
 
 
 .btnsEditor:hover, .selectEditor:hover, #btnSave:hover {
-    background-color: lightgray;
+    background-color: rgb(233, 231, 231);
     border: 1px solid gray;
     border-radius: 2px;
+}
+
+.doc-title {
+    height: 1em;
+    padding: 0.2rem;
+    width: 6em;
+    background-color: transparent;
+    font-size: 1.5em;
+    border-bottom: 3px dashed gray;
+    /* overflow: visible; */
+}
+
+/* .doc-title:hover {
+    border: 1px solid gray;
+} */
+
+.doc-title:focus {
+    outline: none;
 }
 
 #btnBold {font-weight: bold;}
@@ -53,15 +77,16 @@
 #btnH3 {
     font-size: 1.17em;
     font-weight: bold;
-    
 }
 
 
 #documentCards {
-    margin-top: 1vh;
-    border-top: 1px solid lightgray;
     height: 80vh;
     overflow: auto;
+}
+
+#documentCards:last-child {
+    border-bottom: 1px solid lightgray;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -76,12 +101,16 @@
   }
 
 .doclist-card {
-    padding: 0.5em 1em 0.5em 1em;
-    border-bottom: 1px solid lightgray;
+    padding: 1em 1em 1em 1em;
+    border-top: 1px solid lightgray;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
 }
 
 .doclist-card>:nth-child(2) {
     font-weight: 100;
+    color: rgb(107, 107, 107);
+    min-height: 1em;
 }
 
 .doclist-card:hover {
@@ -91,23 +120,22 @@
 
 .doclist-card>h3 {
     margin-top: 0;
+    margin-block-end: 0;
+    padding-bottom: 0.5em;
 }
 
 .doclist-card>:nth-child(3) {
     font-size: 0.7rem;
+    text-align: end;
+    color: rgb(107, 107, 107);
 }
 
 #selectSort {
     border: none;
     width: 100%;
-    padding: 0.4rem;
     font-size: 1rem;
-}
-
-.doc-title {
-    font-size: 1.2rem;
-    padding: 0.2rem;
-    margin: 2vh;
+    height: 2.45em;
+    padding-left: 1em;
 }
 
 /* Content styles */
@@ -182,4 +210,15 @@ h1 {
 
 .active {
     border-right: 5px solid #f78087 !important;
+}
+
+@media screen and (min-width: 900px) {
+    #editor {
+        width: 21cm;
+        margin: 2em auto;
+    }
+
+    .doc-title {
+        font-size: 2em;
+    }
 }
