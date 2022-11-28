@@ -63,8 +63,13 @@ aside {
     transform: scaleX(0);
 }
 
+<<<<<<< HEAD
 .nav-item:hover {
     background-color: rgb(132, 133, 202);
+=======
+aside > div > section {
+    padding: 1em;
+>>>>>>> main
 }
 
 @media (min-width: 900px) {
