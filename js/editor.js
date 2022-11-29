@@ -41,6 +41,7 @@ if (!localStorage.getItem('Documents')) {
 const editorButtons = {
     btnBold: ['bold'],
     btnItalic: ['italic'],
+    btnUnderline: ['underline'],
     btnUnorderedList: ['insertUnorderedList'],
     btnOrderedList: ['insertOrderedList'],
     btnIndent: ['indent'],
