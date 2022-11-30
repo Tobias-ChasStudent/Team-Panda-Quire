@@ -100,12 +100,8 @@
 
 
 #documentCards {
-    height: 80vh;
+    height: 83.5vh;
     overflow: auto;
-}
-
-#documentCards:last-child {
-    border-bottom: 1px solid lightgray;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
