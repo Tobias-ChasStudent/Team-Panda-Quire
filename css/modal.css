@@ -23,6 +23,7 @@
     border-radius: 2em;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     width: 100vw;
+    height: 24em;
     padding: 1rem;
     left: 0;
     right: 0;
@@ -185,6 +186,7 @@
 
     #myModal {
         width: 40vw;
+        height: 24em;
     }
 
 }
