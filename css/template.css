@@ -19,17 +19,34 @@
     display: grid;
     grid-template: repeat(2, 60%) / repeat(2, 1fr);
     place-items: center;
+    grid-gap: 0.7em;
     text-align: center;
 }
 
 .templategrid>section {
     width: 100%;
+    border: 1px solid lightgray;
+    height: 100%;
+    box-shadow: 3px 3px 7px -4px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    background-color: #edeeee;
+    border-radius: 0.5em;
 }
 
-#plusSign {
-    font-size: 2rem;
+.templategrid>section>i {
+    font-size: 3em;
+    padding: 0.2em 0.1em;
+    color: #817efc;
 }
 
+.templategrid>section>h3 {
+    padding: 0.3em 0;
+    color: rgb(53, 53, 53)
+}
+
+.templategrid>section:hover {
+    background-color: white;
+}
 
 .close {
     color: #aaaaaa;
