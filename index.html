@@ -19,18 +19,20 @@
         <nav class=" navbar"> 
             <ul class="left-nav-ul">
                 <li class="nav-item" id="logo" title="Quire Logo"><a href="index.html"><img src="./img/Q-icon.svg" alt=""></a></li>
-                <li class="nav-item" id="documents" title="Show docs"><i class="fa-solid fa-file"></i></li>
-                <li class="nav-item" id="favourite" title="Show favourite docs"><i class="fa-solid fa-star"></i></li>
+                <li class="nav-item" id="showAside" title="Show docs"><i class="fa-solid fa-file"></i></li>
+                <!-- <li class="nav-item" id="favourite" title="Show favourite docs"><i class="fa-solid fa-star"></i></li> -->
             </ul>
+                <input type="text" name="editor" class="doc-title" value="" placeholder="Page title">
+            
             <ul class="right-nav-ul">
-                <li class="nav-item" id="settings" title="Settings" ><i class="fa-sharp fa-solid fa-gear"></i></li>
+                <!-- <li class="nav-item" id="settings" title="Settings" ><i class="fa-sharp fa-solid fa-gear"></i></li> -->
                 <li class="button open-modal-btn nav-item" title="Information"><i class="fa-solid fa-circle-info"></i></li>
             </ul>
         </nav>
     <div class="main">
-        <aside class="aside">
+        <aside class="aside hidden">
             <select name="" id="selectSort" class="">
-                <option value="" selected>Sort by...</option>
+                <option value="" selected>⇅ Sort by</option>
                 <option class="sortOption" value="createdNewest">Created Newest</optionc>
                 <option class="sortOption" value="createdOldest">Created oldest</optionc>
                 <option class="sortOption" value="modNewest">Modified newest</optionc>
@@ -42,25 +44,23 @@
         </aside>
         <main>
             <div id="editorBar">
-                <button class="btnsEditor" id="btnBold">B</button>
-                <button class="btnsEditor" id="btnItalic">i</button>
-                <button class="btnsEditor" id="btnUnderline">U</button>
-                <button class="btnsEditor" id="btnUnorderedList"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
-                <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
-                <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
-                <select name="" id="selectHeading" class="selectEditor">
+                <button class="btnsEditor" id="btnBold" title="Bold">B</button>
+                <button class="btnsEditor" id="btnItalic" title="Italic">i</button>
+                <button class="btnsEditor" id="btnUnderline" title="Underline">U</button>
+                <button class="btnsEditor" id="btnUnorderedList" title="Unordered list"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
+                <button class="btnsEditor" id="btnOrderedList" title="Ordered list"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
+                <button class="btnsEditor" id="btnIndent" title="Indent"><i class="fa-sharp fa-solid fa-indent"></i></button>
+                <select name="" id="selectHeading" class="selectEditor" title="Headings">
                     <option value="">Heading</option>
                     <option value="btnH1" class="btnsEditor" id="btnH1">Page Title</option>
                     <option value="btnH2" class="btnsEditor" id="btnH2">Heading 2</option>
                     <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
                 </select>
-                <button id="btnSave">Save</button>
+                <button class="" id="btnSave" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
             </div>
-            <label for="editor">title:</label>
-            <input type="text" name="editor" class="doc-title" value="">
             <div id="editor" contenteditable="true">
             </div>
-            <button id="createDoc"><img src="./img/quill-icon.png" alt=""></button>
+            <div id="createDoc"><img src="./img/quill-icon.png" alt=""></div>
         </main>
     </div>
     </div>
