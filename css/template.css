@@ -1,5 +1,3 @@
-
-
 .templategrid {
     display: grid;
     grid-template: repeat(2, 60%) / repeat(2, 1fr);
