@@ -12,6 +12,18 @@ for (let i = 0; i < modalButtons.length; i++) {
         console.log(e.target);
         getObjData(e.target.id)
         createDoc();
+
+        if (e.target.id == "recipetemplate") {
+            console.log("Recipe")
+            docTitle.value = "Recipe";
+        } else if (e.target.id == "cvtemplate") {
+            docTitle.value = "Resume - Ben Dover";
+        } else if (e.target.id == "lettertemplate") {
+            docTitle.value = "Letter"
+        } else if (e.target.id == "emptytemplate") {
+            docTitle.value = "New Document"
+            editor.innerHTML = ""
+        }
         modal.close();
     })
 }
@@ -22,7 +34,7 @@ btn.onclick = function () {
 }
 
 span.onclick = function () {
-   modal.close();
+    modal.close();
 }
 
 let url = "json/template.json"
@@ -38,9 +50,5 @@ async function getObjData(template) {
     }
 }
 
-
-
-
-console.log();
 
 

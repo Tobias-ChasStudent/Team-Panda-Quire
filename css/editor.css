@@ -1,4 +1,4 @@
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -18,7 +18,14 @@
     border-bottom: 1px solid lightgray;
 }
 
-.btnsEditor, .selectEditor, #btnSave, .doc-title {
+#selectHeading {
+    width: 4em;
+}
+
+.btnsEditor,
+.selectEditor,
+#btnSave,
+.doc-title {
     border: none;
     background-color: white;
     height: 2em;
@@ -30,12 +37,15 @@
     color: #6866fa;
 }
 
-.btnsEditor, #btnSave {
+.btnsEditor,
+#btnSave {
     width: 2em;
 }
 
 
-.btnsEditor:hover, .selectEditor:hover, #btnSave:hover {
+.btnsEditor:hover,
+.selectEditor:hover,
+#btnSave:hover {
     background-color: rgb(233, 231, 231);
     border: 1px solid gray;
     border-radius: 2px;
@@ -44,7 +54,8 @@
 .doc-title {
     height: 1em;
     padding: 0.2rem;
-    width: 6em;
+    width: 1px;
+    text-align: center;
     background-color: transparent;
     font-size: 1.5em;
     border-bottom: 3px dashed gray;
@@ -59,9 +70,17 @@
     outline: none;
 }
 
-#btnBold {font-weight: bold;}
-#btnItalic {font-style: italic;}
-#btnUnderline {text-decoration-line: underline;}
+#btnBold {
+    font-weight: bold;
+}
+
+#btnItalic {
+    font-style: italic;
+}
+
+#btnUnderline {
+    text-decoration-line: underline;
+}
 
 
 
@@ -69,10 +88,12 @@
     font-size: 2em;
     font-weight: bold;
 }
+
 #btnH2 {
     font-size: 1.5em;
     font-weight: bold;
 }
+
 #btnH3 {
     font-size: 1.17em;
     font-weight: bold;
@@ -95,9 +116,11 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 #documentCards {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
 
 .doclist-card {
     padding: 1em 1em 1em 1em;
@@ -159,28 +182,26 @@ h1 {
     font-weight: bold;
     margin-block-start: .67em;
     margin-block-end: .67em;
-  }
-  
-  h2,
-  :-moz-any(article, aside, nav, section)
-  h1 {
+}
+
+h2,
+:-moz-any(article, aside, nav, section) h1 {
     display: block;
     font-size: 1.5em;
     font-weight: bold;
     margin-block-start: .83em;
     margin-block-end: .83em;
-  }
-  
-  h3,
-  :-moz-any(article, aside, nav, section)
-  :-moz-any(article, aside, nav, section)
-  h1 {
+}
+
+h3,
+:-moz-any(article, aside, nav, section) :-moz-any(article, aside, nav, section) h1 {
     display: block;
     font-size: 1.17em;
     font-weight: bold;
     margin-block-start: 1em;
     margin-block-end: 1em;
-  }
+}
+
 /* Create btn */
 #createDoc {
     border-radius: 100%;
@@ -196,15 +217,16 @@ h1 {
     display: grid;
     place-items: center;
 }
+
 #createDoc img {
     width: 80%;
 }
 
 #createDoc:hover {
     cursor: pointer;
-    background-color: rgb(196,127,186);
+    background-color: rgb(196, 127, 186);
     transition: 0.5s;
-    
+
 }
 
 .active {
@@ -214,9 +236,14 @@ h1 {
 @media screen and (min-width: 900px) {
     #editor {
         margin: 2em auto;
-        width: 15cm;
+        width: 18cm;
         padding: 2em;
-        box-shadow: 0px 0px 7px -4px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 7px -4px rgba(0, 0, 0, 0.75);
+        background-color: #ffffff;
+    }
+
+    main {
+        background-color: #F8F9FA;
     }
 
     .doc-title {

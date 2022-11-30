@@ -157,9 +157,9 @@ eventListenerToEditorBtns();
 
 
 //autosave
-setInterval(() => {
+/* setInterval(() => {
     editorStoreValue();
-}, 3000);
+}, 3000); */
 
 
 
