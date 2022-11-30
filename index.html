@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="css/editor.css">
     <script src="js/modal.js" defer></script>
+    <script src="js/tags.js" defer></script>
     <script src="js/editor.js" defer></script>
 
     <title>Quire</title>
@@ -38,6 +39,9 @@
                 <option class="sortOption" value="modNewest">Modified newest</optionc>
                 <option class="sortOption" value="modOldest">Modified oldest</optionc>
             </select>
+            <input type="text" name="findTags" id="findTags" list="tagsSuggestion" />
+            <datalist id="tagsSuggestion">
+            </datalist>
             <div id="documentCards">
 
             </div>

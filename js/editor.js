@@ -11,7 +11,6 @@ const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
 let editorContents = "";
 let currentDoc = 0;
-let tagsObj = new Object;
 let documentsArray = []
 
 //Get a unique id
@@ -67,43 +66,6 @@ const eventListenerToEditorBtns = function () {
     }
 }
 
-// methods for managing tags
-const tagfunctions = {
-    get() {
-        tagsObj = JSON.parse(localStorage.getItem('tags'));
-        return tagsObj;
-    },
-    set() {
-        localStorage.setItem('tags', JSON.stringify(tagsObj));
-    },
-    find(tag) {
-        for (const [key, idArr] of Object.entries(tagsObj)) {
-            console.log(key);
-            if (tag == key) return idArr;
-        }
-    },
-    findAll(idFind) {
-        const tagsArr = new Array;
-        for (const [tag, idArr] of Object.entries(tagsObj)) {
-            idArr.forEach(id => {
-                if (id == idFind) tagsArr.push(tag);
-            });
-        }
-        return tagsArr;
-    },
-    allTags() {
-        return tagsObj.keys();
-    },
-    add(tag, id) {
-        this.get() //behövs denna?
-        if (Object.keys(tagsObj).includes(tag)) {
-            tagsObj[tag].push(id);
-        } else {
-            tagsObj[tag] = [id];
-        }
-        this.set();
-    }
-}
 
 /* Store all docs in aside */
 
@@ -250,7 +212,8 @@ function sortDocs(sort = "modNewest") {
     loadAside();
 }
 
-function loadAside() {
+function loadAside(docs = documentsArray) {
+    localStorage.setItem('currentDoc', docs[0].id);
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
@@ -259,15 +222,15 @@ function loadAside() {
         currentDoc = localStorage.getItem('currentDoc')
     }
 
-    if (documentsArray.length !== 0) {
-        for (let i = 0; i < documentsArray.length; i++) {
+    if (docs.length !== 0) {
+        for (let i = 0; i < docs.length; i++) {
             let docListItem = document.createElement('section');
-            docListItem.setAttribute('id', documentsArray[i].id)
+            docListItem.setAttribute('id', docs[i].id)
             docListItem.className = 'doclist-card';
             docListItem.innerHTML = `
-            <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
-            <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
-            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</p>
+            <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
+            <p id="${docs[i].id}">${docs[i].textPreview}</p>
+            <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>
         `
 
             //console.log('PROPARRAY: ' + documentsArray);
@@ -297,13 +260,6 @@ btnShowAside.addEventListener('click', function() {
 
 sortDocs();
 
-//Handles input of tags: adds tags to currentDoc
-document.getElementById('btnSaveTags').addEventListener('click', function() {
-    //get comma separated tags to array
-    const tags = document.getElementById('inputTags').value.replaceAll(' ','').split(',');
-    console.log(tags)
-    tags.forEach(tag => tagfunctions.add(tag, currentDoc));
-})
 //show aside by default in desktop but not in mobie
 if(window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
