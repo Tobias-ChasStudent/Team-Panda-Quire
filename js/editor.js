@@ -1,17 +1,18 @@
 'use strict'
 
 const sortDocOption = document.querySelector('#selectSort');
-const selectSort = document.querySelector('#selectSort');
-const btnCreate = document.querySelector("#createDoc")
+const btnCreate = document.querySelector("#createDoc");
 const docDiv = document.querySelector("#documentCards");
+const asideElement = document.querySelector("aside");
 let docCards = document.querySelectorAll('docCard');
 let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
+const btnShowAside = document.getElementById('showAside');
 let editorContents = "";
 let currentDoc = 0;
 
-let documentsArray = []
+let documentsArray = [];
 
 //Get a unique id
 let date = new Date()
@@ -20,7 +21,7 @@ docID = String(docID)
 
 const parseDate = function (unixTime) {
     const t = new Date(unixTime);
-    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}:${t.getSeconds().toString().padStart(2, '0')}`
+    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
 }
 
 //If there isn't a localstorage item with the name "docTextsID", make one
@@ -40,6 +41,7 @@ if (!localStorage.getItem('Documents')) {
 const editorButtons = {
     btnBold: ['bold'],
     btnItalic: ['italic'],
+    btnUnderline: ['underline'],
     btnUnorderedList: ['insertUnorderedList'],
     btnOrderedList: ['insertOrderedList'],
     btnIndent: ['indent'],
@@ -82,7 +84,6 @@ function createDoc() {
     //Get the current editor contents
     editorContents = document.getElementById('editor').innerHTML;
 
-
     //Make sre the document is saved
     /*  editorStoreValue() */
 
@@ -100,7 +101,7 @@ function createDoc() {
     let currentDocProperties = {
         id: docID,
         Text: "",
-        title: 'new title',
+        title: 'Page title',
         timeStamp: Date.now(),
         textPreview: editor.textContent.substring(0, 20)
     }
@@ -117,14 +118,15 @@ function createDoc() {
     docDiv.innerHTML = ""
 
     //push Documents-array into aside-list
-    loadAside();
+    
+    sortDocs();
 }
 
 function editorGetValue() {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
         currentDoc = localStorage.getItem("currentDoc");
-        let savedArray = JSON.parse(localStorage.getItem("Documents")).reverse()
+        let savedArray = JSON.parse(localStorage.getItem("Documents"))
         if (currentDoc === 0) currentDoc = savedArray[0].id;
         let docObj = savedArray.find(o => o.id == currentDoc);
         // editor.innerHTML = savedArray[0].Text;
@@ -143,6 +145,7 @@ function editorStoreValue() {
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
             localStorage.setItem("Documents", JSON.stringify(documentsArray));
+            //documentsArray[i].classList.add('active');
         }
     }
     docDiv.innerHTML = "";
@@ -158,26 +161,25 @@ setInterval(() => {
     editorStoreValue();
 }, 3000);
 
+
+
+
+//make cursor target end of string in #editor
+
+
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
-
-
-
-
-function switchCurrentEditor(event) {
-    localStorage.setItem('currentDoc', event.id);
+function switchCurrentEditor(id) {
+    const allDocSections = document.querySelectorAll("#documentCards>section")
+    const doc = document.getElementById(id);
+    allDocSections.forEach(element => {
+        element.classList.remove("active");
+    });
+    doc.classList.add("active");
+    localStorage.setItem('currentDoc', id);
     editorGetValue();
 }
 
-/* sortDocOption.forEach(option => {
-    const type = option.parentElement;
-    if(type.id == "selectSort") {
-    type.addEventListener('change', (e) => {
-        sortDocs(e.target.value);
-        console.log(e.target.value);
-    })
-}
-}) */
 
 sortDocOption.addEventListener('change', (e) => {
     console.log('hej', e.target.value);
@@ -185,7 +187,7 @@ sortDocOption.addEventListener('change', (e) => {
 });
 
 
-function sortDocs(sort) {
+function sortDocs(sort = "modNewest") {
     
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
@@ -224,26 +226,27 @@ function loadAside() {
         for (let i = 0; i < documentsArray.length; i++) {
             let docListItem = document.createElement('section');
             docListItem.setAttribute('id', documentsArray[i].id)
+            docListItem.className = 'doclist-card';
             docListItem.innerHTML = `
-            <h3 id="${documentsArray[i].id}">${documentsArray[i].title}</h3>
+            <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
             <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
-            <p id="${documentsArray[i].id}"><em id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</em></p>
+            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</p>
         `
 
             //console.log('PROPARRAY: ' + documentsArray);
             docDiv.appendChild(docListItem);
             //console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
 
-            docListItem.addEventListener('click', (e) => {
-                const allDocSections = document.querySelectorAll("#documentCards>section")
-                allDocSections.forEach(element => {
-                    element.classList.remove("active")
-                });
-                switchCurrentEditor(e.target);
-                e.target.classList.add("active")
-                console.log(e.target.id);
+             docListItem.addEventListener('click', (e) => {
+                //switch what doc you want to edit
+                switchCurrentEditor(e.target.id);
+                if(window.innerWidth < 900) {
+                asideElement.classList.toggle('hidden')
+                }
             })
         }
+        switchCurrentEditor(currentDoc);
+
         //editorGetValue();
         /* eventListenerToDocCards(); */
     } else {
@@ -251,21 +254,25 @@ function loadAside() {
     }
 }
 
+btnShowAside.addEventListener('click', function() {
+    asideElement.classList.toggle('hidden')
+})
+
 sortDocs();
 
+//show aside by default in desktop but not in mobie
+if(window.innerWidth < 900) {
+    asideElement.classList.toggle('hidden')
+    }
+asideElement.classList.toggle('hidden')
+/* 
 
+//change title border bottom to fit content
+docTitle.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+resizeInput.call(input); // immediately call the function
 
-
-/* function sortRecent() {
-        educations.innerHTML = null;
-        const ny = eductationArray.sort(({Completion:a}, {Completion: b}) => b-a);
-        eductationArray .forEach((course) => {
-            const eduDescription = document.createElement('div');
-            eduDescription.className = "education-list";
-            const eduEntries = Object.entries(course);
-            eduEntries.forEach(([key, value]) => {
-                eduDescription.innerHTML += `<span style="font-weight: bold;">${key}:</span> ${value} <br> `;
-                educations.appendChild(eduDescription);
-            })
-        })
-    } */
+function resizeInput(n) {
+    // const val = n ? n : this.value.length;
+  this.style.width =  this.value.length + "ch";
+}
+ */
