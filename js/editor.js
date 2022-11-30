@@ -69,7 +69,7 @@ const eventListenerToEditorBtns = function () {
 
 
 /* Create new docs */
-btnCreate.addEventListener("click", createDoc)
+// btnCreate.addEventListener("click", createDoc)
 
 function createDoc() {
     if (localStorage.getItem('Documents') == true) {
@@ -108,7 +108,7 @@ function createDoc() {
     localStorage.setItem('currentDoc', currentDocProperties.id);
 
     // console.log(documentsArray)
-    documentsArray.push(currentDocProperties)
+    documentsArray.unshift(currentDocProperties)
     // console.log('PROPARR' + documentsArray)
 
     localStorage.setItem("Documents", JSON.stringify(documentsArray))
@@ -153,10 +153,10 @@ eventListenerToEditorBtns();
 // editorGetValue();
 
 
-/* //autosave
+//autosave
 setInterval(() => {
     editorStoreValue();
-}, 5000); */
+}, 3000);
 
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 

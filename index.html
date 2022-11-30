@@ -1,109 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css" class="css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/template.css">
     <script src="js/modal.js" defer></script>
     <script src="js/editor.js" defer></script>
+    <script src="js/template.js" defer></script>
 
     <title>Quire</title>
 </head>
+
 <body>
     <div class="container">
-        <nav class=" navbar"> 
+        <nav class=" navbar">
             <ul class="left-nav-ul">
-                <li class="nav-item" id="logo" title="Quire Logo"><a href="index.html"><img src="./img/Q-icon.svg" alt=""></a></li>
+                <li class="nav-item" id="logo" title="Quire Logo"><a href="index.html"><img src="./img/Q-icon.svg"
+                            alt=""></a></li>
                 <li class="nav-item" id="documents" title="Show docs"><i class="fa-solid fa-file"></i></li>
                 <li class="nav-item" id="favourite" title="Show favourite docs"><i class="fa-solid fa-star"></i></li>
             </ul>
             <ul class="right-nav-ul">
-                <li class="nav-item" id="settings" title="Settings" ><i class="fa-sharp fa-solid fa-gear"></i></li>
-                <li class="button open-modal-btn nav-item" title="Information"><i class="fa-solid fa-circle-info"></i></li>
+                <li class="nav-item" id="settings" title="Settings"><i class="fa-sharp fa-solid fa-gear"></i></li>
+                <li class="button open-modal-btn nav-item" title="Information"><i class="fa-solid fa-circle-info"></i>
+                </li>
             </ul>
         </nav>
-    <div class="main">
-        <aside class="aside">
-            <select name="" id="selectSort" class="">
-                <option value="" selected>Sort by...</option>
-                <option class="sortOption" value="createdNewest">Created Newest</optionc>
-                <option class="sortOption" value="createdOldest">Created oldest</optionc>
-                <option class="sortOption" value="modNewest">Modified newest</optionc>
-                <option class="sortOption" value="modOldest">Modified oldest</optionc>
-            </select>
-            <div id="documentCards">
-
-            </div>
-        </aside>
-        <main>
-            <div id="editorBar">
-                <button class="btnsEditor" id="btnBold">B</button>
-                <button class="btnsEditor" id="btnItalic">i</button>
-                <button class="btnsEditor" id="btnUnderline">U</button>
-                <button class="btnsEditor" id="btnUnorderedList"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
-                <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
-                <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
-                <select name="" id="selectHeading" class="selectEditor">
-                    <option value="">Heading</option>
-                    <option value="btnH1" class="btnsEditor" id="btnH1">Page Title</option>
-                    <option value="btnH2" class="btnsEditor" id="btnH2">Heading 2</option>
-                    <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
+        <div class="main">
+            <aside class="aside">
+                <select name="" id="selectSort" class="">
+                    <option value="" selected>Sort by...</option>
+                    <option class="sortOption" value="createdNewest">Created Newest</optionc>
+                    <option class="sortOption" value="createdOldest">Created oldest</optionc>
+                    <option class="sortOption" value="modNewest">Modified newest</optionc>
+                    <option class="sortOption" value="modOldest">Modified oldest</optionc>
                 </select>
-                <button id="btnSave">Save</button>
-            </div>
-            <label for="editor">title:</label>
-            <input type="text" name="editor" class="doc-title" value="">
-            <div id="editor" contenteditable="true">
-            </div>
-            <button id="createDoc"><img src="./img/quill-icon.png" alt=""></button>
-        </main>
-    </div>
-    </div>
-    <dialog class="info-modal" id="info-modal">
-            <div class="slideshow-container">
-                <div class="slideshow-wrapper">
-                    <div class="my-slides">
-                        <div class="my-slides-content">
-                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
-                            <h1>Welcome</h1>
-                            <p>This is a next-gen note-taking platform</p>
-                        </div>
-                    </div>
-                    <div class="my-slides">
-                        <div class="my-slides-content">
-                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
-                            <h1>Features</h1>
-                            <p>You can take notes and stuff!</p>
-                        </div>
-                    </div>
+                <div id="documentCards">
 
-                    <div class="my-slides">
-                        <div class="my-slides-content">
-                            <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
-                            <h1>Tip</h1>
-                            <p>Your notes are saved within 5 seconds of not editing it!</p>
-                        </div>
+                </div>
+            </aside>
+            <main>
+                <div id="editorBar">
+                    <button class="btnsEditor" id="btnBold">B</button>
+                    <button class="btnsEditor" id="btnItalic">i</button>
+                    <button class="btnsEditor" id="btnUnderline">U</button>
+                    <button class="btnsEditor" id="btnUnorderedList"><i
+                            class="fa-sharp fa-solid fa-list-ul"></i></button>
+                    <button class="btnsEditor" id="btnOrderedList"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
+                    <button class="btnsEditor" id="btnIndent"><i class="fa-sharp fa-solid fa-indent"></i></button>
+                    <select name="" id="selectHeading" class="selectEditor">
+                        <option value="">Heading</option>
+                        <option value="btnH1" class="btnsEditor" id="btnH1">Page Title</option>
+                        <option value="btnH2" class="btnsEditor" id="btnH2">Heading 2</option>
+                        <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
+                    </select>
+                    <button id="btnSave">Save</button>
+                </div>
+                <label for="editor">title:</label>
+                <input type="text" name="editor" class="doc-title" value="">
+                <div id="editor" contenteditable="true">
+                </div>
+                <button id="createDoc"><img src="./img/quill-icon.png" alt=""></button>
+            </main>
+        </div>
+    </div>
+
+    <dialog class="info-modal" id="info-modal">
+        <div class="slideshow-container">
+            <div class="slideshow-wrapper">
+                <div class="my-slides">
+                    <div class="my-slides-content">
+                        <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
+                        <h1>Welcome</h1>
+                        <p>This is a next-gen note-taking platform</p>
                     </div>
-                    <div class="modal-footer">
-                        <div class="checkbox-container">
-                            <input type="checkbox" id="info-checkbox" name="info-checkbox">
-                            <label id="label-info-checkbox" for="info-checkbox">Don't show again</label>
-                        </div>
-                        <div class="card-index"></div>
-                        <div class="slide-buttons">
-                            <button class="previous-button-ghost">Back</button>
-                            <button class="previous-button">Back</button>    
-                            <button class="next-button">Next</button>
-                            <button class="button close-modal-btn">Start</button>
-                        </div>
+                </div>
+                <div class="my-slides">
+                    <div class="my-slides-content">
+                        <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
+                        <h1>Features</h1>
+                        <p>You can take notes and stuff!</p>
+                    </div>
+                </div>
+
+                <div class="my-slides">
+                    <div class="my-slides-content">
+                        <img src="img/Quire-logo.svg" alt="business-logo" class="logo">
+                        <h1>Tip</h1>
+                        <p>Your notes are saved within 5 seconds of not editing it!</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="info-checkbox" name="info-checkbox">
+                        <label id="label-info-checkbox" for="info-checkbox">Don't show again</label>
+                    </div>
+                    <div class="card-index"></div>
+                    <div class="slide-buttons">
+                        <button class="previous-button-ghost">Back</button>
+                        <button class="previous-button">Back</button>
+                        <button class="next-button">Next</button>
+                        <button class="button close-modal-btn">Start</button>
                     </div>
                 </div>
             </div>
+        </div>
     </dialog>
+
+    <dialog id="myModal" class="info-modal">
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <h1 class="modal-title">Create new document </h1>
+            <section>
+                <p> <img id="recipetemplate" src="img/recipe.png">
+                    <br>
+                <h3>Recept</h3>
+                </p>
+            </section>
+
+            <section>
+                <p><img id="cvtemplate" src="img/cv.png">
+                <h3>Cv </h3>
+                </p>
+            </section>
+
+            <section>
+                <p><img id="lettertemplate" src="img/brev.png">
+                <h3>Brev </h3>
+                </p>
+            </section>
+        </div>
+
+    </dialog>
+
 </body>
+
 </html>
