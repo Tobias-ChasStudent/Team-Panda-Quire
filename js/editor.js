@@ -10,7 +10,7 @@ const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 let editorContents = "";
 let currentDoc = 0;
-
+let tagsObj = new Object;
 let documentsArray = []
 
 //Get a unique id
@@ -65,6 +65,44 @@ const eventListenerToEditorBtns = function () {
     }
 }
 
+// methods for managing tags
+const tagfunctions = {
+    get() {
+        tagsObj = JSON.parse(localStorage.getItem('tags'));
+        return tagsObj;
+    },
+    set() {
+        localStorage.setItem('tags', JSON.stringify(tagsObj));
+    },
+    find(tag) {
+        for (const [key, idArr] of Object.entries(tagsObj)) {
+            console.log(key);
+            if (tag == key) return idArr;
+        }
+    },
+    findAll(idFind) {
+        const tagsArr = new Array;
+        for (const [tag, idArr] of Object.entries(tagsObj)) {
+            idArr.forEach(id => {
+                if (id == idFind) tagsArr.push(tag);
+            });
+        }
+        return tagsArr;
+    },
+    allTags() {
+        return tagsObj.keys();
+    },
+    add(tag, id) {
+        this.get() //behövs denna?
+        if (Object.keys(tagsObj).includes(tag)) {
+            tagsObj[tag].push(id);
+        } else {
+            tagsObj[tag] = [id];
+        }
+        this.set();
+    }
+}
+
 /* Store all docs in aside */
 
 
@@ -102,7 +140,8 @@ function createDoc() {
         Text: "",
         title: 'new title',
         timeStamp: Date.now(),
-        textPreview: editor.textContent.substring(0, 20)
+        textPreview: editor.textContent.substring(0, 20),
+        tags: ""
     }
 
     localStorage.setItem('currentDoc', currentDocProperties.id);
@@ -119,6 +158,7 @@ function createDoc() {
     //push Documents-array into aside-list
     loadAside();
 }
+
 
 function editorGetValue() {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
@@ -142,6 +182,7 @@ function editorStoreValue() {
             documentsArray[i].timeStamp = Date.now();
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
+            //documentsArray[i].tags = ['test1', 'test2', 'test3']; //TEMPORARY
             localStorage.setItem("Documents", JSON.stringify(documentsArray));
         }
     }
@@ -253,6 +294,13 @@ function loadAside() {
 
 sortDocs();
 
+//Handles input of tags: adds tags to currentDoc
+document.getElementById('btnSaveTags').addEventListener('click', function() {
+    //get comma separated tags to array
+    const tags = document.getElementById('inputTags').value.replaceAll(' ','').split(',');
+    console.log(tags)
+    tags.forEach(tag => tagfunctions.add(tag, currentDoc));
+})
 
 
 
