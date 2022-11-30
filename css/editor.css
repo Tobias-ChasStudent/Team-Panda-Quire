@@ -234,11 +234,16 @@ h3,
 
 @media screen and (min-width: 900px) {
     #editor {
-        margin: 1em 0 0 1em;
         width: 18cm;
         padding: 2em;
         box-shadow: 0px 0px 7px -4px rgba(0, 0, 0, 0.75);
         background-color: #ffffff;
+    }
+
+    .editor-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     main {

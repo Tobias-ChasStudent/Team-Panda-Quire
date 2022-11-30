@@ -2,7 +2,7 @@
 const modal = document.getElementById("myModal");
 const btn = document.getElementById("createDoc");
 const span = document.getElementsByClassName("close")[0];
-const modalButtons = document.querySelectorAll('.modal-content section')
+const modalButtons = document.querySelectorAll('#myModal section')
 
 console.log(modalButtons.length)
 

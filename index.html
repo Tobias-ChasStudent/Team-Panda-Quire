@@ -68,7 +68,9 @@
                     </select>
                     <button class="" id="btnSave" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
                 </div>
-                <div id="editor" contenteditable="true">
+                    <div class="editor-container">
+                    <div id="editor" contenteditable="true">
+                    </div>
                 </div>
                 <div id="createDoc"><img src="./img/quill-icon.png" alt=""></div>
             </main>
@@ -117,9 +119,8 @@
         </div>
     </dialog>
 
-    <dialog id="myModal" class="info-modal">
-        <span class="close">&times;</span>
-        <div class="modal-content">
+    <dialog id="myModal">
+            <span class="close">&times;</span>
             <h1 class="modal-title">Create new</h1>
 
             <div class="templategrid">
@@ -141,9 +142,6 @@
                     <i id="lettertemplate"class="fa-solid fa-envelope-open-text"></i>
                 </section>
             </div>
-
-        </div>
-
     </dialog>
 
 </body>
