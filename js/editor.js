@@ -209,14 +209,36 @@ function sortDocs(sort = "modNewest") {
     loadAside();
 }
 
+
+/////////////////////////
+
+
+function search() {
+    let searchBar = document.querySelector('.search-bar');
+  
+    documentsArray = JSON.parse(localStorage.getItem("Documents"))
+    console.log(documentsArray)
+   
+    searchBar.addEventListener('input', (e) => {
+    let searchResult = documentsArray.filter(myDoc => myDoc.Text.includes(e.target.value));
+    console.log(searchResult)
+    localStorage.setItem('Document', JSON.stringify(searchResult));
+    })
+    loadAside();
+}
+
+search();
+
+////////////////////////
+
 function loadAside() {
     docDiv.innerHTML = "";
     //Parse text and properties local storage
-
-
-    if (localStorage.getItem('currentDoc') !== null) {
-        currentDoc = localStorage.getItem('currentDoc')
-    }
+    
+    documentsArray = JSON.parse(localStorage.getItem("Documents"));
+  
+    console.log(documentsArray)
+ 
 
     if (documentsArray.length !== 0) {
         for (let i = 0; i < documentsArray.length; i++) {
