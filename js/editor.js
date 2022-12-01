@@ -222,9 +222,10 @@ function search() {
     searchBar.addEventListener('input', (e) => {
     let searchResult = documentsArray.filter(myDoc => myDoc.Text.includes(e.target.value));
     console.log(searchResult)
-    localStorage.setItem('Document', JSON.stringify(searchResult));
-    })
+    localStorage.setItem('Documents', JSON.stringify(searchResult));
     loadAside();
+    })
+    
 }
 
 search();
