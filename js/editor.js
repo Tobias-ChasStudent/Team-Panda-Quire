@@ -210,9 +210,6 @@ function sortDocs(sort = "modNewest") {
 }
 
 
-/////////////////////////
-
-
 function search() {
     let searchBar = document.querySelector('.search-bar');
   
@@ -223,23 +220,20 @@ function search() {
     let searchResult = documentsArray.filter(myDoc => myDoc.Text.includes(e.target.value));
     console.log(searchResult)
     localStorage.setItem('Documents', JSON.stringify(searchResult));
-    loadAside();
     })
-    
+    loadAside();
 }
 
 search();
 
-////////////////////////
-
 function loadAside() {
     docDiv.innerHTML = "";
     //Parse text and properties local storage
-    
-    documentsArray = JSON.parse(localStorage.getItem("Documents"));
-  
-    console.log(documentsArray)
- 
+
+
+    if (localStorage.getItem('currentDoc') !== null) {
+        currentDoc = localStorage.getItem('currentDoc')
+    }
 
     if (documentsArray.length !== 0) {
         for (let i = 0; i < documentsArray.length; i++) {
@@ -285,11 +279,9 @@ if(window.innerWidth < 900) {
     }
 asideElement.classList.toggle('hidden')
 /* 
-
 //change title border bottom to fit content
 docTitle.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
 resizeInput.call(input); // immediately call the function
-
 function resizeInput(n) {
     // const val = n ? n : this.value.length;
   this.style.width =  this.value.length + "ch";
