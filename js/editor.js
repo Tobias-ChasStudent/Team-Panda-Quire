@@ -9,6 +9,7 @@ let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
+const searchBar = document.querySelector('#search-bar');
 let editorContents = "";
 let currentDoc = 0;
 
@@ -205,24 +206,76 @@ function sortDocs(sort = "modNewest") {
             //console.log(sort);
         break;
     }
-    localStorage.setItem('Documents', JSON.stringify(documentsArray));
+    localStorage.setItem('Searchresult', JSON.stringify(documentsArray));
     loadAside();
 }
 
 
 function search() {
-    let searchBar = document.querySelector('.search-bar');
-  
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
     console.log(documentsArray)
-   
-    searchBar.addEventListener('input', (e) => {
-    let searchResult = documentsArray.filter(myDoc => myDoc.Text.includes(e.target.value));
-    console.log(searchResult)
-    localStorage.setItem('Documents', JSON.stringify(searchResult));
+
+    searchBar.addEventListener('click', () => {searchBar.value = ''});
+    document.addEventListener('click', (e) => {
+        if(e.target != searchBar) {
+            searchBar.value = "Search";
+            
+        }
     })
-    loadAside();
+    
+   ///////////////////////////
+   ///////////////    SEARCH   ///////////////////// 
+    searchBar.addEventListener('input', (e) => {
+    if(searchBar.value !== '') {
+        docDiv.innerHTML = "";
+        let searchTerm = e.target.value.trim().toLowerCase();
+        let searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
+        for (let i = 0; i < searchResult.length; i++) {
+            //highlight text?
+            //change textpreview to display substring where searchTerm is?
+            /* if(searchResult[i].Text.toLowerCase().includes(searchTerm) && !searchResult[i].textPreview.toLowerCase().includes(searchTerm)) {
+                console.log(searchResult[i].Text.search(searchTerm));
+                let textIndex = searchResult[i].Text.indexOf(searchTerm);
+                let slicedText =''
+                console.log('sliced' + slicedText);
+                searchResult[i].textPreview = slicedText;
+            } */
+
+            //like in loadAside(), but since filter makes a copy of original array it has to 
+            //be outputed again as to not repeatadly delete data
+            if (searchResult.length !== 0) {
+                let docListItem = document.createElement('section');
+                docListItem.setAttribute('id', searchResult[i].id)
+                docListItem.className = 'doclist-card';
+                docListItem.innerHTML = `
+                <h3 id="${searchResult[i].id}">${searchResult[i].title.substring(0, 10)}</h3>
+                <p id="${searchResult[i].id}">${searchResult[i].textPreview}</p>
+                <p id="${searchResult[i].id}">${parseDate(searchResult[i].timeStamp)}</p>
+            `
+                docDiv.appendChild(docListItem);
+    
+                 docListItem.addEventListener('click', (e) => {
+                    switchCurrentEditor(e.target.id);
+                    if(window.innerWidth < 900) {
+                    asideElement.classList.toggle('hidden')
+                    }
+                })
+            
+        } else {
+            return
+        }
+        }
+        localStorage.setItem('Filteredarray', JSON.stringify(searchResult));
+        if (localStorage.getItem('currentDoc') !== null) {
+            currentDoc = localStorage.getItem('currentDoc')
+        }    
+    } else {
+        loadAside();
+    }
+    })  
 }
+///////////////////////////////////
+///////////////////////////////////
 
 search();
 
@@ -234,6 +287,8 @@ function loadAside() {
     if (localStorage.getItem('currentDoc') !== null) {
         currentDoc = localStorage.getItem('currentDoc')
     }
+
+   
 
     if (documentsArray.length !== 0) {
         for (let i = 0; i < documentsArray.length; i++) {
