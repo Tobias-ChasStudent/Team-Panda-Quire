@@ -137,6 +137,18 @@
     padding-left: 1em;
 }
 
+#search-bar {
+    border-radius: 2em;
+    border: 2px solid lightgray;
+    margin: 0.5em;
+    padding: 0.3em;
+    font-size: 0.7rem;
+}
+
+#search-bar:focus {
+    outline: none;
+}
+
 /* Content styles */
 ul {
     margin: 0.25em 1em;

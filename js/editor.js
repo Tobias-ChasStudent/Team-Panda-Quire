@@ -140,7 +140,6 @@ function editorStoreValue() {
     documentsArray = JSON.parse(localStorage.getItem("Documents"));
     for (let i = 0; i < documentsArray.length; i++) {
         if (localStorage.getItem("currentDoc") == documentsArray[i].id) {
-            console.log(documentsArray[i].title)
             documentsArray[i].title = docTitle.value;
             documentsArray[i].timeStamp = Date.now();
             documentsArray[i].Text = editor.innerHTML;
@@ -210,37 +209,49 @@ function sortDocs(sort = "modNewest") {
     loadAside();
 }
 
-
+//////////////////////////////
+////search UI
 function search() {
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
-    console.log(documentsArray)
 
-    searchBar.addEventListener('click', () => {searchBar.value = ''});
+    searchBar.addEventListener('click', () => {
+            let previousSearchterm = localStorage.getItem('previous-searchterm');
+            console.log(previousSearchterm)
+            if(previousSearchterm !== '' && searchBar.value !== '') {
+                searchBar.value = previousSearchterm;
+            } else if (previousSearchterm == '') { 
+            searchBar.value = ''; 
+            loadAside();
+            }
+        }
+    )
+    }
+
     document.addEventListener('click', (e) => {
-        if(e.target != searchBar) {
+        if(e.target != searchBar && searchBar.value == '') {
             searchBar.value = "Search";
-            
+            localStorage.setItem('previous-searchterm', '');
         }
     })
     
    ///////////////////////////
    ///////////////    SEARCH   ///////////////////// 
-    searchBar.addEventListener('input', (e) => {
+    searchBar.addEventListener('input', (e) => {   
     if(searchBar.value !== '') {
         docDiv.innerHTML = "";
         let searchTerm = e.target.value.trim().toLowerCase();
+        localStorage.setItem('previous-searchterm', searchTerm);
         let searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
         for (let i = 0; i < searchResult.length; i++) {
             //highlight text?
-            //change textpreview to display substring where searchTerm is?
-            /* if(searchResult[i].Text.toLowerCase().includes(searchTerm) && !searchResult[i].textPreview.toLowerCase().includes(searchTerm)) {
-                console.log(searchResult[i].Text.search(searchTerm));
-                let textIndex = searchResult[i].Text.indexOf(searchTerm);
-                let slicedText =''
-                console.log('sliced' + slicedText);
+            //change textpreview to display substring where searchTerm is
+            if(searchResult[i].Text.toLowerCase().includes(searchTerm) && !searchResult[i].textPreview.toLowerCase().includes(searchTerm)) {
+                let textIndex = searchResult[i].Text.search(searchTerm);
+                let slicedText = searchResult[i].Text.substring(textIndex, (textIndex + 20));
                 searchResult[i].textPreview = slicedText;
-            } */
-
+            } 
+             
+            
             //like in loadAside(), but since filter makes a copy of original array it has to 
             //be outputed again as to not repeatadly delete data
             if (searchResult.length !== 0) {
@@ -270,10 +281,11 @@ function search() {
             currentDoc = localStorage.getItem('currentDoc')
         }    
     } else {
+        console.log('empty')
         loadAside();
     }
     })  
-}
+
 ///////////////////////////////////
 ///////////////////////////////////
 
