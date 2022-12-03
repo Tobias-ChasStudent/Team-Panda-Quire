@@ -300,6 +300,7 @@ function loadAside() {
         currentDoc = localStorage.getItem('currentDoc')
     }
 
+    documentsArray = JSON.parse(localStorage.getItem("Documents"));
    
 
     if (documentsArray.length !== 0) {
