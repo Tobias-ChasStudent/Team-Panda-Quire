@@ -219,7 +219,7 @@ function search() {
             console.log(previousSearchterm)
             if(previousSearchterm !== '' && searchBar.value !== '') {
                 searchBar.value = previousSearchterm;
-            } else if (previousSearchterm == '') { 
+            } else if (previousSearchterm == '' || searchBar.value == 'Search') { 
             searchBar.value = ''; 
             loadAside();
             }
