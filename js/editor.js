@@ -75,7 +75,7 @@ btnCreate.addEventListener("click", createDoc)
 
 function createDoc() {
     if (localStorage.getItem('Documents') == true) {
-    editorStoreValue();
+        editorStoreValue();
     }
     console.log("Create doc button press");
 
@@ -92,8 +92,8 @@ function createDoc() {
     console.log("Cleaned out editor");
 
     //Parse text and properties local storage
-/*     documentsArray = JSON.parse(localStorage.getItem("Documents"))
- */
+    /*     documentsArray = JSON.parse(localStorage.getItem("Documents"))
+     */
 
     // let date = new Date()
     docID = Date.now()
@@ -103,7 +103,8 @@ function createDoc() {
         Text: "",
         title: 'Page title',
         timeStamp: Date.now(),
-        textPreview: editor.textContent.substring(0, 20)
+        textPreview: editor.textContent.substring(0, 20),
+        favourite: false
     }
 
     localStorage.setItem('currentDoc', currentDocProperties.id);
@@ -118,7 +119,7 @@ function createDoc() {
     docDiv.innerHTML = ""
 
     //push Documents-array into aside-list
-    
+
     sortDocs();
 }
 
@@ -136,7 +137,7 @@ function editorGetValue() {
 }
 
 function editorStoreValue() {
-    documentsArray = JSON.parse(localStorage.getItem("Documents"));
+    //documentsArray = JSON.parse(localStorage.getItem("Documents"));
     for (let i = 0; i < documentsArray.length; i++) {
         if (localStorage.getItem("currentDoc") == documentsArray[i].id) {
             console.log(documentsArray[i].title)
@@ -144,10 +145,12 @@ function editorStoreValue() {
             documentsArray[i].timeStamp = Date.now();
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
-            localStorage.setItem("Documents", JSON.stringify(documentsArray));
+            
+            //localStorage.setItem("Documents", JSON.stringify(documentsArray));
             //documentsArray[i].classList.add('active');
         }
     }
+    localStorage.setItem("Documents", JSON.stringify(documentsArray));
     docDiv.innerHTML = "";
     loadAside();
 }
@@ -184,26 +187,26 @@ sortDocOption.addEventListener('change', (e) => {
 
 
 function sortDocs(sort = "modNewest") {
-    
+
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
-    switch(sort) {
-        case "modNewest": 
-            documentsArray.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
+    switch (sort) {
+        case "modNewest":
+            documentsArray.sort(({ timeStamp: a }, { timeStamp: b }) => b - a);
             //console.log(sort);
             break;
         case "modOldest":
-            documentsArray.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
+            documentsArray.sort(({ timeStamp: a }, { timeStamp: b }) => a - b);
             //console.log(sort)
             break;
         case "createdNewest":
-            documentsArray.sort(({id:a}, {id:b}) => b-a);
+            documentsArray.sort(({ id: a }, { id: b }) => b - a);
             //console.log(sort);
             break;
-        case "createdOldest": 
-            documentsArray.sort(({id:a}, {id:b}) => a-b);
+        case "createdOldest":
+            documentsArray.sort(({ id: a }, { id: b }) => a - b);
             //console.log(sort);
-        break;
+            break;
     }
     localStorage.setItem('Documents', JSON.stringify(documentsArray));
     loadAside();
@@ -221,25 +224,51 @@ function loadAside() {
     if (documentsArray.length !== 0) {
         for (let i = 0; i < documentsArray.length; i++) {
             let docListItem = document.createElement('section');
+            // let addbtn = document.createElement('section');
             docListItem.setAttribute('id', documentsArray[i].id)
             docListItem.className = 'doclist-card';
+            // addbtn.setAttribute('id', documentsArray[i].id)
+            // addbtn.className = 'doclist-card';
+
+            let btnStar = document.createElement('i');
+            const starTrueFalse = documentsArray[i].favourite ? 'fa-solid' : 'fa-regular';
+            btnStar.className = `fa-star ${starTrueFalse}`;
+
+
             docListItem.innerHTML = `
             <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
             <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
-            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)}</p>
+            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)} </p>
         `
+            //     addbtn.innerHTML = `
+            //     <button id="${documentsArray[i].id}" > + Favorite</button>
+            // `
 
             //console.log('PROPARRAY: ' + documentsArray);
+            docListItem.appendChild(btnStar);
             docDiv.appendChild(docListItem);
-            //console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
 
-             docListItem.addEventListener('click', (e) => {
+
+            
+            docListItem.addEventListener('click', (e) => {
+                if(e.target.className.includes('fa-star')) {
+                    e.target.classList.toggle('fa-solid');
+                    e.target.classList.toggle('fa-regular');
+                    if(e.target.className.includes('fa-regular')) {
+                        documentsArray[i].favourite  = false;
+                    } else if (e.target.className.includes('fa-solid')){
+                        documentsArray[i].favourite = true;
+                    }
+                    localStorage.setItem("Documents", JSON.stringify(documentsArray));
+                    return
+                }
                 //switch what doc you want to edit
                 switchCurrentEditor(e.target.id);
-                if(window.innerWidth < 900) {
-                asideElement.classList.toggle('hidden')
+                if (window.innerWidth < 900) {
+                    asideElement.classList.toggle('hidden')
                 }
             })
+
         }
         switchCurrentEditor(currentDoc);
 
@@ -250,16 +279,17 @@ function loadAside() {
     }
 }
 
-btnShowAside.addEventListener('click', function() {
+btnShowAside.addEventListener('click', function () {
     asideElement.classList.toggle('hidden')
 })
 
 sortDocs();
 
+
 //show aside by default in desktop but not in mobie
-if(window.innerWidth < 900) {
+if (window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
-    }
+}
 asideElement.classList.toggle('hidden')
 /* 
 
@@ -272,3 +302,59 @@ function resizeInput(n) {
   this.style.width =  this.value.length + "ch";
 }
  */
+
+
+
+            //docDiv.appendChild(addbtn);
+          
+            //console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
+            //localStorage.setItem('favorites', JSON.stringify(favorites));
+            // const favorites = JSON.parse(localStorage.getItem("Fav")||[]);
+               
+            //     //const favorites = localStorage.getItem("Fav");
+            //     if (!favorites) {
+            //         localStorage.setItem("Fav", JSON.stringify({ stores: [] }));
+            //         favorites = JSON.parse(localStorage.getItem("Fav"));
+            //     } else {
+            //         favorites = JSON.parse(favorites);
+            //     }
+
+            //     favorites.stores.push(storeName);
+
+            // docListItem.addEventListener('click', (e) => {
+            //     console.log("hi");
+            //     console.log("My new log"+documentsArray[i].id);
+
+               // let storeName = $(e.target).parents()[documentsArray[i].id].innerHTML;
+                
+
+                //localStorage.setItem("Fav", JSON.stringify(favorites));
+                //localStorage.setItem('currentDoc', id);
+
+            //});
+
+            // get favorites from local storage or empty array
+            // var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            // // add class 'fav' to each favorite
+            // favorites.forEach(function (favorite) {
+            //     document.getElementById(favorite).className = 'fav';
+            // });
+            // register click event listener
+            // addbtn.addEventListener('click', function (e) {
+            //     var id = e.target.id,
+            //         item = e.target,
+            //         index = favorites.indexOf(id);
+            //     // return if target doesn't have an id (shouldn't happen)
+            //     if (!id) return;
+            //     // item is not favorite
+            //     if (index == -1) {
+            //         favorites.push(id);
+            //         item.className = 'fav';
+            //         // item is already favorite
+            //     } else {
+            //         favorites.splice(index, 1);
+            //         item.className = '';
+            //     }
+            //     // store array in local storage
+            //     localStorage.setItem('favorites', JSON.stringify(favorites));
+            // });
