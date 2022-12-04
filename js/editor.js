@@ -9,6 +9,9 @@ let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
+const toggleFav = document.querySelector('.show-favourites');
+toggleFav.className = "favToggledOff";
+
 let editorContents = "";
 let currentDoc = 0;
 
@@ -212,7 +215,22 @@ function sortDocs(sort = "modNewest") {
     loadAside();
 }
 
-function loadAside() {
+function favFilter (){
+    toggleFav.classList.toggle('favToggleOff');
+    console.log("hi")
+    /* documentsArray = JSON.parse(localStorage.getItem('Documents')); */
+    console.log(documentsArray)
+    let favDocs = [];
+    favDocs = toggleFav.className.includes('favToggleOff') ? documentsArray.filter(fav => fav.favourite == true) : documentsArray;
+
+    loadAside(favDocs)
+
+    console.log(favDocs);
+}
+
+toggleFav.addEventListener('click', favFilter);
+
+function loadAside(doc = documentsArray) {
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
@@ -221,24 +239,24 @@ function loadAside() {
         currentDoc = localStorage.getItem('currentDoc')
     }
 
-    if (documentsArray.length !== 0) {
-        for (let i = 0; i < documentsArray.length; i++) {
+    if (doc.length !== 0) {
+        for (let i = 0; i < doc.length; i++) {
             let docListItem = document.createElement('section');
             // let addbtn = document.createElement('section');
-            docListItem.setAttribute('id', documentsArray[i].id)
+            docListItem.setAttribute('id', doc[i].id)
             docListItem.className = 'doclist-card';
             // addbtn.setAttribute('id', documentsArray[i].id)
             // addbtn.className = 'doclist-card';
 
             let btnStar = document.createElement('i');
-            const starTrueFalse = documentsArray[i].favourite ? 'fa-solid' : 'fa-regular';
+            const starTrueFalse = doc[i].favourite ? 'fa-solid' : 'fa-regular';
             btnStar.className = `fa-star ${starTrueFalse}`;
 
 
             docListItem.innerHTML = `
-            <h3 id="${documentsArray[i].id}">${documentsArray[i].title.substring(0, 10)}</h3>
-            <p id="${documentsArray[i].id}">${documentsArray[i].textPreview}</p>
-            <p id="${documentsArray[i].id}">${parseDate(documentsArray[i].timeStamp)} </p>
+            <h3 id="${doc[i].id}">${doc[i].title.substring(0, 10)}</h3>
+            <p id="${doc[i].id}">${doc[i].textPreview}</p>
+            <p id="${doc[i].id}">${parseDate(doc[i].timeStamp)} </p>
         `
             //     addbtn.innerHTML = `
             //     <button id="${documentsArray[i].id}" > + Favorite</button>
@@ -255,11 +273,11 @@ function loadAside() {
                     e.target.classList.toggle('fa-solid');
                     e.target.classList.toggle('fa-regular');
                     if(e.target.className.includes('fa-regular')) {
-                        documentsArray[i].favourite  = false;
+                        doc[i].favourite  = false;
                     } else if (e.target.className.includes('fa-solid')){
-                        documentsArray[i].favourite = true;
+                        doc[i].favourite = true;
                     }
-                    localStorage.setItem("Documents", JSON.stringify(documentsArray));
+                    localStorage.setItem("Documents", JSON.stringify(doc));
                     return
                 }
                 //switch what doc you want to edit
