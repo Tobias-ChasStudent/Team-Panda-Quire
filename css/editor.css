@@ -223,3 +223,13 @@ h1 {
         font-size: 2em;
     }
 }
+@media print {
+    nav, aside, dialog, #editorBar {
+        display: none;
+    }
+    #editor {
+        width:100%!important;
+        padding:0!important;
+        margin:0!important;
+      }
+}
