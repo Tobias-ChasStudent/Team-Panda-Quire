@@ -7,15 +7,19 @@ const asideElement = document.querySelector("aside");
 let docCards = document.querySelectorAll('docCard');
 let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
+const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
+<<<<<<< HEAD
 const toggleFav = document.querySelector('.show-favourites');
 toggleFav.className = "favToggledOff";
 
+=======
+const searchBar = document.querySelector('#search-bar');
+>>>>>>> main
 let editorContents = "";
 let currentDoc = 0;
-
-let documentsArray = [];
+let documentsArray = []
 
 //Get a unique id
 let date = new Date()
@@ -70,8 +74,6 @@ const eventListenerToEditorBtns = function () {
     }
 }
 
-/* Store all docs in aside */
-
 
 /* Create new docs */
 btnCreate.addEventListener("click", createDoc)
@@ -107,7 +109,11 @@ function createDoc() {
         title: 'Page title',
         timeStamp: Date.now(),
         textPreview: editor.textContent.substring(0, 20),
+<<<<<<< HEAD
         favourite: false
+=======
+        tags: ""
+>>>>>>> main
     }
 
     localStorage.setItem('currentDoc', currentDocProperties.id);
@@ -126,13 +132,14 @@ function createDoc() {
     sortDocs();
 }
 
+
 function editorGetValue() {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
         currentDoc = localStorage.getItem("currentDoc");
-        let savedArray = JSON.parse(localStorage.getItem("Documents"))
-        if (currentDoc === 0) currentDoc = savedArray[0].id;
-        let docObj = savedArray.find(o => o.id == currentDoc);
+        documentsArray = JSON.parse(localStorage.getItem("Documents"))
+        if (currentDoc === 0) currentDoc = documentsArray[0].id;
+        let docObj = documentsArray.find(o => o.id == currentDoc);
         // editor.innerHTML = savedArray[0].Text;
         editor.innerHTML = docObj.Text;
         docTitle.value = docObj.title
@@ -143,13 +150,17 @@ function editorStoreValue() {
     //documentsArray = JSON.parse(localStorage.getItem("Documents"));
     for (let i = 0; i < documentsArray.length; i++) {
         if (localStorage.getItem("currentDoc") == documentsArray[i].id) {
-            console.log(documentsArray[i].title)
             documentsArray[i].title = docTitle.value;
             documentsArray[i].timeStamp = Date.now();
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
+<<<<<<< HEAD
             
             //localStorage.setItem("Documents", JSON.stringify(documentsArray));
+=======
+            //documentsArray[i].tags = ['test1', 'test2', 'test3']; //TEMPORARY
+            localStorage.setItem("Documents", JSON.stringify(documentsArray));
+>>>>>>> main
             //documentsArray[i].classList.add('active');
         }
     }
@@ -166,8 +177,6 @@ eventListenerToEditorBtns();
     editorStoreValue();
 }, 1000); */
 
-//make cursor target end of string in #editor
-
 
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
@@ -179,16 +188,19 @@ function switchCurrentEditor(id) {
     });
     doc.classList.add("active");
     localStorage.setItem('currentDoc', id);
+
+    displayTagsInEditor(id);
     editorGetValue();
 }
 
 
-sortDocOption.addEventListener('change', (e) => {
+/* sortDocOption.addEventListener('change', (e) => {
     console.log('hej', e.target.value);
     sortDocs(e.target.value)
-});
+}); */
 
 
+<<<<<<< HEAD
 function sortDocs(sort = "modNewest") {
 
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
@@ -208,13 +220,35 @@ function sortDocs(sort = "modNewest") {
             break;
         case "createdOldest":
             documentsArray.sort(({ id: a }, { id: b }) => a - b);
+=======
+function sortDocs(sort = "modNewest", docs = documentsArray) {
+    
+    // documentsArray = JSON.parse(localStorage.getItem("Documents"))
+
+    switch(sort) {
+        case "modNewest": 
+            docs.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
+            //console.log(sort);
+            break;
+        case "modOldest":
+            docs.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
+            //console.log(sort)
+            break;
+        case "createdNewest":
+            docs.sort(({id:a}, {id:b}) => b-a);
+            //console.log(sort);
+            break;
+        case "createdOldest": 
+            docs.sort(({id:a}, {id:b}) => a-b);
+>>>>>>> main
             //console.log(sort);
             break;
     }
     localStorage.setItem('Documents', JSON.stringify(documentsArray));
-    loadAside();
+    loadAside(documentsArray);
 }
 
+<<<<<<< HEAD
 function favFilter (){
     toggleFav.classList.toggle('favToggleOff');
     console.log("hi")
@@ -231,19 +265,125 @@ function favFilter (){
 toggleFav.addEventListener('click', favFilter);
 
 function loadAside(doc = documentsArray) {
+=======
+//////////////////////////////
+////search UI
+function search() {
+    documentsArray = JSON.parse(localStorage.getItem("Documents"))
+
+    searchBar.addEventListener('click', () => {
+            let previousSearchterm = localStorage.getItem('previous-searchterm');
+            console.log(previousSearchterm)
+            if(previousSearchterm !== '' && searchBar.value !== '') {
+                searchBar.value = previousSearchterm;
+            } else if (previousSearchterm == '' || searchBar.value == 'Search') { 
+            searchBar.value = ''; 
+            loadAside();
+            }
+        }
+    )
+    }
+
+    document.addEventListener('click', (e) => {
+        if(e.target != searchBar && searchBar.value == '') {
+            searchBar.value = "Search";
+            localStorage.setItem('previous-searchterm', '');
+        }
+    })
+
+    //////reset previous search-term if page reloaded
+    if (sessionStorage.getItem('reloaded') != null) {
+        localStorage.setItem('previous-searchterm', '');
+    } else {
+        console.log('page was not reloaded');
+    }
+    sessionStorage.setItem('reloaded', 'yes'); 
+
+    
+    
+   ///////////////////////////
+   ///////////////    SEARCH   ///////////////////// 
+    searchBar.addEventListener('input', (e) => {   
+    if(searchBar.value !== '') {
+        docDiv.innerHTML = "";
+        let searchTerm = e.target.value.trim().toLowerCase();
+        localStorage.setItem('previous-searchterm', searchTerm);
+        let searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
+        for (let i = 0; i < searchResult.length; i++) {
+            //highlight text?
+            //change textpreview to display substring where searchTerm is
+            if(searchResult[i].Text.toLowerCase().includes(searchTerm) && !searchResult[i].textPreview.toLowerCase().includes(searchTerm)) {
+                let textIndex = searchResult[i].Text.search(searchTerm);
+                let slicedText = searchResult[i].Text.substring(textIndex, (textIndex + 20));
+                searchResult[i].textPreview = slicedText;
+            } 
+             
+            
+            //like in loadAside(), but since filter makes a copy of original array it has to 
+            //be outputed again as to not repeatadly delete data
+            if (searchResult.length !== 0) {
+                let docListItem = document.createElement('section');
+                docListItem.setAttribute('id', searchResult[i].id)
+                docListItem.className = 'doclist-card';
+                docListItem.innerHTML = `
+                <h3 id="${searchResult[i].id}">${searchResult[i].title.substring(0, 10)}</h3>
+                <p id="${searchResult[i].id}">${searchResult[i].textPreview}</p>
+                <p id="${searchResult[i].id}">${parseDate(searchResult[i].timeStamp)}</p>
+            `
+                docDiv.appendChild(docListItem);
+    
+                 docListItem.addEventListener('click', (e) => {
+                    switchCurrentEditor(e.target.id);
+                    if(window.innerWidth < 900) {
+                    asideElement.classList.toggle('hidden')
+                    }
+                })
+            
+        } else {
+            return
+        }
+        }
+        localStorage.setItem('Filteredarray', JSON.stringify(searchResult));
+        if (localStorage.getItem('currentDoc') !== null) {
+            currentDoc = localStorage.getItem('currentDoc')
+        }    
+    } else {
+        console.log('empty')
+        loadAside();
+    }
+    })  
+
+///////////////////////////////////
+///////////////////////////////////
+
+search();
+
+function loadAside(docs = documentsArray) {
+    //localStorage.setItem('currentDoc', docs[0].id);
+>>>>>>> main
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
 
-    if (localStorage.getItem('currentDoc') !== null) {
+/*     if (localStorage.getItem('currentDoc') !== null) {
         currentDoc = localStorage.getItem('currentDoc')
-    }
+    } */
 
+<<<<<<< HEAD
     if (doc.length !== 0) {
         for (let i = 0; i < doc.length; i++) {
             let docListItem = document.createElement('section');
             // let addbtn = document.createElement('section');
             docListItem.setAttribute('id', doc[i].id)
+=======
+ //   documentsArray = JSON.parse(localStorage.getItem("Documents"));
+   
+
+    if (docs.length !== 0) {
+        for (let i = 0; i < docs.length; i++) {
+            let docListItem = document.createElement('section');
+            docListItem.setAttribute('id', docs[i].id)
+>>>>>>> main
             docListItem.className = 'doclist-card';
             // addbtn.setAttribute('id', documentsArray[i].id)
             // addbtn.className = 'doclist-card';
@@ -254,6 +394,7 @@ function loadAside(doc = documentsArray) {
 
 
             docListItem.innerHTML = `
+<<<<<<< HEAD
             <h3 id="${doc[i].id}">${doc[i].title.substring(0, 10)}</h3>
             <p id="${doc[i].id}">${doc[i].textPreview}</p>
             <p id="${doc[i].id}">${parseDate(doc[i].timeStamp)} </p>
@@ -261,6 +402,13 @@ function loadAside(doc = documentsArray) {
             //     addbtn.innerHTML = `
             //     <button id="${documentsArray[i].id}" > + Favorite</button>
             // `
+=======
+                <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
+                <p id="${docs[i].id}">${docs[i].textPreview}</p>
+                <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>`
+/*                 <p><img src="https://img.icons8.com/material-rounded/24/null/tags.png"/>${tagFunctions.findAll(docs[i].id).toString().replaceAll(',',' ')}</p>
+ */            ;
+>>>>>>> main
 
             //console.log('PROPARRAY: ' + documentsArray);
             docListItem.appendChild(btnStar);
@@ -288,20 +436,19 @@ function loadAside(doc = documentsArray) {
             })
 
         }
+        // displayTagsInEditor(currentDoc);
         switchCurrentEditor(currentDoc);
 
         //editorGetValue();
         /* eventListenerToDocCards(); */
-    } else {
-        return
-    }
+    } 
 }
 
 btnShowAside.addEventListener('click', function () {
     asideElement.classList.toggle('hidden')
 })
 
-sortDocs();
+sortDocs('modNewest', JSON.parse(localStorage.getItem("Documents")));
 
 
 //show aside by default in desktop but not in mobie
@@ -310,11 +457,9 @@ if (window.innerWidth < 900) {
 }
 asideElement.classList.toggle('hidden')
 /* 
-
 //change title border bottom to fit content
 docTitle.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
 resizeInput.call(input); // immediately call the function
-
 function resizeInput(n) {
     // const val = n ? n : this.value.length;
   this.style.width =  this.value.length + "ch";

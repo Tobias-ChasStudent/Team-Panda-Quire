@@ -41,6 +41,57 @@
     border-radius: 2px;
 }
 
+#tagsContainer {
+    display: flex;
+}
+
+.tagLabel {
+    width: fit-content;
+    height: fit-content;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    background-color: lightgray;
+}
+
+.tagLabel:hover {
+    color: red;
+    text-decoration: line-through;
+    cursor: pointer;
+}
+
+#addTag {
+    box-sizing: content-box;
+    height: 1.5rem;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+}
+
+.formAddTags {
+    display: flex;
+}
+
+#inputTags {
+    height: fit-content;
+    width: 15ch;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    background-color: lightgray;
+    border: none;
+    text-transform: uppercase;
+}
+
+#btnSaveTags {
+    margin-left: 0.1rem;
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    background-color: white;
+    border: none;
+}
+
 .doc-title {
     height: 1em;
     padding: 0.2rem;
@@ -137,6 +188,18 @@
     padding-left: 1em;
 }
 
+#search-bar {
+    border-radius: 2em;
+    border: 2px solid lightgray;
+    margin: 0.5em;
+    padding: 0.3em;
+    font-size: 0.7rem;
+}
+
+#search-bar:focus {
+    outline: none;
+}
+
 /* Content styles */
 ul {
     margin: 0.25em 1em;
@@ -222,4 +285,14 @@ h1 {
     .doc-title {
         font-size: 2em;
     }
+}
+@media print {
+    nav, aside, dialog, #editorBar {
+        display: none;
+    }
+    #editor {
+        width:100%!important;
+        padding:0!important;
+        margin:0!important;
+      }
 }
