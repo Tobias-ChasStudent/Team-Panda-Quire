@@ -54,11 +54,19 @@ const tagFunctions = {
             tagsObj[tag] = [id];
         }
         this.set();
+    },
+    remove(tag, id) {
+        tagsObj[tag].splice(tagsObj[tag].indexOf(id.toString()), 1)
+        this.set();
     }
 }
 
-const removeTag = function(tag, id) {
+const removeTag = function(e) {
+    console.log('remove', e.target.textContent, currentDoc)
+    const tag = e.target.textContent.toLowerCase();
+    tagFunctions.remove(tag, currentDoc);
 
+    displayTagsInEditor(currentDoc);
 }
 
 const displayTagsInEditor = function (id) {
@@ -68,7 +76,8 @@ const displayTagsInEditor = function (id) {
             <p class="tagLabel">${tag.toUpperCase()}</p>
         `);
     });
-    
+
+    document.querySelectorAll('.tagLabel').forEach(node => node.addEventListener('click', removeTag))
 }
 
 ////////////////////////////

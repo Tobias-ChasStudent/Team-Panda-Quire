@@ -55,6 +55,11 @@
     background-color: lightgray;
 }
 
+.tagLabel:hover {
+    color: red;
+    text-decoration: line-through;
+}
+
 #addTag {
     box-sizing: content-box;
     height: 1.5rem;
