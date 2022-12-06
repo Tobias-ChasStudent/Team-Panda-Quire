@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="css/editor.css">
-    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/filtersort.css">
     <script src="js/modal.js" defer></script>
+    <script src="js/tags.js" defer></script>
     <script src="js/editor.js" defer></script>
     <script src="js/template.js" defer></script>
-
+    <script src="js/filtersort.js" defer></script>
     <title>Quire</title>
 </head>
 
@@ -36,16 +35,30 @@
                 </li>
             </ul>
         </nav>
-        <div class="main">
-            <aside class="aside hidden">
-                <select name="" id="selectSort" class="">
-                    <option value="" selected>⇅ Sort by</option>
-                    <option class="sortOption" value="createdNewest">Created Newest</optionc>
-                    <option class="sortOption" value="createdOldest">Created oldest</optionc>
-                    <option class="sortOption" value="modNewest">Modified newest</optionc>
-                    <option class="sortOption" value="modOldest">Modified oldest</optionc>
-                </select>
-                <div id="documentCards">
+    <div class="main">
+        <aside class="aside hidden">
+            <button>Sort & filter</button>
+            <div id="menuFilterSort" class="">
+                <p>Sort</p>
+                <div class="sortFilterOptions" id="sortCreated"><i class="fa-regular fa-square" id="labelCheckCreated"></i><p>Time created</p><i class="fa-solid fa-arrow-down-wide-short" id="labelCreatedAscDesc"></i></div>
+                <div class="sortFilterOptions" id="sortModified"><i class="fa-regular fa-square" id="labelCheckModified"></i><p>Time modified</p><i class="fa-solid fa-arrow-down-wide-short" id="labelModifiedAscDesc"></i></div>
+                <p>Filter</p>
+                <div class="sortFilterOptions" id="filterFav"><i class="fa-regular fa-square" id="labelCheckFav"></i><p>Favourites</p></div>
+                <div class="sortFilterOptions" id="filterTag"><i class="fa-regular fa-square" id="labelCheckTag"></i><p>Tag</p></div>
+                <input type="text" name="findTags" id="findTags" list="tagsSuggestion"/>
+                <datalist id="tagsSuggestion"></datalist>
+                <div class="sortFilterOptions" id="filterSearch"><i class="fa-regular fa-square" id="labelCheckSearch"></i><p>Search</p></div>
+                <input type="search" id="search-bar" value="Search">
+            </div>
+             <select name="" id="selectSort" class="">
+                <option value="" selected>⇅ Sort by</option>
+                <option class="sortOption" value="createdNewest">Created Newest</optionc>
+                <option class="sortOption" value="createdOldest">Created oldest</optionc>
+                <option class="sortOption" value="modNewest">Modified newest</optionc>
+                <option class="sortOption" value="modOldest">Modified oldest</optionc>
+            </select>
+            <button class="show-favourites">Show favourites</button>
+            <div id="documentCards">
 
                 </div>
             </aside>
@@ -68,6 +81,13 @@
                     </select>
                     <button class="" id="btnSave" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
                 </div>
+            <div id="tagsContainer">
+                <form id="formAddTags" class="hidden">
+                    <input id="inputTags" type="text" name="tags" class="" value="">
+                    <button class="" id="btnSaveTags">➕</button>
+                </form>
+                <img id="addTag" src="https://img.icons8.com/ios-glyphs/30/null/add-tag.png"/>
+            </div>
                     <div class="editor-container">
                     <div id="editor" contenteditable="true">
                     </div>
@@ -147,3 +167,4 @@
 </body>
 
 </html>
+
