@@ -41,6 +41,27 @@
     border-radius: 2px;
 }
 
+#tagsContainer {
+    display: flex;
+}
+
+.tagLabel {
+    width: fit-content;
+    height: fit-content;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7em;
+    background-color: lightgray;
+}
+
+#addTag {
+    box-sizing: content-box;
+    height: 1.5rem;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+}
+
 .doc-title {
     height: 1em;
     padding: 0.2rem;

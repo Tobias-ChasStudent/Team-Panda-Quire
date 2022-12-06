@@ -7,6 +7,7 @@ const asideElement = document.querySelector("aside");
 let docCards = document.querySelectorAll('docCard');
 let editor = document.getElementById('editor');
 const docTitle = document.querySelector('.doc-title');
+const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
 let editorContents = "";
@@ -67,9 +68,6 @@ const eventListenerToEditorBtns = function () {
 }
 
 
-/* Store all docs in aside */
-
-
 /* Create new docs */
 btnCreate.addEventListener("click", createDoc)
 
@@ -128,9 +126,9 @@ function editorGetValue() {
     if (JSON.parse(localStorage.getItem("Documents")).length !== 0) {
         //Get the saved json array and convert it into a normal array
         currentDoc = localStorage.getItem("currentDoc");
-        let savedArray = JSON.parse(localStorage.getItem("Documents"))
-        if (currentDoc === 0) currentDoc = savedArray[0].id;
-        let docObj = savedArray.find(o => o.id == currentDoc);
+        documentsArray = JSON.parse(localStorage.getItem("Documents"))
+        if (currentDoc === 0) currentDoc = documentsArray[0].id;
+        let docObj = documentsArray.find(o => o.id == currentDoc);
         // editor.innerHTML = savedArray[0].Text;
         editor.innerHTML = docObj.Text;
         docTitle.value = docObj.title
@@ -163,8 +161,6 @@ eventListenerToEditorBtns();
     editorStoreValue();
 }, 1000); */
 
-//make cursor target end of string in #editor
-
 
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
@@ -176,6 +172,8 @@ function switchCurrentEditor(id) {
     });
     doc.classList.add("active");
     localStorage.setItem('currentDoc', id);
+
+    displayTagsInEditor(id);
     editorGetValue();
 }
 
@@ -186,41 +184,41 @@ sortDocOption.addEventListener('change', (e) => {
 });
 
 
-function sortDocs(sort = "modNewest") {
+function sortDocs(sort = "modNewest", docs = documentsArray) {
     
-    documentsArray = JSON.parse(localStorage.getItem("Documents"))
+    // documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
     switch(sort) {
         case "modNewest": 
-            documentsArray.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
+            docs.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
             //console.log(sort);
             break;
         case "modOldest":
-            documentsArray.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
+            docs.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
             //console.log(sort)
             break;
         case "createdNewest":
-            documentsArray.sort(({id:a}, {id:b}) => b-a);
+            docs.sort(({id:a}, {id:b}) => b-a);
             //console.log(sort);
             break;
         case "createdOldest": 
-            documentsArray.sort(({id:a}, {id:b}) => a-b);
+            docs.sort(({id:a}, {id:b}) => a-b);
             //console.log(sort);
         break;
     }
     localStorage.setItem('Documents', JSON.stringify(documentsArray));
-    loadAside();
+    loadAside(documentsArray);
 }
 
 function loadAside(docs = documentsArray) {
-    localStorage.setItem('currentDoc', docs[0].id);
+    //localStorage.setItem('currentDoc', docs[0].id);
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
 
-    if (localStorage.getItem('currentDoc') !== null) {
+/*     if (localStorage.getItem('currentDoc') !== null) {
         currentDoc = localStorage.getItem('currentDoc')
-    }
+    } */
 
     if (docs.length !== 0) {
         for (let i = 0; i < docs.length; i++) {
@@ -228,10 +226,11 @@ function loadAside(docs = documentsArray) {
             docListItem.setAttribute('id', docs[i].id)
             docListItem.className = 'doclist-card';
             docListItem.innerHTML = `
-            <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
-            <p id="${docs[i].id}">${docs[i].textPreview}</p>
-            <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>
-        `
+                <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
+                <p id="${docs[i].id}">${docs[i].textPreview}</p>
+                <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>`
+/*                 <p><img src="https://img.icons8.com/material-rounded/24/null/tags.png"/>${tagFunctions.findAll(docs[i].id).toString().replaceAll(',',' ')}</p>
+ */            ;
 
             //console.log('PROPARRAY: ' + documentsArray);
             docDiv.appendChild(docListItem);
@@ -245,20 +244,19 @@ function loadAside(docs = documentsArray) {
                 }
             })
         }
+        // displayTagsInEditor(currentDoc);
         switchCurrentEditor(currentDoc);
 
         //editorGetValue();
         /* eventListenerToDocCards(); */
-    } else {
-        return
-    }
+    } 
 }
 
 btnShowAside.addEventListener('click', function() {
     asideElement.classList.toggle('hidden')
 })
 
-sortDocs();
+sortDocs('modNewest', JSON.parse(localStorage.getItem("Documents")));
 
 //show aside by default in desktop but not in mobie
 if(window.innerWidth < 900) {

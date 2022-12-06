@@ -2,16 +2,21 @@
 let tagsObj = new Object;
 const findTags = document.getElementById('findTags');
 const tagsSuggestion = document.getElementById('tagsSuggestion');
+const inputNewTags = document.getElementById('inputTags');
 const btnSaveTags = document.getElementById('btnSaveTags');
 
 // methods for managing tags
 const tagFunctions = {
     get() {
         tagsObj = JSON.parse(localStorage.getItem('tags'));
-        return tagsObj;
+        if (!tagsObj) { // check if tagsObj is falsy
+            this.set({})
+            tagsObj = {};
+        }
+        // return tagsObj;
     },
-    set() {
-        localStorage.setItem('tags', JSON.stringify(tagsObj));
+    set(obj = tagsObj) {
+        localStorage.setItem('tags', JSON.stringify(obj));
     },
     find(tag) { //return array of id numbers for selected tag
         for (const [key, idArr] of Object.entries(tagsObj)) {
@@ -33,21 +38,18 @@ const tagFunctions = {
         return arr;
     },
     findAll(idFind) { //return array of tags for selected id number
-        const tagsArr = new Array;
-        for (const [tag, idArr] of Object.entries(tagsObj)) {
-            idArr.forEach(id => {
-                if (id == idFind) tagsArr.push(tag);
-            });
-        }
+        const tagsArr = Object.entries(tagsObj)
+            .filter(tag => tag[1].includes(idFind.toString()))
+            .map(tag => tag[0])
         return tagsArr;
     },
     allTags() { //returns array of all unique tags
         return Object.keys(tagsObj);
     },
     add(tag, id) {
-        this.get() //behövs denna?
+        this.get() 
         if (Object.keys(tagsObj).includes(tag)) {
-            tagsObj[tag].push(id);
+            if (!tagsObj[tag].includes(id)) tagsObj[tag].push(id);
         } else {
             tagsObj[tag] = [id];
         }
@@ -55,30 +57,55 @@ const tagFunctions = {
     }
 }
 
+const removeTag = function(tag, id) {
+
+}
+
+const displayTagsInEditor = function (id) {
+    document.querySelectorAll('.tagLabel').forEach(el => el.remove())
+    tagFunctions.findAll(id).forEach(tag => {
+        tagsContainer.insertAdjacentHTML('afterbegin', `
+            <p class="tagLabel">${tag.toUpperCase()}</p>
+        `);
+    });
+    
+}
+
 ////////////////////////////
 // Event listeners
 //Handles input of tags: adds tags to currentDoc
 btnSaveTags.addEventListener('click', function() {
-    //get comma separated tags to array
-    const tags = document.getElementById('inputTags').value.replaceAll(' ','').split(',');
-    console.log(tags)
+    //comma separated tags to array
+    const tags = inputNewTags.value.toLowerCase().replaceAll(' ','').split(',');
+
     tags.forEach(tag => tagFunctions.add(tag, currentDoc));
+    loadAside()
+
+    inputNewTags.value = '';
+    inputNewTags.blur();
+
 });
 
 findTags.addEventListener('change', function(e) {
-    const docs = tagFunctions.docArray(e.target.value);
+    let docs = documentsArray;
+    if (!e.target.value == '') {
+        docs = tagFunctions.docArray(e.target.value);
+    }
+
+    currentDoc = docs[0].id;
     if (docs) loadAside(docs);
 })
 
 ////////////////////////////
 //Initialization
 //Load tags to autocompletion box
-if (tagFunctions.set() == null) tagFunctions.set();
+if (tagFunctions.get() == null) tagFunctions.set();
 
 tagFunctions.get();
 let arr = new Array;
 tagFunctions.allTags().forEach(tag => {
-    tagsSuggestion.insertAdjacentHTML('beforeend', `
-    <option>${tag}</option>
-    `);
+    tagsSuggestion.insertAdjacentHTML('beforeend', 
+        `<option>${tag}</option>`
+    );
 });
+
