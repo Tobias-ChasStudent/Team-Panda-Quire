@@ -60,10 +60,12 @@
                     <option value="btnH3" class="btnsEditor" id="btnH3">Heading 3</option>
                 </select>
                 <button class="" id="btnSave" title="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-                <input id="inputTags" type="text" name="tags" class="" value="">
-                <button class="" id="btnSaveTags">Save tags</button>
             </div>
             <div id="tagsContainer">
+                <form id="formAddTags" class="hidden">
+                    <input id="inputTags" type="text" name="tags" class="" value="">
+                    <button class="" id="btnSaveTags">➕</button>
+                </form>
                 <img id="addTag" src="https://img.icons8.com/ios-glyphs/30/null/add-tag.png"/>
             </div>
             <div id="editor" contenteditable="true">

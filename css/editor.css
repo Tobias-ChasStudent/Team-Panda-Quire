@@ -51,13 +51,14 @@
     margin-left: 0.5rem;
     margin-top: 0.5rem;
     padding: 0.3rem 0.5rem;
-    font-size: 0.7em;
+    font-size: 0.7rem;
     background-color: lightgray;
 }
 
 .tagLabel:hover {
     color: red;
     text-decoration: line-through;
+    cursor: pointer;
 }
 
 #addTag {
@@ -65,6 +66,30 @@
     height: 1.5rem;
     margin-left: 0.5em;
     margin-top: 0.5em;
+}
+
+.formAddTags {
+    display: flex;
+}
+
+#inputTags {
+    height: fit-content;
+    width: 15ch;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    background-color: lightgray;
+    border: none;
+    text-transform: uppercase;
+}
+
+#btnSaveTags {
+    margin-left: 0.1rem;
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    background-color: white;
+    border: none;
 }
 
 .doc-title {

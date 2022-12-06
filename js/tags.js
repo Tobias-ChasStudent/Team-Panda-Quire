@@ -3,7 +3,9 @@ let tagsObj = new Object;
 const findTags = document.getElementById('findTags');
 const tagsSuggestion = document.getElementById('tagsSuggestion');
 const inputNewTags = document.getElementById('inputTags');
+const formAddTags = document.getElementById('formAddTags');
 const btnSaveTags = document.getElementById('btnSaveTags');
+const btnAddTag = document.getElementById('addTag');
 
 // methods for managing tags
 const tagFunctions = {
@@ -82,13 +84,21 @@ const displayTagsInEditor = function (id) {
 
 ////////////////////////////
 // Event listeners
-//Handles input of tags: adds tags to currentDoc
-btnSaveTags.addEventListener('click', function() {
+btnAddTag.addEventListener('click', function(e) {
+    formAddTags.classList.toggle('hidden');
+    formAddTags.classList.toggle('formAddTags');
+    inputNewTags.focus();
+});
+
+btnSaveTags.addEventListener('click', function(e) {
+    e.preventDefault();
     //comma separated tags to array
     const tags = inputNewTags.value.toLowerCase().replaceAll(' ','').split(',');
 
-    tags.forEach(tag => tagFunctions.add(tag, currentDoc));
-    loadAside()
+    if (tags.at(0).length > 0) {
+        tags.forEach(tag => tagFunctions.add(tag, currentDoc));
+        loadAside()
+    }
 
     inputNewTags.value = '';
     inputNewTags.blur();
@@ -98,7 +108,7 @@ btnSaveTags.addEventListener('click', function() {
 findTags.addEventListener('change', function(e) {
     let docs = documentsArray;
     if (!e.target.value == '') {
-        docs = tagFunctions.docArray(e.target.value);
+        docs = tagFunctions.docArray(e.target.value.toLowerCase());
     }
 
     currentDoc = docs[0].id;
