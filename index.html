@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/filtersort.css">
     <script src="js/modal.js" defer></script>
     <script src="js/tags.js" defer></script>
     <script src="js/editor.js" defer></script>
-
+    <script src="js/filtersort.js" defer></script>
     <title>Quire</title>
 </head>
 <body>
@@ -31,14 +32,23 @@
         </nav>
     <div class="main">
         <aside class="aside hidden">
-            <select name="" id="selectSort" class="">
+            <div id="menuFilterSort" class="">
+                <p>Sort</p>
+                <div class="sortFilterOptions" id="sortCreated"><i class="fa-regular fa-square" id="labelCheckCreated"></i><p>Time created</p><i class="fa-solid fa-arrow-down-wide-short" id="labelCreatedAscDesc"></i></div>
+                <div class="sortFilterOptions" id="sortModified"><i class="fa-regular fa-square" id="labelCheckModified"></i><p>Time modified</p><i class="fa-solid fa-arrow-down-wide-short" id="labelModifiedAscDesc"></i></div>
+                <p>Filter</p>
+                <div class="sortFilterOptions" id="filterFav"><i class="fa-regular fa-square" id="labelCheckFav"></i><p>Favourites</p></div>
+                <div class="sortFilterOptions" id="filterTag"><i class="fa-regular fa-square" id="labelCheckTag"></i><p>Tag</p></div>
+                <input type="text" name="findTags" id="findTags" list="tagsSuggestion"/>
+                <div class="sortFilterOptions" id="filterSearch"><i class="fa-regular fa-square" id="labelCheckSearch"></i><p>Search</p></div>
+            </div>
+<!--             <select name="" id="selectSort" class="">
                 <option value="" selected>⇅ Sort by</option>
-                <option class="sortOption" value="createdNewest">Created Newest</optionc>
-                <option class="sortOption" value="createdOldest">Created oldest</optionc>
-                <option class="sortOption" value="modNewest">Modified newest</optionc>
-                <option class="sortOption" value="modOldest">Modified oldest</optionc>
-            </select>
-            <input type="text" name="findTags" id="findTags" list="tagsSuggestion" />
+                <option class="sortOption" value="createdNewest">Created Newest</option>
+                <option class="sortOption" value="createdOldest">Created oldest</option>
+                <option class="sortOption" value="modNewest">Modified newest</option>
+                <option class="sortOption" value="modOldest">Modified oldest</option>
+            </select> -->
             <datalist id="tagsSuggestion">
             </datalist>
             <div id="documentCards">

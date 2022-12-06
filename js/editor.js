@@ -178,10 +178,10 @@ function switchCurrentEditor(id) {
 }
 
 
-sortDocOption.addEventListener('change', (e) => {
+/* sortDocOption.addEventListener('change', (e) => {
     console.log('hej', e.target.value);
     sortDocs(e.target.value)
-});
+}); */
 
 
 function sortDocs(sort = "modNewest", docs = documentsArray) {
