@@ -233,6 +233,16 @@ function search() {
             localStorage.setItem('previous-searchterm', '');
         }
     })
+
+    //////reset previous search-term if page reloaded
+    if (sessionStorage.getItem('reloaded') != null) {
+        localStorage.setItem('previous-searchterm', '');
+    } else {
+        console.log('page was not reloaded');
+    }
+    sessionStorage.setItem('reloaded', 'yes'); 
+
+    
     
    ///////////////////////////
    ///////////////    SEARCH   ///////////////////// 
