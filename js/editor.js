@@ -10,13 +10,10 @@ const docTitle = document.querySelector('.doc-title');
 const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
-<<<<<<< HEAD
 const toggleFav = document.querySelector('.show-favourites');
 toggleFav.className = "favToggledOff";
 
-=======
 const searchBar = document.querySelector('#search-bar');
->>>>>>> main
 let editorContents = "";
 let currentDoc = 0;
 let documentsArray = []
@@ -109,11 +106,7 @@ function createDoc() {
         title: 'Page title',
         timeStamp: Date.now(),
         textPreview: editor.textContent.substring(0, 20),
-<<<<<<< HEAD
         favourite: false
-=======
-        tags: ""
->>>>>>> main
     }
 
     localStorage.setItem('currentDoc', currentDocProperties.id);
@@ -154,13 +147,8 @@ function editorStoreValue() {
             documentsArray[i].timeStamp = Date.now();
             documentsArray[i].Text = editor.innerHTML;
             documentsArray[i].textPreview = editor.textContent.substring(0, 20);
-<<<<<<< HEAD
-            
-            //localStorage.setItem("Documents", JSON.stringify(documentsArray));
-=======
             //documentsArray[i].tags = ['test1', 'test2', 'test3']; //TEMPORARY
             localStorage.setItem("Documents", JSON.stringify(documentsArray));
->>>>>>> main
             //documentsArray[i].classList.add('active');
         }
     }
@@ -200,27 +188,6 @@ function switchCurrentEditor(id) {
 }); */
 
 
-<<<<<<< HEAD
-function sortDocs(sort = "modNewest") {
-
-    documentsArray = JSON.parse(localStorage.getItem("Documents"))
-
-    switch (sort) {
-        case "modNewest":
-            documentsArray.sort(({ timeStamp: a }, { timeStamp: b }) => b - a);
-            //console.log(sort);
-            break;
-        case "modOldest":
-            documentsArray.sort(({ timeStamp: a }, { timeStamp: b }) => a - b);
-            //console.log(sort)
-            break;
-        case "createdNewest":
-            documentsArray.sort(({ id: a }, { id: b }) => b - a);
-            //console.log(sort);
-            break;
-        case "createdOldest":
-            documentsArray.sort(({ id: a }, { id: b }) => a - b);
-=======
 function sortDocs(sort = "modNewest", docs = documentsArray) {
     
     // documentsArray = JSON.parse(localStorage.getItem("Documents"))
@@ -240,7 +207,6 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
             break;
         case "createdOldest": 
             docs.sort(({id:a}, {id:b}) => a-b);
->>>>>>> main
             //console.log(sort);
             break;
     }
@@ -248,7 +214,6 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
     loadAside(documentsArray);
 }
 
-<<<<<<< HEAD
 function favFilter (){
     toggleFav.classList.toggle('favToggleOff');
     console.log("hi")
@@ -264,8 +229,6 @@ function favFilter (){
 
 toggleFav.addEventListener('click', favFilter);
 
-function loadAside(doc = documentsArray) {
-=======
 //////////////////////////////
 ////search UI
 function search() {
@@ -360,7 +323,6 @@ search();
 
 function loadAside(docs = documentsArray) {
     //localStorage.setItem('currentDoc', docs[0].id);
->>>>>>> main
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
@@ -369,13 +331,6 @@ function loadAside(docs = documentsArray) {
         currentDoc = localStorage.getItem('currentDoc')
     } */
 
-<<<<<<< HEAD
-    if (doc.length !== 0) {
-        for (let i = 0; i < doc.length; i++) {
-            let docListItem = document.createElement('section');
-            // let addbtn = document.createElement('section');
-            docListItem.setAttribute('id', doc[i].id)
-=======
  //   documentsArray = JSON.parse(localStorage.getItem("Documents"));
    
 
@@ -383,32 +338,21 @@ function loadAside(docs = documentsArray) {
         for (let i = 0; i < docs.length; i++) {
             let docListItem = document.createElement('section');
             docListItem.setAttribute('id', docs[i].id)
->>>>>>> main
             docListItem.className = 'doclist-card';
             // addbtn.setAttribute('id', documentsArray[i].id)
             // addbtn.className = 'doclist-card';
 
             let btnStar = document.createElement('i');
-            const starTrueFalse = doc[i].favourite ? 'fa-solid' : 'fa-regular';
+            const starTrueFalse = docs[i].favourite ? 'fa-solid' : 'fa-regular';
             btnStar.className = `fa-star ${starTrueFalse}`;
 
 
             docListItem.innerHTML = `
-<<<<<<< HEAD
-            <h3 id="${doc[i].id}">${doc[i].title.substring(0, 10)}</h3>
-            <p id="${doc[i].id}">${doc[i].textPreview}</p>
-            <p id="${doc[i].id}">${parseDate(doc[i].timeStamp)} </p>
-        `
-            //     addbtn.innerHTML = `
-            //     <button id="${documentsArray[i].id}" > + Favorite</button>
-            // `
-=======
                 <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
                 <p id="${docs[i].id}">${docs[i].textPreview}</p>
                 <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>`
 /*                 <p><img src="https://img.icons8.com/material-rounded/24/null/tags.png"/>${tagFunctions.findAll(docs[i].id).toString().replaceAll(',',' ')}</p>
  */            ;
->>>>>>> main
 
             //console.log('PROPARRAY: ' + documentsArray);
             docListItem.appendChild(btnStar);
@@ -466,58 +410,3 @@ function resizeInput(n) {
 }
  */
 
-
-
-            //docDiv.appendChild(addbtn);
-          
-            //console.log("Combined " + documentsArray[i].title + " and " + documentsArray[i].textPreview);
-            //localStorage.setItem('favorites', JSON.stringify(favorites));
-            // const favorites = JSON.parse(localStorage.getItem("Fav")||[]);
-               
-            //     //const favorites = localStorage.getItem("Fav");
-            //     if (!favorites) {
-            //         localStorage.setItem("Fav", JSON.stringify({ stores: [] }));
-            //         favorites = JSON.parse(localStorage.getItem("Fav"));
-            //     } else {
-            //         favorites = JSON.parse(favorites);
-            //     }
-
-            //     favorites.stores.push(storeName);
-
-            // docListItem.addEventListener('click', (e) => {
-            //     console.log("hi");
-            //     console.log("My new log"+documentsArray[i].id);
-
-               // let storeName = $(e.target).parents()[documentsArray[i].id].innerHTML;
-                
-
-                //localStorage.setItem("Fav", JSON.stringify(favorites));
-                //localStorage.setItem('currentDoc', id);
-
-            //});
-
-            // get favorites from local storage or empty array
-            // var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            // // add class 'fav' to each favorite
-            // favorites.forEach(function (favorite) {
-            //     document.getElementById(favorite).className = 'fav';
-            // });
-            // register click event listener
-            // addbtn.addEventListener('click', function (e) {
-            //     var id = e.target.id,
-            //         item = e.target,
-            //         index = favorites.indexOf(id);
-            //     // return if target doesn't have an id (shouldn't happen)
-            //     if (!id) return;
-            //     // item is not favorite
-            //     if (index == -1) {
-            //         favorites.push(id);
-            //         item.className = 'fav';
-            //         // item is already favorite
-            //     } else {
-            //         favorites.splice(index, 1);
-            //         item.className = '';
-            //     }
-            //     // store array in local storage
-            //     localStorage.setItem('favorites', JSON.stringify(favorites));
-            // });
