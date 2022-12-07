@@ -103,7 +103,7 @@
 }
 
 .doc-title {
-    height: 1em;
+    height: 1.5em;
     padding: 0.2rem;
     width: 140px;
     background-color: transparent;
@@ -187,6 +187,8 @@
 }
 
 .doclist-card>h3 {
+    inline-size: 30ch;
+    overflow-wrap: break-word;
     margin-top: 0;
     margin-block-end: 0;
     padding-bottom: 0.5em;

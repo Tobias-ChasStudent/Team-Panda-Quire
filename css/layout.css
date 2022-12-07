@@ -69,10 +69,7 @@ aside {
     width: 100%;
     /* height: 100%; */
 }
-#documentCards h3 {
-    display: flex;
-    justify-content: space-between;
-}
+
 .fa-trash-can {
     z-index: 9001;
 }
