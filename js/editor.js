@@ -167,9 +167,9 @@ eventListenerToEditorBtns();
 
 
 //autosave
-/* setInterval(() => {
+setInterval(() => {
     editorStoreValue();
-}, 3000); */
+}, 3000);
 
 
 const updateCurrentDocAside = function() {
