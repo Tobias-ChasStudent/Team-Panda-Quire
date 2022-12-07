@@ -11,6 +11,7 @@ const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
 const toggleFav = document.querySelector('.show-favourites');
+const trashCans = []
 toggleFav.className = "favToggledOff";
 
 const searchBar = document.querySelector('#search-bar');
@@ -173,16 +174,18 @@ eventListenerToEditorBtns();
 document.getElementById('btnSave').addEventListener("click", editorStoreValue)
 
 function switchCurrentEditor(id) {
-    const allDocSections = document.querySelectorAll("#documentCards>section")
-    const doc = document.getElementById(id);
-    allDocSections.forEach(element => {
-        element.classList.remove("active");
-    });
-    doc.classList.add("active");
-    localStorage.setItem('currentDoc', id);
-
-    displayTagsInEditor(id);
-    editorGetValue();
+    if (id != "") {
+        const allDocSections = document.querySelectorAll("#documentCards>section")
+        const doc = document.getElementById(id);
+        allDocSections.forEach(element => {
+            element.classList.remove("active");
+        });
+        doc.classList.add("active");
+        localStorage.setItem('currentDoc', id);
+    
+        displayTagsInEditor(id);
+        editorGetValue();
+    }
 }
 
 
@@ -285,35 +288,8 @@ function search() {
                 searchResult[i].textPreview = slicedText;
             } 
              
-            
-            //like in loadAside(), but since filter makes a copy of original array it has to 
-            //be outputed again as to not repeatadly delete data
-            if (searchResult.length !== 0) {
-                let docListItem = document.createElement('section');
-                docListItem.setAttribute('id', searchResult[i].id)
-                docListItem.className = 'doclist-card';
-                docListItem.innerHTML = `
-                <h3 id="${searchResult[i].id}">${searchResult[i].title.substring(0, 10)}</h3>
-                <p id="${searchResult[i].id}">${searchResult[i].textPreview}</p>
-                <p id="${searchResult[i].id}">${parseDate(searchResult[i].timeStamp)}</p>
-            `
-                docDiv.appendChild(docListItem);
-    
-                 docListItem.addEventListener('click', (e) => {
-                    switchCurrentEditor(e.target.id);
-                    if(window.innerWidth < 900) {
-                    asideElement.classList.toggle('hidden')
-                    }
-                })
-            
-        } else {
-            return
+            loadAside(searchResult);
         }
-        }
-        localStorage.setItem('Filteredarray', JSON.stringify(searchResult));
-        if (localStorage.getItem('currentDoc') !== null) {
-            currentDoc = localStorage.getItem('currentDoc')
-        }    
     } else {
         console.log('empty')
         loadAside();
@@ -325,7 +301,7 @@ function search() {
 
 search();
 
-function loadAside(docs = documentsArray) {
+function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     //localStorage.setItem('currentDoc', docs[0].id);
     docDiv.innerHTML = "";
     //Parse text and properties local storage
@@ -335,7 +311,7 @@ function loadAside(docs = documentsArray) {
         currentDoc = localStorage.getItem('currentDoc')
     } */
 
- //   documentsArray = JSON.parse(localStorage.getItem("Documents"));
+
    
 
     if (docs.length !== 0) {
@@ -349,10 +325,12 @@ function loadAside(docs = documentsArray) {
             let btnStar = document.createElement('i');
             const starTrueFalse = docs[i].favourite ? 'fa-solid' : 'fa-regular';
             btnStar.className = `fa-star ${starTrueFalse}`;
-
-
+            const deleteBtn = document.createElement('i');
+            deleteBtn.className = 'fa-trash-can fa-regular ${docs[i].id}';
+            
             docListItem.innerHTML = `
-                <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
+                    <h3 id="${docs[i].id}">${docs[i].title.substring(0, 10)}</h3>
+
                 <p id="${docs[i].id}">${docs[i].textPreview}</p>
                 <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>`
 /*                 <p><img src="https://img.icons8.com/material-rounded/24/null/tags.png"/>${tagFunctions.findAll(docs[i].id).toString().replaceAll(',',' ')}</p>
@@ -360,10 +338,11 @@ function loadAside(docs = documentsArray) {
 
             //console.log('PROPARRAY: ' + documentsArray);
             docListItem.appendChild(btnStar);
+            docListItem.appendChild(deleteBtn);
             docDiv.appendChild(docListItem);
 
 
-            
+            //favourite event function
             docListItem.addEventListener('click', (e) => {
                 if(e.target.className.includes('fa-star')) {
                     e.target.classList.toggle('fa-solid');
@@ -377,12 +356,30 @@ function loadAside(docs = documentsArray) {
                     return
                 }
                 //switch what doc you want to edit
+            
                 switchCurrentEditor(e.target.id);
+                
+
+
                 if (window.innerWidth < 900) {
                     asideElement.classList.toggle('hidden')
                 }
             })
+            
+            /* deleteBtn.addEventListener('click', () => {
+                if(docs[i].id != currentDoc) {
+                let index = docs.indexOf(docs[i]);
+                console.log("The index of the pressed trashcan", index)
+                console.log(docs.splice(index, 1));
+                docs.splice(index, 1); 
+                
+                localStorage.setItem('Documents', JSON.stringify(docs));
+                loadAside();
+                } else (console.log('nej   '))
+            }) */
+        
 
+            console.log(docs)
         }
         // displayTagsInEditor(currentDoc);
         switchCurrentEditor(currentDoc);
