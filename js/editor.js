@@ -369,11 +369,11 @@ function loadAside(docs = documentsArray) {
                     e.target.classList.toggle('fa-solid');
                     e.target.classList.toggle('fa-regular');
                     if(e.target.className.includes('fa-regular')) {
-                        doc[i].favourite  = false;
+                        docs[i].favourite  = false;
                     } else if (e.target.className.includes('fa-solid')){
-                        doc[i].favourite = true;
+                        docs[i].favourite = true;
                     }
-                    localStorage.setItem("Documents", JSON.stringify(doc));
+                    localStorage.setItem("Documents", JSON.stringify(docs));
                     return
                 }
                 //switch what doc you want to edit
