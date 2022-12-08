@@ -40,7 +40,8 @@ const editorButtons = {
     btnIndent: ['indent'],
     btnH1: ['formatBlock', false, "H1"],
     btnH2: ['formatBlock', false, "H2"],
-    btnH3: ['formatBlock', false, "H3"]
+    btnH3: ['formatBlock', false, "H3"],
+    btnBody: ['removeFormat']
 }
 
 const eventListenerToEditorBtns = function () {
@@ -50,6 +51,8 @@ const eventListenerToEditorBtns = function () {
             type.addEventListener('change', function (event) {
                 const idBtn = event.target.value;
                 document.execCommand(...editorButtons[idBtn]);
+                console.log('test', ...editorButtons[idBtn])
+
             });
         } else {
             const idBtn = btn.getAttribute('id');

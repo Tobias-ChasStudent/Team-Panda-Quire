@@ -74,9 +74,13 @@ const removeTag = function(e) {
 const displayTagsInEditor = function (id) {
     document.querySelectorAll('.tagLabel').forEach(el => el.remove())
     tagFunctions.findAll(id).forEach(tag => {
-        tagsContainer.insertAdjacentHTML('afterbegin', `
+        const tagNode = document.createElement('p');
+        tagNode.classList.add('tagLabel');
+        tagNode.textContent = tag.toUpperCase();
+        formAddTags.before(tagNode);
+/*         tagsContainer.insertAdjacentHTML('beforeend', `
             <p class="tagLabel">${tag.toUpperCase()}</p>
-        `);
+        `); */
     });
 
     document.querySelectorAll('.tagLabel').forEach(node => node.addEventListener('click', removeTag))
@@ -97,7 +101,7 @@ btnSaveTags.addEventListener('click', function(e) {
 
     if (tags.at(0).length > 0) {
         tags.forEach(tag => tagFunctions.add(tag, currentDoc));
-        loadAside()
+        displayTagsInEditor(currentDoc);
     }
 
     inputNewTags.value = '';
