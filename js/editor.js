@@ -29,22 +29,7 @@ const parseDate = function (unixTime) {
     return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
 }
 
-//If there isn't a localstorage item with the name "docTextsID", make one
-if (!localStorage.getItem('Documents')) {
 
-    createDoc()
-
-    console.log(documentsArray)
-    console.log('PROPARR' + documentsArray)
-
-    localStorage.setItem("Documents", JSON.stringify(documentsArray))
-
-} else {
-    editorGetValue();
-    loadAside();
-    currentDoc = localStorage.getItem('currentDoc');
-    switchCurrentEditor(currentDoc);
-}
 
 const editorButtons = {
     btnBold: ['bold'],
@@ -107,11 +92,13 @@ function createDoc() {
     let currentDocProperties = {
         id: docID,
         Text: "",
-        title: 'Page title',
+        title: 'Page titles',
         timeStamp: Date.now(),
         textPreview: editor.textContent.substring(0, 20),
         favourite: false
     }
+
+    currentDoc = currentDocProperties.id;
 
     localStorage.setItem('currentDoc', currentDocProperties.id);
 
@@ -126,7 +113,8 @@ function createDoc() {
 
     //push Documents-array into aside-list
 
-    sortDocs();
+    /* loadAside(); */
+    sortDocs('modNewest');
 }
 
 
@@ -167,22 +155,23 @@ eventListenerToEditorBtns();
 
 
 //autosave
-setInterval(() => {
+/* setInterval(() => {
     editorStoreValue();
-}, 3000);
+}, 3000); */
 
 
 const updateCurrentDocAside = function() {
+    const index = documentsArray.findIndex(el => el.id == currentDoc)
+    console.log('index', index, currentDoc)
     const section = document.getElementById(currentDoc);
     const title = section.children[0];
     const textpreview = section.children[1];
     const date = section.children[2];
 
     section.classList.add('active');
-    title.textContent = docTitle.value;
-    textpreview.textContent = editor.textContent.substring(0, 20);
+    title.textContent = documentsArray[index].title
+    textpreview.textContent = documentsArray[index].textPreview;
     date.textContent = parseDate(Date.now());
-
 }
 
 
@@ -271,14 +260,12 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     docDiv.innerHTML = "";
     //Parse text and properties local storage
 
+    
 
 /*     if (localStorage.getItem('currentDoc') !== null) {
         currentDoc = localStorage.getItem('currentDoc')
     } */
-
-
-   
-
+    
     if (docs.length !== 0) {
         for (let i = 0; i < docs.length; i++) {
             let docListItem = document.createElement('section');
@@ -286,6 +273,8 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
             docListItem.className = 'doclist-card';
             // addbtn.setAttribute('id', documentsArray[i].id)
             // addbtn.className = 'doclist-card';
+
+            console.log('documentsarray: ', documentsArray)
 
             let btnStar = document.createElement('i');
             const starTrueFalse = docs[i].favourite ? 'fa-solid' : 'fa-regular';
@@ -321,19 +310,31 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                     }
                     localStorage.setItem("Documents", JSON.stringify(documentsArray));
                     return
+                } else if (e.target.className.includes('fa-trash-can')) {
+                    const docId = e.target.parentElement.id
+                    const index = docs.findIndex(el => el.id == docId)
+                    if(docs[i].id != currentDoc) {
+                    console.log("The index of the pressed trashcan", index)
+    
+                    console.log('removed', docs.splice(index, 1)); 
+                    
+                    localStorage.setItem('Documents', JSON.stringify(docs));
+                    loadAside();
+                    } else (alert('Can not remove opened document.'))
+                    return
                 }
                 //switch what doc you want to edit
             
                 switchCurrentEditor(e.target.id);
-                
-
-
+            
                 if (window.innerWidth < 900) {
                     asideElement.classList.toggle('hidden')
                 }
             })
+
+        
             
-            deleteBtn.addEventListener('click', (e) => {
+           /*  deleteBtn.addEventListener('click', (e) => {
                 const docId = e.target.parentElement.id
                 const index = docs.findIndex(el => el.id == docId)
                 if(docs[i].id != currentDoc) {
@@ -344,7 +345,7 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                 localStorage.setItem('Documents', JSON.stringify(docs));
                 loadAside();
                 } else (alert('Can not remove opened document.'))
-            })
+            }) */
         
 
         }
@@ -354,6 +355,7 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
 
         //editorGetValue();
         /* eventListenerToDocCards(); */
+        updateCurrentDocAside()
     } 
 }
 
@@ -363,6 +365,23 @@ btnShowAside.addEventListener('click', function () {
 
 //sortDocs('modNewest', JSON.parse(localStorage.getItem("Documents")));
 
+
+//If there isn't a localstorage item with the name "docTextsID", make one
+if (!localStorage.getItem('Documents')) {
+
+    createDoc()
+
+    console.log(documentsArray)
+    console.log('PROPARR' + documentsArray)
+
+    localStorage.setItem("Documents", JSON.stringify(documentsArray))
+
+} else {
+    editorGetValue();
+    loadAside();
+    currentDoc = localStorage.getItem('currentDoc');
+    switchCurrentEditor(currentDoc);
+}
 
 //show aside by default in desktop but not in mobie
 if (window.innerWidth < 900) {
