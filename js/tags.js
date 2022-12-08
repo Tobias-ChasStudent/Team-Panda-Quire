@@ -59,6 +59,7 @@ const tagFunctions = {
     },
     remove(tag, id) {
         tagsObj[tag].splice(tagsObj[tag].indexOf(id.toString()), 1)
+        if (tagsObj[tag][0] == undefined) delete tagsObj[tag];
         this.set();
     }
 }
@@ -78,9 +79,6 @@ const displayTagsInEditor = function (id) {
         tagNode.classList.add('tagLabel');
         tagNode.textContent = tag.toUpperCase();
         formAddTags.before(tagNode);
-/*         tagsContainer.insertAdjacentHTML('beforeend', `
-            <p class="tagLabel">${tag.toUpperCase()}</p>
-        `); */
     });
 
     document.querySelectorAll('.tagLabel').forEach(node => node.addEventListener('click', removeTag))
@@ -102,6 +100,7 @@ btnSaveTags.addEventListener('click', function(e) {
     if (tags.at(0).length > 0) {
         tags.forEach(tag => tagFunctions.add(tag, currentDoc));
         displayTagsInEditor(currentDoc);
+        autocompletion();
     }
 
     inputNewTags.value = '';
@@ -119,16 +118,19 @@ findTags.addEventListener('change', function(e) {
     if (docs) loadAside(docs);
 })
 
+const autocompletion = function () {let arr = new Array;
+    tagFunctions.allTags().forEach(tag => {
+        tagsSuggestion.insertAdjacentHTML('beforeend', 
+            `<option>${tag}</option>`
+        );
+    });
+    }
+
 ////////////////////////////
 //Initialization
 //Load tags to autocompletion box
 if (tagFunctions.get() == null) tagFunctions.set();
 
 tagFunctions.get();
-let arr = new Array;
-tagFunctions.allTags().forEach(tag => {
-    tagsSuggestion.insertAdjacentHTML('beforeend', 
-        `<option>${tag}</option>`
-    );
-});
 
+autocompletion();
