@@ -1,3 +1,7 @@
+let inSearchMode = false;
+const searchBar = document.querySelector('#search-bar');
+let searchResult = [];
+
 ////search 
 function search() {
     documentsArray = JSON.parse(localStorage.getItem("Documents"))
@@ -36,19 +40,20 @@ function search() {
         docDiv.innerHTML = "";
         let searchTerm = e.target.value.trim().toLowerCase();
         localStorage.setItem('previous-searchterm', searchTerm);
-        let searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
+        searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
         for (let i = 0; i < searchResult.length; i++) {
             //highlight text?
             //change textpreview to display substring where searchTerm is
-            if(searchResult[i].Text.toLowerCase().includes(searchTerm) && !searchResult[i].textPreview.toLowerCase().includes(searchTerm)) {
-                let hiddenEL = document.createElement('div');
-                hiddenEL.style.display = 'none';
-                document.getElementsByTagName('body').appendChild(hiddenEL);
-                
-                let textIndex = searchResult[i].Text.search(searchTerm);
-                let slicedText = searchResult[i].Text.textContent.substring(textIndex, (textIndex + 20));
+            if(searchResult[i].Text.toLowerCase().includes(searchTerm)) {
+                hiddenEL.innerHTML = searchResult[i].Text;
+                const cleanText = hiddenEL.textContent.replace(/\s{2,}/g,' ').trim();
+
+                let textIndex = cleanText.toLowerCase().search(searchTerm);
+                let slicedText = cleanText.substring(textIndex, (textIndex + 20));
                 searchResult[i].textPreview = slicedText;
-            } 
+                console.log('search array',searchResult[i].textPreview, documentsArray[i].textPreview)
+                console.log('index effected by if' , i)
+            }
 
             let currentSearch = searchResult.findIndex(searchEl => searchEl.id == currentDoc)
 
@@ -57,14 +62,28 @@ function search() {
             } else {
                 currentDoc == searchResult[currentSearch].id;
             }
-             
-
             loadAside(searchResult);
+
         }
-    } else {
+        console.log('searchjs ' , searchResult[i].textPreview, documentsArray[i].textPreview)
+        inSearchMode = true;
+        console.log(inSearchMode)
+    } else if (searchBar.value == '' || searchBar.value == 'Search') {
         console.log('empty')
         loadAside();
+        inSearchMode = false;
+        console.log(inSearchMode)
     }
+
     })  
+
+
+
+let hiddenEL = document.createElement('div');
+hiddenEL.id = 'convertToText';
+// hiddenEL.style.display = 'none';
+const bodyEl = document.querySelector('body');
+bodyEl.appendChild(hiddenEL); 
+
 
 search();

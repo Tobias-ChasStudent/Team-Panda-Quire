@@ -14,7 +14,7 @@ const toggleFav = document.querySelector('.show-favourites');
 const trashCans = []
 toggleFav.className = "favToggledOff";
 
-const searchBar = document.querySelector('#search-bar');
+
 let editorContents = "";
 let currentDoc = 0;
 let documentsArray = []
@@ -111,46 +111,63 @@ function editorGetValue() {
 }
 
 function editorStoreValue() {
-    //documentsArray = JSON.parse(localStorage.getItem("Documents"));
-    for (let i = 0; i < documentsArray.length; i++) {
-        if (localStorage.getItem("currentDoc") == documentsArray[i].id) {
-            documentsArray[i].title = docTitle.value;
-            documentsArray[i].timeStamp = Date.now();
-            documentsArray[i].Text = editor.innerHTML;
-            documentsArray[i].textPreview = editor.textContent.substring(0, 20);
-            //documentsArray[i].tags = ['test1', 'test2', 'test3']; //TEMPORARY
-            localStorage.setItem("Documents", JSON.stringify(documentsArray));
-            //documentsArray[i].classList.add('active');
-        }
-    }
+    const index = documentsArray.findIndex(el => el.id == currentDoc)
+
+    documentsArray[index].title = docTitle.value;
+    documentsArray[index].timeStamp = Date.now();
+    documentsArray[index].Text = editor.innerHTML;
+    documentsArray[index].textPreview = editor.textContent.replace(/\s{2,}/g,' ').trim().substring(0, 20);
     localStorage.setItem("Documents", JSON.stringify(documentsArray));
-    updateCurrentDocAside();
-}
+ }
 
 eventListenerToEditorBtns();
 
+const saveDocument = function () {
+    console.log('auto save before editorstorevalue', searchResult);
+
+    console.log('autosave docarray' , documentsArray[0].textPreview)
+
+    if (inSearchMode) {
+        console.log('in search mode');
+        console.log('auto save', searchResult);
+        updateCurrentDocAside(searchResult);
+    } else if (!inSearchMode) {
+        console.log('not in search mode')
+
+        updateCurrentDocAside()
+    }
+    
+    editorStoreValue();
+}
+
 //autosave
 setInterval(() => {
-    editorStoreValue();
+    // saveDocument()
 }, 3000);
 
 
-const updateCurrentDocAside = function() {
-    const index = documentsArray.findIndex(el => el.id == currentDoc)
-    console.log('index', index, currentDoc)
+const updateCurrentDocAside = function(docs = documentsArray) {
+    const index = docs.findIndex(el => el.id == currentDoc)
     const section = document.getElementById(currentDoc);
     const title = section.children[0];
     const textpreview = section.children[1];
     const date = section.children[2];
 
     section.classList.add('active');
-    title.textContent = documentsArray[index].title
-    textpreview.textContent = documentsArray[index].textPreview;
+    title.textContent = docs[index].title
+
+    /* if(searchBar.value == '' && searchBar.value == 'Search' && searchBar.value == localStorage.getItem('previous-searchterm')) { */
+    textpreview.textContent = docs[index].textPreview;
+   /*  } */
+
     date.textContent = parseDate(Date.now());
 }
 
 
-document.getElementById('btnSave').addEventListener("click", editorStoreValue)
+document.getElementById('btnSave').addEventListener("click", () => {
+    saveDocument();
+    updateCurrentDocAside();
+})
 
 function switchCurrentEditor(id) {
    // if (id != "") {
@@ -310,4 +327,4 @@ if (!localStorage.getItem('Documents')) {
 if (window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
 }
-asideElement.classList.toggle('hidden')
+asideElement.classList.toggle('hidden');
