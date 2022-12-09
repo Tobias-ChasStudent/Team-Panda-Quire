@@ -65,7 +65,7 @@ function search() {
             loadAside(searchResult);
 
         }
-        console.log('searchjs ' , searchResult[i].textPreview, documentsArray[i].textPreview)
+        console.log('searchjs ' , searchResult[0].textPreview, documentsArray[0].textPreview)
         inSearchMode = true;
         console.log(inSearchMode)
     } else if (searchBar.value == '' || searchBar.value == 'Search') {

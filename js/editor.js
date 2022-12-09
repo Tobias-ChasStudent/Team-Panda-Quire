@@ -123,20 +123,20 @@ function editorStoreValue() {
 eventListenerToEditorBtns();
 
 const saveDocument = function () {
-    console.log('auto save before editorstorevalue', searchResult);
-
-    console.log('autosave docarray' , documentsArray[0].textPreview)
+/*     console.log('auto save before editorstorevalue, searchresult', searchResult[0].textPreview);
+ */    console.log('autosave docarray' , documentsArray[0].textPreview)
 
     if (inSearchMode) {
         console.log('in search mode');
-        console.log('auto save', searchResult);
+        console.log('auto save search result', searchResult[0].textPreview);
+        console.log('auto save doc array', searchResult[0].textPreview);
         updateCurrentDocAside(searchResult);
     } else if (!inSearchMode) {
         console.log('not in search mode')
 
         updateCurrentDocAside()
     }
-    
+
     editorStoreValue();
 }
 
@@ -173,7 +173,7 @@ function switchCurrentEditor(id) {
    // if (id != "") {
     console.log('switch' + id)
     const allDocSections = document.querySelectorAll("#documentCards>section")
-    console.log(allDocSections)
+    // console.log(allDocSections)
     const doc = document.getElementById(id);
     allDocSections.forEach(element => {
         element.classList.remove("active");
