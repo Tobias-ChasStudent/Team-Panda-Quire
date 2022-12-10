@@ -11,6 +11,8 @@ const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
 const toggleFav = document.querySelector('.show-favourites');
+const showFilter = document.querySelector('.show-filter');
+const filterMenu = document.querySelector('#menuFilterSort');
 const trashCans = []
 toggleFav.className = "favToggledOff";
 
@@ -133,7 +135,6 @@ const saveDocument = function () {
         updateCurrentDocAside(searchResult);
     } else if (!inSearchMode) {
         console.log('not in search mode')
-
         updateCurrentDocAside()
     }
 
@@ -216,6 +217,7 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
 }
 
 function favFilter (){
+    documentsArray = JSON.parse(localStorage.getItem("Documents"));
     toggleFav.classList.toggle('favToggleOff');
     let favDocs = [];
     favDocs = toggleFav.className.includes('favToggleOff') ? documentsArray.filter(fav => fav.favourite == true) : documentsArray;
@@ -263,17 +265,17 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
             //favourite event function
             docListItem.addEventListener('click', (e) => {
                 const docId = e.target.parentElement.id
-                const index = documentsArray.findIndex(el => el.id == docId)
+                const index = docs.findIndex(el => el.id == docId)
                 console.log(docId, index)
                 if(e.target.className.includes('fa-star')) {
                     e.target.classList.toggle('fa-solid');
                     e.target.classList.toggle('fa-regular');
                     if(e.target.className.includes('fa-regular')) {
-                        documentsArray[index].favourite  = false;
+                        docs[index].favourite  = false;
                     } else if (e.target.className.includes('fa-solid')){
-                        documentsArray[index].favourite = true;
+                        docs[index].favourite = true;
                     }
-                    localStorage.setItem("Documents", JSON.stringify(documentsArray));
+                    localStorage.setItem("Documents", JSON.stringify(docs));
                     return
                 } else if (e.target.className.includes('fa-trash-can')) {
                     const docId = e.target.parentElement.id
@@ -282,6 +284,8 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                     console.log("The index of the pressed trashcan", index)
     
                     console.log('removed', docs.splice(index, 1)); 
+                    //tar bort för många items, om tar bort vid favoritfiltrerat?
+                    /* docs.splice(index, 1); */
                     
                     localStorage.setItem('Documents', JSON.stringify(docs));
                     loadAside();
@@ -328,3 +332,7 @@ if (window.innerWidth < 900) {
     asideElement.classList.toggle('hidden')
 }
 asideElement.classList.toggle('hidden');
+
+showFilter.addEventListener('click', () => {
+    filterMenu.classList.toggle('hidden');
+})

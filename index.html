@@ -40,8 +40,9 @@
         </nav>
     <div class="main">
         <aside class="aside hidden">
-            <button>Sort & filter</button>
-            <div id="menuFilterSort" class="">
+            <input type="search" id="search-bar" value="Search">
+            <button class="show-filter">Sort & filter</button>
+            <div id="menuFilterSort" class="hidden">
                 <p>Sort</p>
                 <div class="sortFilterOptions" id="sortCreated"><i class="fa-regular fa-square" id="labelCheckCreated"></i><p>Time created</p><i class="fa-solid fa-arrow-down-wide-short" id="labelCreatedAscDesc"></i></div>
                 <div class="sortFilterOptions" id="sortModified"><i class="fa-regular fa-square" id="labelCheckModified"></i><p>Time modified</p><i class="fa-solid fa-arrow-down-wide-short" id="labelModifiedAscDesc"></i></div>
@@ -51,8 +52,8 @@
                 <input type="text" name="findTags" id="findTags" list="tagsSuggestion"/>
                 <datalist id="tagsSuggestion"></datalist>
                 <div class="sortFilterOptions" id="filterSearch"><i class="fa-regular fa-square" id="labelCheckSearch"></i><p>Search</p></div>
-                <input type="search" id="search-bar" value="Search">
             </div>
+           
              <select name="" id="selectSort" class="">
                 <option value="" selected>⇅ Sort by</option>
                 <option class="sortOption" value="createdNewest">Created Newest</optionc>
@@ -60,7 +61,7 @@
                 <option class="sortOption" value="modNewest">Modified newest</optionc>
                 <option class="sortOption" value="modOldest">Modified oldest</optionc>
             </select>
-            <button class="show-favourites">Show favourites</button>
+            <button id="display-favourites" class="show-favourites">Show favourites</button>
             <div id="documentCards">
 
                 </div>
