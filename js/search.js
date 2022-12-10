@@ -83,6 +83,7 @@ let hiddenEL = document.createElement('div');
 hiddenEL.id = 'convertToText';
 // hiddenEL.style.display = 'none';
 const bodyEl = document.querySelector('body');
+hiddenEL.style.display = 'none';
 bodyEl.appendChild(hiddenEL); 
 
 

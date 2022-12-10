@@ -250,6 +250,7 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
             btnStar.className = `fa-star ${starTrueFalse}`;
             const deleteBtn = document.createElement('i');
             deleteBtn.className = `fa-trash-can fa-regular ${docs[i].id}`;
+            deleteBtn.style.marginLeft = '1vh';
             
             docListItem.innerHTML = `
                 <h3 id="${docs[i].id}">${docs[i].title.substring(0, 40)}</h3>
@@ -285,7 +286,7 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     
                     console.log('removed', docs.splice(index, 1)); 
                     //tar bort för många items, om tar bort vid favoritfiltrerat?
-                    /* docs.splice(index, 1); */
+                    
                     
                     localStorage.setItem('Documents', JSON.stringify(docs));
                     loadAside();

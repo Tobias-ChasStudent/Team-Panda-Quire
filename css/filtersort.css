@@ -29,6 +29,11 @@
     border-radius: 2em;
 }
 
+
+#display-favourites {
+    margin: 0.5rem;
+}
+
 .sortFilterOptions > * {
     margin-left: 0.5em;
 }
