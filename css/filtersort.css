@@ -1,5 +1,5 @@
 #menuFilterSort {
-    padding: 1em;
+    padding: 0 1em 1em 1em;
 }
 
 #menuFilterSort > p {
@@ -22,13 +22,16 @@
 
 }
 
-.show-filter, #display-favourites {
+.sort-button {
     background-color: white;
     padding: 0.2rem;
     border: 1px solid gray;
     border-radius: 2em;
 }
 
+.toggle-button {
+    background-color: rgb(224, 220, 220);
+}
 
 #display-favourites {
     margin: 0.5rem;
@@ -44,11 +47,16 @@
 
 }
 
+#filterTag p {
+    width: fit-content;
+}
+
 #labelCheckCreated {
     display: flex;
 }
 
 #findTags {
-    margin-left: 2em;
+    margin-left: 1em;
     width: 15ch;
 }
+

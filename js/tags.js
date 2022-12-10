@@ -1,7 +1,7 @@
 'use strict'
 let tagsObj = new Object;
 const findTags = document.getElementById('findTags');
-const tagsSuggestion = document.getElementById('tagsSuggestion');
+const selectFindTags = document.getElementById('findTags');
 const inputNewTags = document.getElementById('inputTags');
 const formAddTags = document.getElementById('formAddTags');
 const btnSaveTags = document.getElementById('btnSaveTags');
@@ -22,7 +22,6 @@ const tagFunctions = {
     },
     find(tag) { //return array of id numbers for selected tag
         for (const [key, idArr] of Object.entries(tagsObj)) {
-            console.log(key);
             if (tag == key) return idArr;
         }
     },
@@ -86,7 +85,7 @@ const displayTagsInEditor = function (id) {
 
 ////////////////////////////
 // Event listeners
-btnAddTag.addEventListener('click', function(e) {
+btnAddTag.addEventListener('click', function() {
     formAddTags.classList.toggle('hidden');
     formAddTags.classList.toggle('formAddTags');
     inputNewTags.focus();
@@ -100,7 +99,7 @@ btnSaveTags.addEventListener('click', function(e) {
     if (tags.at(0).length > 0) {
         tags.forEach(tag => tagFunctions.add(tag, currentDoc));
         displayTagsInEditor(currentDoc);
-        autocompletion();
+        selectTagsMenu();
     }
 
     inputNewTags.value = '';
@@ -108,29 +107,3 @@ btnSaveTags.addEventListener('click', function(e) {
 
 });
 
-findTags.addEventListener('change', function(e) {
-    let docs = documentsArray;
-    if (!e.target.value == '') {
-        docs = tagFunctions.docArray(e.target.value.toLowerCase());
-    }
-
-    currentDoc = docs[0].id;
-    if (docs) loadAside(docs);
-})
-
-const autocompletion = function () {let arr = new Array;
-    tagFunctions.allTags().forEach(tag => {
-        tagsSuggestion.insertAdjacentHTML('beforeend', 
-            `<option>${tag}</option>`
-        );
-    });
-    }
-
-////////////////////////////
-//Initialization
-//Load tags to autocompletion box
-if (tagFunctions.get() == null) tagFunctions.set();
-
-tagFunctions.get();
-
-autocompletion();

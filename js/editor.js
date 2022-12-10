@@ -10,12 +10,10 @@ const docTitle = document.querySelector('.doc-title');
 const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
-const toggleFav = document.querySelector('.show-favourites');
+
 const showFilter = document.querySelector('.show-filter');
 const filterMenu = document.querySelector('#menuFilterSort');
 const trashCans = []
-toggleFav.className = "favToggledOff";
-
 
 let editorContents = "";
 let currentDoc = 0;
@@ -28,7 +26,8 @@ docID = String(docID)
 
 const parseDate = function (unixTime) {
     const t = new Date(unixTime);
-    return `${t.getFullYear()}-${t.getMonth().toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
+    return `${t.getFullYear()}-
+    ${(t.getMonth() + 1).toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
 }
 
 const editorButtons = {
@@ -94,7 +93,6 @@ function createDoc() {
     docDiv.innerHTML = ""
 
     //push Documents-array into aside-list
-
     sortDocs('modNewest');
 }
 
@@ -114,7 +112,6 @@ function editorGetValue() {
 
 function editorStoreValue() {
     const index = documentsArray.findIndex(el => el.id == currentDoc)
-
     documentsArray[index].title = docTitle.value;
     documentsArray[index].timeStamp = Date.now();
     documentsArray[index].Text = editor.innerHTML;
@@ -156,11 +153,7 @@ const updateCurrentDocAside = function(docs = documentsArray) {
 
     section.classList.add('active');
     title.textContent = docs[index].title
-
-    /* if(searchBar.value == '' && searchBar.value == 'Search' && searchBar.value == localStorage.getItem('previous-searchterm')) { */
     textpreview.textContent = docs[index].textPreview;
-   /*  } */
-
     date.textContent = parseDate(Date.now());
 }
 
@@ -174,7 +167,6 @@ function switchCurrentEditor(id) {
    // if (id != "") {
     console.log('switch' + id)
     const allDocSections = document.querySelectorAll("#documentCards>section")
-    // console.log(allDocSections)
     const doc = document.getElementById(id);
     allDocSections.forEach(element => {
         element.classList.remove("active");
@@ -215,24 +207,6 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
     localStorage.setItem('Documents', JSON.stringify(documentsArray));
     loadAside(documentsArray);
 }
-
-function favFilter (){
-    documentsArray = JSON.parse(localStorage.getItem("Documents"));
-    toggleFav.classList.toggle('favToggleOff');
-    let favDocs = [];
-    favDocs = toggleFav.className.includes('favToggleOff') ? documentsArray.filter(fav => fav.favourite == true) : documentsArray;
-    //find index of fav document
-    let currentFav = favDocs.findIndex(fav => fav.id == currentDoc)
-
-    if(currentFav == -1) {
-    currentDoc = favDocs[0].id;
-    } else {
-        currentDoc == favDocs[currentFav].id;
-    }
-    loadAside(favDocs)
-}
-
-toggleFav.addEventListener('click', favFilter);
 
 
 
@@ -287,7 +261,6 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                     console.log('removed', docs.splice(index, 1)); 
                     //tar bort för många items, om tar bort vid favoritfiltrerat?
                     
-                    
                     localStorage.setItem('Documents', JSON.stringify(docs));
                     loadAside();
                     } else (alert('Can not remove opened document.'))
@@ -313,14 +286,8 @@ btnShowAside.addEventListener('click', function () {
 
 //If there isn't a localstorage item with the name "docTextsID", make one
 if (!localStorage.getItem('Documents')) {
-
     createDoc()
-
-    console.log(documentsArray)
-    console.log('PROPARR' + documentsArray)
-
     localStorage.setItem("Documents", JSON.stringify(documentsArray))
-
 } else {
     editorGetValue();
     loadAside();
@@ -334,6 +301,5 @@ if (window.innerWidth < 900) {
 }
 asideElement.classList.toggle('hidden');
 
-showFilter.addEventListener('click', () => {
-    filterMenu.classList.toggle('hidden');
-})
+
+
