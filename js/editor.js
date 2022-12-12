@@ -218,7 +218,6 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
    
             if(arrDocIds.findIndex(doc => doc == currentDoc) == -1) {
             for (let i = 0; i < defaultArray.length; i++) {
-
                 if (defaultArray[i].id == currentDoc) {
                     docs.unshift(defaultArray[i])
                 }
