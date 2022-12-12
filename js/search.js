@@ -55,13 +55,13 @@ function search() {
                 console.log('index effected by if' , i)
             }
 
-            let currentSearch = searchResult.findIndex(searchEl => searchEl.id == currentDoc)
+           /*  let currentSearch = searchResult.findIndex(searchEl => searchEl.id == currentDoc)
 
             if(currentSearch == -1) {
             currentDoc = searchResult[0].id;
             } else {
                 currentDoc == searchResult[currentSearch].id;
-            }
+            } */
             loadAside(searchResult);
 
         }

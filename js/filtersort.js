@@ -99,13 +99,13 @@ function favFilter (){
     let favDocs = [];
     favDocs = favFilterState ? documentsArray.filter(fav => fav.favourite == true) : documentsArray;
     //find index of fav document
-    let currentFav = favDocs.findIndex(fav => fav.id == currentDoc)
+    /* let currentFav = favDocs.findIndex(fav => fav.id == currentDoc)
 
     if(currentFav == -1) {
-    currentDoc = favDocs[0].id;
+    switchCurrentEditor(favDocs[0].id);
     } else {
         currentDoc == favDocs[currentFav].id;
-    }
+    } */
     loadAside(favDocs)
 }
 

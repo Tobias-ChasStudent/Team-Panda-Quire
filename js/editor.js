@@ -209,10 +209,34 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
     loadAside(documentsArray);
 }
 
-
-
 function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
+    console.log('loaded')
     docDiv.innerHTML = "";
+
+     let arrDocIds = []
+    //create an array with all ids of the docs array
+    for (let i = 0; i < docs.length; i++) {
+        arrDocIds.push(docs[i].id)
+    }
+    
+    console.log(arrDocIds);
+
+    let defaultArray = JSON.parse(localStorage.getItem("Documents"));
+   
+            if(arrDocIds.findIndex(doc => doc == currentDoc) == -1) {
+                console.log("no currentdoc found");
+            for (let i = 0; i < defaultArray.length; i++) {
+
+                console.log('current doc not in current list')
+                
+                if (defaultArray[i].id == currentDoc) {
+                    console.log(defaultArray[i])
+                    docs.unshift(defaultArray[i])
+                    //defaultArray[i].favourite == false;
+                }
+            }
+        }
+   
 
     if (docs.length !== 0) {
         for (let i = 0; i < docs.length; i++) {
