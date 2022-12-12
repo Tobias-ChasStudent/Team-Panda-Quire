@@ -232,6 +232,7 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                 if (defaultArray[i].id == currentDoc) {
                     console.log(defaultArray[i])
                     docs.unshift(defaultArray[i])
+
                     //defaultArray[i].favourite == false;
                 }
             }

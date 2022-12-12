@@ -41,6 +41,15 @@ function search() {
         let searchTerm = e.target.value.trim().toLowerCase();
         localStorage.setItem('previous-searchterm', searchTerm);
         searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
+        
+        if(searchResult.length == 0) {
+            let notFoundEl = document.createElement('p');
+            notFoundEl.textContent = "No search results"
+            notFoundEl.style.margin = '1rem'
+            docDiv.appendChild(notFoundEl)
+        }
+
+
         for (let i = 0; i < searchResult.length; i++) {
             //highlight text?
             //change textpreview to display substring where searchTerm is
@@ -53,7 +62,7 @@ function search() {
                 searchResult[i].textPreview = slicedText;
                 console.log('search array',searchResult[i].textPreview, documentsArray[i].textPreview)
                 console.log('index effected by if' , i)
-            }
+            } 
 
            /*  let currentSearch = searchResult.findIndex(searchEl => searchEl.id == currentDoc)
 
@@ -65,7 +74,7 @@ function search() {
             loadAside(searchResult);
 
         }
-        console.log('searchjs ' , searchResult[0].textPreview, documentsArray[0].textPreview)
+        
         inSearchMode = true;
         console.log(inSearchMode)
     } else if (searchBar.value == '' || searchBar.value == 'Search') {
