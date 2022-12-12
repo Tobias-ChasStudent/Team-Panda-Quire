@@ -70,6 +70,7 @@ function search() {
         console.log(inSearchMode)
     } else if (searchBar.value == '' || searchBar.value == 'Search') {
         console.log('empty')
+        editorStoreValue();
         loadAside();
         inSearchMode = false;
         console.log(inSearchMode)

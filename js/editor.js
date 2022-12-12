@@ -111,6 +111,7 @@ function editorGetValue() {
 }
 
 function editorStoreValue() {
+    documentsArray = JSON.parse(localStorage.getItem("Documents"))
     const index = documentsArray.findIndex(el => el.id == currentDoc)
     documentsArray[index].title = docTitle.value;
     documentsArray[index].timeStamp = Date.now();
