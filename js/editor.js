@@ -13,6 +13,7 @@ const btnShowAside = document.getElementById('showAside');
 
 const showFilter = document.querySelector('.show-filter');
 const filterMenu = document.querySelector('#menuFilterSort');
+const clearFilter2 = document.querySelector('#clearFilter')
 const trashCans = []
 
 let editorContents = "";
@@ -225,14 +226,23 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
             //console.log(sort);
             break;
     }
+
+
     localStorage.setItem('Documents', JSON.stringify(documentsArray));
     loadAside(documentsArray);
 }
+
+
 
 function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     console.log('loaded')
     docDiv.innerHTML = "";
 
+
+
+
+
+    /////keep currentDoc in aside whilst filtering
      let arrDocIds = []
     //create an array with all ids of the docs array
     for (let i = 0; i < docs.length; i++) {
@@ -252,8 +262,6 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                 if (defaultArray[i].id == currentDoc) {
                     console.log(defaultArray[i])
                     docs.unshift(defaultArray[i])
-
-                    //defaultArray[i].favourite == false;
                 }
             }
         }

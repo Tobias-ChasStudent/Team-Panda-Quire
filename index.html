@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="css/editor.css">
     <link rel="stylesheet" href="css/filtersort.css">
     <link rel="stylesheet" href="css/template.css">
+    <link rel="icon" type="image/x-icon" href="img-logos/favicon.ico">
     <script src="js/modal.js" defer></script>
     <script src="js/tags.js" defer></script>
     <script src="js/editor.js" defer></script>
     <script src="js/template.js" defer></script>
     <script src="js/filtersort.js" defer></script>
     <script src="js/search.js" defer></script>
-
     <title>Quire</title>
 </head>
 
@@ -41,8 +41,8 @@
     <div class="main">
         <aside class="aside hidden">
             <input type="search" id="search-bar" value="Search">
-            <button class="show-filter sort-button">Sort & filter</button>
-            <button class="clear-filter sort-button hidden">Clear filter</button>
+            <button class="show-filter sort-button">Sort & filter <i class="fa-arrow fa-solid fa-arrow-up"></i></button>
+            <button class="clear-filter sort-button " id="clearFilter">Clear filter</button>
            <!--  <button id="display-favourites" class="show-favourites">Show favourites</button> -->
             <div id="menuFilterSort" class="hidden">
                 <p>Sort</p>

@@ -23,15 +23,17 @@
 }
 
 .sort-button {
-    background-color: white;
+    background-color: rgb(255, 253, 253);
     padding: 0.2rem;
     border: 1px solid gray;
     border-radius: 2em;
 }
 
-.toggle-button {
-    background-color: rgb(224, 220, 220);
+.sort-button:hover {
+    background-color: rgb(250, 248, 248);
 }
+
+
 
 #display-favourites {
     margin: 0.5rem;

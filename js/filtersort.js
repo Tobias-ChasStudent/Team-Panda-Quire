@@ -12,6 +12,7 @@ const toggleFav = document.querySelector('#labelCheckFav');
 const filterTag = document.getElementById('filterTag');
 const toggleTag = document.querySelector('#labelCheckTag');
 const clearFilter = document.querySelector('.clear-filter');
+const filterArrow = document.querySelector('.fa-arrow');
 
 let filteredDocObject =  {
     'favourite' : true, 
@@ -99,9 +100,10 @@ btnSortModified.addEventListener('click', function() {
 //Favourites
 showFilter.addEventListener('click', () => {
     filterMenu.classList.toggle('hidden');
+   
     if(!showFilter.classList.contains('hidden')) {
-        showFilter.classList.toggle('toggle-button');
-        clearFilter.classList.toggle('hidden');
+        filterArrow.classList.toggle('fa-arrow-down');
+        filterArrow.classList.toggle('fa-arrow-up');
      }
 })
 
@@ -193,6 +195,7 @@ selectTagsMenu();
 clearFilter.addEventListener('click', clearFilterOptions);
 
 function clearFilterOptions() {
+
     loadAside();
     sortDocs();
     favFilterState = false;
