@@ -4,7 +4,7 @@ let searchResult = [];
 
 ////search 
 function search() {
-    documentsArray = JSON.parse(localStorage.getItem("Documents"))
+    
 
     searchBar.addEventListener('click', () => {
             let previousSearchterm = localStorage.getItem('previous-searchterm');
@@ -34,6 +34,7 @@ function search() {
     }
     sessionStorage.setItem('reloaded', 'yes'); 
 
+    documentsArray = JSON.parse(localStorage.getItem("Documents"))
 
     searchBar.addEventListener('input', (e) => {   
     if(searchBar.value !== '') {

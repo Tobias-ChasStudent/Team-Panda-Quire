@@ -13,9 +13,27 @@ const filterTag = document.getElementById('filterTag');
 const toggleTag = document.querySelector('#labelCheckTag');
 const clearFilter = document.querySelector('.clear-filter');
 
+let filteredDocObject =  {
+    'favourite' : true, 
+    'search': 'searchTerm',
+    'orderByTime': 'sort'
+};
+
+for (const key in filteredDocObject) {
+
+    let prop = filteredDocObject[key];
+    
+    console.log();
+    if(key == "favourite") {
+        if (prop == true) {
+            
+        }
+    }
+
+}
+
 const clearSortFilter = function () {
     // clear all other sort and filter options
- 
 }
 
 

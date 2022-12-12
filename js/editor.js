@@ -19,6 +19,26 @@ let editorContents = "";
 let currentDoc = 0;
 let documentsArray = []
 
+
+/* filteredDocArray.foreach {
+    switch (bla) {
+        case fav:
+            
+            break;
+    
+        case timeCreated:
+            
+            break;
+    
+        case timeMod:
+            
+            break;
+    
+        default:
+            break;
+    }
+} */
+
 //Get a unique id
 let date = new Date()
 let docID = date.getTime()
