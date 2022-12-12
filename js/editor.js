@@ -10,7 +10,6 @@ const docTitle = document.querySelector('.doc-title');
 const tagsContainer = document.getElementById('tagsContainer');
 const btnsEditor = document.querySelectorAll('.btnsEditor');
 const btnShowAside = document.getElementById('showAside');
-
 const showFilter = document.querySelector('.show-filter');
 const filterMenu = document.querySelector('#menuFilterSort');
 const clearFilter2 = document.querySelector('#clearFilter')
@@ -19,26 +18,6 @@ const trashCans = []
 let editorContents = "";
 let currentDoc = 0;
 let documentsArray = []
-
-
-/* filteredDocArray.foreach {
-    switch (bla) {
-        case fav:
-            
-            break;
-    
-        case timeCreated:
-            
-            break;
-    
-        case timeMod:
-            
-            break;
-    
-        default:
-            break;
-    }
-} */
 
 //Get a unique id
 let date = new Date()
@@ -69,6 +48,8 @@ const eventListenerToEditorBtns = function () {
         const type = btn.parentElement
         if (type.id == 'selectHeading') {
             type.addEventListener('change', function (event) {
+                if (!event.target.value) return;
+
                 const idBtn = event.target.value;
                 document.execCommand(...editorButtons[idBtn]);
                 console.log('test', ...editorButtons[idBtn])
@@ -87,7 +68,6 @@ function createDoc() {
     if (localStorage.getItem('Documents') == true) {
         editorStoreValue();
     }
-
     editor = document.getElementById('editor');
 
     //Get the current editor contents
@@ -144,34 +124,26 @@ function editorStoreValue() {
 eventListenerToEditorBtns();
 
 const saveDocument = function () {
-/*     console.log('auto save before editorstorevalue, searchresult', searchResult[0].textPreview);
- */    console.log('autosave docarray' , documentsArray[0].textPreview)
-
     if (inSearchMode) {
-        console.log('in search mode');
-        console.log('auto save search result', searchResult[0].textPreview);
-        console.log('auto save doc array', searchResult[0].textPreview);
         updateCurrentDocAside(searchResult);
     } else if (!inSearchMode) {
-        console.log('not in search mode')
         updateCurrentDocAside()
     }
-
     editorStoreValue();
 }
 
 //autosave
 setInterval(() => {
-    // saveDocument()
-}, 3000);
+     saveDocument()
+}, 200);
 
 
 const updateCurrentDocAside = function(docs = documentsArray) {
     const index = docs.findIndex(el => el.id == currentDoc)
     const section = document.getElementById(currentDoc);
-    const title = section.children[0];
-    const textpreview = section.children[1];
-    const date = section.children[2];
+    const title = section.children[1];
+    const textpreview = section.children[2];
+    const date = section.children[3];
 
     section.classList.add('active');
     title.textContent = docs[index].title
@@ -186,7 +158,6 @@ document.getElementById('btnSave').addEventListener("click", () => {
 })
 
 function switchCurrentEditor(id) {
-   // if (id != "") {
     console.log('switch' + id)
     const allDocSections = document.querySelectorAll("#documentCards>section")
     const doc = document.getElementById(id);
@@ -195,52 +166,46 @@ function switchCurrentEditor(id) {
     });
     doc.classList.add("active");
     localStorage.setItem('currentDoc', id);
-
     displayTagsInEditor(id);
     editorGetValue();
-
     document.title = documentsArray[documentsArray.findIndex(el => el.id == id)].title + ' - Quire';
-    //}
 }
 
 
 function sortDocs(sort = "modNewest", docs = documentsArray) {
-    
-    // documentsArray = JSON.parse(localStorage.getItem("Documents"))
+    let sortedDocsArray = [...docs];
 
     switch(sort) {
         case "modNewest": 
-            docs.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
+            sortedDocsArray.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
             //console.log(sort);
             break;
         case "modOldest":
-            docs.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
+            sortedDocsArray.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
             //console.log(sort)
             break;
         case "createdNewest":
-            docs.sort(({id:a}, {id:b}) => b-a);
+            sortedDocsArray.sort(({id:a}, {id:b}) => b-a);
             //console.log(sort);
             break;
         case "createdOldest": 
-            docs.sort(({id:a}, {id:b}) => a-b);
+            sortedDocsArray.sort(({id:a}, {id:b}) => a-b);
             //console.log(sort);
             break;
     }
-
-
-    localStorage.setItem('Documents', JSON.stringify(documentsArray));
-    loadAside(documentsArray);
+    loadAside(sortedDocsArray);
 }
-
-
 
 function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     console.log('loaded')
     docDiv.innerHTML = "";
 
-
-
-
+    clearFilter.classList.add('hidden')
+    if(docs === documentsArray) {
+        clearFilter.classList.add('hidden')
+    } else if(docs !== documentsArray ){
+        clearFilter.classList.remove('hidden')
+    }
 
     /////keep currentDoc in aside whilst filtering
      let arrDocIds = []
@@ -248,24 +213,17 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
     for (let i = 0; i < docs.length; i++) {
         arrDocIds.push(docs[i].id)
     }
-    
-    console.log(arrDocIds);
 
     let defaultArray = JSON.parse(localStorage.getItem("Documents"));
    
             if(arrDocIds.findIndex(doc => doc == currentDoc) == -1) {
-                console.log("no currentdoc found");
             for (let i = 0; i < defaultArray.length; i++) {
 
-                console.log('current doc not in current list')
-                
                 if (defaultArray[i].id == currentDoc) {
-                    console.log(defaultArray[i])
                     docs.unshift(defaultArray[i])
                 }
             }
         }
-   
 
     if (docs.length !== 0) {
         for (let i = 0; i < docs.length; i++) {
@@ -273,27 +231,24 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
             docListItem.setAttribute('id', docs[i].id)
             docListItem.className = 'doclist-card';
 
-            let btnStar = document.createElement('i');
             const starTrueFalse = docs[i].favourite ? 'fa-solid' : 'fa-regular';
-            btnStar.className = `fa-star ${starTrueFalse}`;
             const deleteBtn = document.createElement('i');
-            deleteBtn.className = `fa-trash-can fa-regular ${docs[i].id}`;
+            deleteBtn.className = `fa-trash-can fa-regular hidden ${docs[i].id}`;
             deleteBtn.style.marginLeft = '1vh';
             
-            docListItem.innerHTML = `
+            docListItem.insertAdjacentHTML('beforeend', `
+                <i class="fa-trash-can fa-regular hidden ${docs[i].id}"></i>
                 <h3 id="${docs[i].id}">${docs[i].title.substring(0, 40)}</h3>
                 <p id="${docs[i].id}">${docs[i].textPreview}</p>
-                <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>`;
+                <p id="${docs[i].id}">${parseDate(docs[i].timeStamp)}</p>
+                <i class="fa-star ${starTrueFalse}"></i>
+                `);
 
-            //console.log('PROPARRAY: ' + documentsArray);
-            docListItem.appendChild(btnStar);
-            docListItem.appendChild(deleteBtn);
             docDiv.appendChild(docListItem);
-
 
             //favourite event function
             docListItem.addEventListener('click', (e) => {
-                const docId = e.target.parentElement.id
+                const docId = e.target.closest('section').id
                 const index = docs.findIndex(el => el.id == docId)
                 console.log(docId, index)
                 if(e.target.className.includes('fa-star')) {
@@ -307,21 +262,15 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
                     localStorage.setItem("Documents", JSON.stringify(docs));
                     return
                 } else if (e.target.className.includes('fa-trash-can')) {
-                    const docId = e.target.parentElement.id
                     const index = docs.findIndex(el => el.id == docId)
                     if(docs[i].id != currentDoc) {
-                    console.log("The index of the pressed trashcan", index)
-    
-                    console.log('removed', docs.splice(index, 1)); 
-                    //tar bort för många items, om tar bort vid favoritfiltrerat?
-                    
-                    localStorage.setItem('Documents', JSON.stringify(docs));
-                    loadAside();
+                        docs.splice(index, 1)
+                        localStorage.setItem('Documents', JSON.stringify(docs));
+                        loadAside();
                     } else (alert('Can not remove opened document.'))
-                    return
+                        return
                 }
                 //switch what doc you want to edit
-            
                 switchCurrentEditor(e.target.id);
             
                 if (window.innerWidth < 900) {
@@ -344,7 +293,7 @@ if (!localStorage.getItem('Documents')) {
     localStorage.setItem("Documents", JSON.stringify(documentsArray))
 } else {
     editorGetValue();
-    loadAside();
+    loadAside(documentsArray);
     currentDoc = localStorage.getItem('currentDoc');
     switchCurrentEditor(currentDoc);
 }

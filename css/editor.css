@@ -19,7 +19,7 @@
 }
 
 #selectHeading {
-    width: 4em;
+    width: fit-content;
 }
 
 
@@ -167,16 +167,18 @@
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+    border-top: 1px solid lightgray;
 }
+
 
 .doclist-card {
     padding: 1em 1em 1em 1em;
-    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     border-left: 5px solid white;
     border-right: 5px solid white;
 }
 
-.doclist-card>:nth-child(2) {
+.doclist-card>:nth-child(3) {
     font-weight: 100;
     color: rgb(107, 107, 107);
     min-height: 1em;
@@ -187,6 +189,8 @@
     border-right: 5px solid #f78087;
 }
 
+
+
 .doclist-card>h3 {
     inline-size: 30ch;
     overflow-wrap: break-word;
@@ -195,7 +199,7 @@
     padding-bottom: 0.5em;
 }
 
-.doclist-card>:nth-child(3) {
+.doclist-card>:nth-child(4) {
     font-size: 0.7rem;
     text-align: end;
     color: rgb(107, 107, 107);

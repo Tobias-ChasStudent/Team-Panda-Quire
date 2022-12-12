@@ -1,18 +1,35 @@
 const btnSortCreated = document.getElementById('sortCreated');
 const checkSortCreated = document.querySelector('#labelCheckCreated');
 const checkCreatedAscDesc = document.querySelector('#labelCreatedAscDesc');
-
 const btnSortModified = document.getElementById('sortModified');
 const checkSortModified = document.querySelector('#labelCheckModified');
 const checkModifiedAscDesc = document.querySelector('#labelModifiedAscDesc');
-
 const filterFav = document.getElementById('filterFav');
 const toggleFav = document.querySelector('#labelCheckFav');
-
 const filterTag = document.getElementById('filterTag');
 const toggleTag = document.querySelector('#labelCheckTag');
 const clearFilter = document.querySelector('.clear-filter');
 const filterArrow = document.querySelector('.fa-arrow');
+
+/* filteredDocArray.foreach {
+    switch (bla) {
+        case fav:
+            
+            break;
+    
+        case timeCreated:
+            
+            break;
+    
+        case timeMod:
+            
+            break;
+    
+        default:
+            break;
+    }
+} */
+
 
 let filteredDocObject =  {
     'favourite' : true, 
@@ -30,13 +47,11 @@ for (const key in filteredDocObject) {
             
         }
     }
-
 }
 
 const clearSortFilter = function () {
     // clear all other sort and filter options
 }
-
 
 ///////////////////////////////////
 // Sorting
@@ -58,7 +73,8 @@ btnSortCreated.addEventListener('click', function() {
             checkCreatedAscDesc.classList.toggle('fa-arrow-up-wide-short');
             break;
         case 2:
-            sortDocs();
+            //sortDocs();
+            loadAside(documentsArray)
             sortCreatedState = 0;
             checkSortCreated.classList.toggle('fa-square-check');
             checkSortCreated.classList.toggle('fa-square');
@@ -86,7 +102,8 @@ btnSortModified.addEventListener('click', function() {
             checkModifiedAscDesc.classList.toggle('fa-arrow-up-wide-short');
             break;
         case 2:
-            sortDocs();
+            //sortDocs();
+            loadAside(documentsArray)
             sortModifiedState = 0;
             checkSortModified.classList.toggle('fa-square-check');
             checkSortModified.classList.toggle('fa-square');
@@ -100,7 +117,6 @@ btnSortModified.addEventListener('click', function() {
 //Favourites
 showFilter.addEventListener('click', () => {
     filterMenu.classList.toggle('hidden');
-   
     if(!showFilter.classList.contains('hidden')) {
         filterArrow.classList.toggle('fa-arrow-down');
         filterArrow.classList.toggle('fa-arrow-up');
@@ -118,14 +134,6 @@ function favFilter (){
 
     let favDocs = [];
     favDocs = favFilterState ? documentsArray.filter(fav => fav.favourite == true) : documentsArray;
-    //find index of fav document
-    /* let currentFav = favDocs.findIndex(fav => fav.id == currentDoc)
-
-    if(currentFav == -1) {
-    switchCurrentEditor(favDocs[0].id);
-    } else {
-        currentDoc == favDocs[currentFav].id;
-    } */
     loadAside(favDocs)
 }
 
@@ -145,14 +153,9 @@ const handlerFindTags = function() {
     let docs = documentsArray;
     if (findTags.value != 'Choose tag') {
         docs = tagFunctions.docArray(findTags.value.toLowerCase());
-    }
-
-    currentDoc = docs[0].id;
-    if (docs) loadAside(docs);
-
-    if (!toggleTag.classList.contains('fa-square-check')) {
-        toggleTagCheck()
-    }
+    } 
+    loadAside(docs); 
+    toggleTagCheck()
 }
 
 findTags.addEventListener('change', handlerFindTags)
@@ -162,20 +165,17 @@ filterTag.addEventListener('click', function() {
     tagFilterState = tagFilterState ? false : true; 
 
     if (tagFilterState) {
-        findTags.value = 'Choose tag'
-        // handlerFindTags();
-
+        findTags.value = 'Choose tag';
         clearFilterOptions();
     }
 });
 
 findTags.addEventListener('click', function(e) {
-    e.stopPropagation()
+    e.stopPropagation();
 });
 
 const selectTagsMenu = function () {
     tagFunctions.allTags().forEach(tag => {
-        
         selectFindTags.insertAdjacentHTML('beforeend', 
             `<option>${tag}</option>`
         );
@@ -186,7 +186,6 @@ const selectTagsMenu = function () {
 if (tagFunctions.get() == null) tagFunctions.set();
 
 tagFunctions.get();
-
 selectTagsMenu();
 
 ////////////////////////////////
@@ -195,9 +194,8 @@ selectTagsMenu();
 clearFilter.addEventListener('click', clearFilterOptions);
 
 function clearFilterOptions() {
+    loadAside(documentsArray);
 
-    loadAside();
-    sortDocs();
     favFilterState = false;
     tagFilterState = false;
    
@@ -211,9 +209,23 @@ function clearFilterOptions() {
     checkSortCreated.classList.add('fa-square');
     checkCreatedAscDesc.classList.remove('fa-arrow-up-wide-short');
     checkCreatedAscDesc.classList.add('fa-arrow-down-wide-short');
-
     checkSortModified.classList.remove('fa-square-check');
     checkSortModified.classList.add('fa-square');
     checkModifiedAscDesc.classList.remove('fa-arrow-up-wide-short');
     checkModifiedAscDesc.classList.add('fa-arrow-down-wide-short');
 }
+
+docDiv.addEventListener('mouseover', (e) => {
+   const section = e.target.closest('section')
+   if (!section) return;
+
+   section.querySelector('.fa-trash-can').classList.remove('hidden')
+})
+
+docDiv.addEventListener('mouseout', (e) => {
+    const section = e.target.closest('section')
+    if (!section) return;
+ 
+    section.querySelector('.fa-trash-can').classList.add('hidden')
+ })
+ 

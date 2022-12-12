@@ -64,10 +64,8 @@ const tagFunctions = {
 }
 
 const removeTag = function(e) {
-    console.log('remove', e.target.textContent, currentDoc)
     const tag = e.target.textContent.toLowerCase();
     tagFunctions.remove(tag, currentDoc);
-
     displayTagsInEditor(currentDoc);
 }
 
@@ -79,7 +77,6 @@ const displayTagsInEditor = function (id) {
         tagNode.textContent = tag.toUpperCase();
         formAddTags.before(tagNode);
     });
-
     document.querySelectorAll('.tagLabel').forEach(node => node.addEventListener('click', removeTag))
 }
 
@@ -101,7 +98,6 @@ btnSaveTags.addEventListener('click', function(e) {
         displayTagsInEditor(currentDoc);
         selectTagsMenu();
     }
-
     inputNewTags.value = '';
     inputNewTags.blur();
 

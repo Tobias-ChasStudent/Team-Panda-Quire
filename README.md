@@ -2,12 +2,8 @@
 
 Github Pages: https://tobias-chasstudent.github.io/Team-Panda-Quire/
 
-öladsölkaölskdölaksöld
-
-edited from github
-
-Changing
-
-Branched?
-
-Perhaps?
+Made by:
+Hampus Dufberg Töttrup
+Joar Taylor
+Tobias Riiser
+Latifa Rohani

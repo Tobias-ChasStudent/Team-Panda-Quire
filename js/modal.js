@@ -96,7 +96,6 @@ function showDivs(slideIndex) {
     labelInfoCheckbox.classList.add('hide');
   }
 
-  //show what page user is on
   cardIndex.innerHTML = null;
 
   for(i = 0; i < x.length; i++) {
