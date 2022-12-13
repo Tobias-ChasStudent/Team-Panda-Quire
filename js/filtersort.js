@@ -11,44 +11,6 @@ const toggleTag = document.querySelector('#labelCheckTag');
 const clearFilter = document.querySelector('.clear-filter');
 const filterArrow = document.querySelector('.fa-arrow');
 
-/* filteredDocArray.foreach {
-    switch (bla) {
-        case fav:
-            
-            break;
-    
-        case timeCreated:
-            
-            break;
-    
-        case timeMod:
-            
-            break;
-    
-        default:
-            break;
-    }
-} */
-
-
-let filteredDocObject =  {
-    'favourite' : true, 
-    'search': 'searchTerm',
-    'orderByTime': 'sort'
-};
-
-for (const key in filteredDocObject) {
-
-    let prop = filteredDocObject[key];
-    
-    console.log();
-    if(key == "favourite") {
-        if (prop == true) {
-            
-        }
-    }
-}
-
 const clearSortFilter = function () {
     // clear all other sort and filter options
 }
