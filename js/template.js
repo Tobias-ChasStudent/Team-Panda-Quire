@@ -7,9 +7,10 @@ for (let i = 0; i < modalButtons.length; i++) {
     modalButtons[i].addEventListener('click', (e) => {
         getObjData(e.target.id)
         createDoc();
+        displayTagsInEditor(currentDoc);
+
 
         if (e.target.id == "recipetemplate") {
-            console.log("Recipe")
             docTitle.value = "Recipe";
         } else if (e.target.id == "cvtemplate") {
             docTitle.value = "Resume - John Doe";
