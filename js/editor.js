@@ -13,7 +13,6 @@ const btnShowAside = document.getElementById('showAside');
 const showFilter = document.querySelector('.show-filter');
 const filterMenu = document.querySelector('#menuFilterSort');
 const clearFilter2 = document.querySelector('#clearFilter')
-const trashCans = []
 
 let editorContents = "";
 let currentDoc = 0;
@@ -26,8 +25,7 @@ docID = String(docID)
 
 const parseDate = function (unixTime) {
     const t = new Date(unixTime);
-    return `${t.getFullYear()}-
-    ${(t.getMonth() + 1).toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
+    return `${t.getFullYear()}-${(t.getMonth() + 1).toString().padStart(2, '0')}-${t.getDate().toString().padStart(2, '0')} ${t.getHours().toString().padStart(2, '0')}:${t.getMinutes().toString().padStart(2, '0')}`
 }
 
 const editorButtons = {
@@ -81,7 +79,7 @@ function createDoc() {
         Text: "",
         title: 'Page titles',
         timeStamp: Date.now(),
-        textPreview: editor.textContent.substring(0, 20),
+        textPreview: editor.textContent.substring(0, 25),
         favourite: false
     }
 
@@ -117,7 +115,7 @@ function editorStoreValue() {
     documentsArray[index].title = docTitle.value;
     documentsArray[index].timeStamp = Date.now();
     documentsArray[index].Text = editor.innerHTML;
-    documentsArray[index].textPreview = editor.textContent.replace(/\s{2,}/g,' ').trim().substring(0, 20);
+    documentsArray[index].textPreview = editor.textContent.replace(/\s{2,}/g,' ').trim().substring(0, 25);
     localStorage.setItem("Documents", JSON.stringify(documentsArray));
  }
 

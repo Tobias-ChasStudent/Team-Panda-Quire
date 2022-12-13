@@ -59,7 +59,7 @@ function search() {
                 const cleanText = hiddenEL.textContent.replace(/\s{2,}/g,' ').trim();
 
                 let textIndex = cleanText.toLowerCase().search(searchTerm);
-                let slicedText = cleanText.substring(textIndex, (textIndex + 20));
+                let slicedText = cleanText.substring(textIndex, (textIndex + 25));
                 searchResult[i].textPreview = slicedText;
             } 
             loadAside(searchResult);

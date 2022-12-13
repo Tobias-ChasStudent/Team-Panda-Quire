@@ -12,7 +12,7 @@ for (let i = 0; i < modalButtons.length; i++) {
             console.log("Recipe")
             docTitle.value = "Recipe";
         } else if (e.target.id == "cvtemplate") {
-            docTitle.value = "Resume - Ben Dover";
+            docTitle.value = "Resume - John Doe";
         } else if (e.target.id == "lettertemplate") {
             docTitle.value = "Letter"
         } else if (e.target.id == "emptytemplate") {
