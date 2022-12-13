@@ -1,6 +1,18 @@
 {
-    "cvtemplate": "<h1>My Name</h1>    <ul>        <li>Email:</li>        <li>Phone nr:</li>    </ul>    <h2>Education</h2>    <h2>Work</h2>    <h2>Hobbies</h2>    <h2>Languages</h2>",
-    "recipetemplate": "<h1>My recipe</h1>    <h2>Ingredients:</h2>    <ul>        <li>Ingredient 1</li>        <li>Ingredient 2</li>        <li>Ingredient 3</li>    </ul>  <h2>Process:</h2>    <ol>        <li></li>        <li></li>        <li></li>    </ol>   ",
-    "lettertemplate": "<h1>My letter</h1>    <h3>To:</h3>    <h3>From:</h3>    <h4>Date:</h4>    <h4>Address:</h4>  <br>  <p>Hey there Delilah..</p>",
-    "emptytemplate": ""
+    "cvtemplate": {
+        "title": "Resume",
+        "Text": "<h1>My Name</h1>    <ul>        <li>Email:</li>        <li>Phone nr:</li>    </ul>    <h2>Education</h2>    <h2>Work</h2>    <h2>Hobbies</h2>    <h2>Languages</h2>"
+    },
+    "recipetemplate": {
+        "title": "Recipe",
+        "Text": "<h1>My recipe</h1>    <h2>Ingredients:</h2>    <ul>        <li>Ingredient 1</li>        <li>Ingredient 2</li>        <li>Ingredient 3</li>    </ul>  <h2>Process:</h2>    <ol>        <li></li>        <li></li>        <li></li>    </ol>   "
+    }, 
+    "lettertemplate": {
+        "title": "Letter",
+        "Text": "<h1>My letter</h1>    <h3>To:</h3>    <h3>From:</h3>    <h4>Date:</h4>    <h4>Address:</h4>  <br>  <p>Hey there Delilah..</p>"
+    },
+    "newdocument": {
+        "title": "New Document",
+        "Text": ""
+    }
 }

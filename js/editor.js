@@ -60,36 +60,31 @@ const eventListenerToEditorBtns = function () {
     }
 }
 
-function createDoc() {
+function createDoc(newDocumentObject) {
     if (localStorage.getItem('Documents') == true) {
         editorStoreValue();
     }
-    editor = document.getElementById('editor');
 
-    //Get the current editor contents
-    editorContents = document.getElementById('editor').innerHTML;
-    editor.innerHTML = "";
     docID = Date.now()
 
-    //Create a new document object
-    let currentDocProperties = {
-        id: docID,
-        Text: "",
-        title: 'Page titles',
-        timeStamp: Date.now(),
-        textPreview: editor.textContent.substring(0, 25),
-        favourite: false
-    }
+    //convert from html to text
+    hiddenEL.innerHTML = newDocumentObject.Text;
+    const cleanText = hiddenEL.textContent.replace(/\s{2,}/g,' ').trim();
+    let slicedText = cleanText.substring(0, 25);
 
-    currentDoc = currentDocProperties.id;
-    localStorage.setItem('currentDoc', currentDocProperties.id);
-    documentsArray.unshift(currentDocProperties);
+    //create new object properties
+    newDocumentObject.id = docID;
+    newDocumentObject.timeStamp = docID;
+    newDocumentObject.textPreview = slicedText
+    newDocumentObject.favourite = false;
+    
+    editor.innerHTML = newDocumentObject.Text;
+    docTitle.value = newDocumentObject.title
+    currentDoc = newDocumentObject.id;
+    localStorage.setItem('currentDoc', newDocumentObject.id);
+    documentsArray.unshift(newDocumentObject);
     localStorage.setItem("Documents", JSON.stringify(documentsArray))
 
-    //Empty aside to then repopulate
-    docDiv.innerHTML = ""
-
-    //push Documents-array into aside-list
     sortDocs('modNewest');
 }
 
@@ -277,7 +272,8 @@ btnShowAside.addEventListener('click', function () {
 
 //If there isn't a localstorage item with the name "docTextsID", make one
 if (!localStorage.getItem('Documents')) {
-    createDoc()
+    //create new document
+    getObjData('newdocument')
     localStorage.setItem("Documents", JSON.stringify(documentsArray))
 } else {
     editorGetValue();
