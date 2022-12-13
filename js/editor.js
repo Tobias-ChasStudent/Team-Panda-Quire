@@ -50,8 +50,6 @@ const eventListenerToEditorBtns = function () {
 
                 const idBtn = event.target.value;
                 document.execCommand(...editorButtons[idBtn]);
-                console.log('test', ...editorButtons[idBtn])
-
             });
         } else {
             const idBtn = btn.getAttribute('id');
@@ -156,7 +154,6 @@ document.getElementById('btnSave').addEventListener("click", () => {
 })
 
 function switchCurrentEditor(id) {
-    console.log('switch' + id)
     const allDocSections = document.querySelectorAll("#documentCards>section")
     const doc = document.getElementById(id);
     allDocSections.forEach(element => {
@@ -176,26 +173,21 @@ function sortDocs(sort = "modNewest", docs = documentsArray) {
     switch(sort) {
         case "modNewest": 
             sortedDocsArray.sort(({timeStamp:a}, {timeStamp:b}) => b-a);
-            //console.log(sort);
             break;
         case "modOldest":
             sortedDocsArray.sort(({timeStamp:a}, {timeStamp:b}) => a-b);
-            //console.log(sort)
             break;
         case "createdNewest":
             sortedDocsArray.sort(({id:a}, {id:b}) => b-a);
-            //console.log(sort);
             break;
         case "createdOldest": 
             sortedDocsArray.sort(({id:a}, {id:b}) => a-b);
-            //console.log(sort);
             break;
     }
     loadAside(sortedDocsArray);
 }
 
 function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
-    console.log('loaded')
     docDiv.innerHTML = "";
 
     clearFilter.classList.add('hidden')
@@ -247,7 +239,6 @@ function loadAside(docs = JSON.parse(localStorage.getItem("Documents"))) {
             docListItem.addEventListener('click', (e) => {
                 const docId = e.target.closest('section').id
                 const index = docs.findIndex(el => el.id == docId)
-                console.log(docId, index)
                 if(e.target.className.includes('fa-star')) {
                     e.target.classList.toggle('fa-solid');
                     e.target.classList.toggle('fa-regular');

@@ -39,6 +39,22 @@ function search() {
         searchResult = documentsArray.filter(myDoc => myDoc.Text.toLowerCase().includes(searchTerm) || myDoc.title.toLowerCase().includes(searchTerm));
         
         if(searchResult.length == 0) {
+            /////keep currentDoc in aside whilst filtering
+            let arrDocIds = []
+            //create an array with all ids of the searchResult array
+            for (let i = 0; i < searchResult.length; i++) {
+                arrDocIds.push(searchResult[i].id)
+            }
+        
+            let defaultArray = JSON.parse(localStorage.getItem("Documents"));
+            
+             if(arrDocIds.findIndex(doc => doc == currentDoc) == -1) {
+             for (let i = 0; i < defaultArray.length; i++) {
+                 if (defaultArray[i].id == currentDoc) {
+                     searchResult.unshift(defaultArray[i])
+                 }
+             }
+         }
             // load currentdoc to aside
             let index = documentsArray.findIndex(el => el.id == currentDoc)
             loadAside([documentsArray[index]])
@@ -51,7 +67,6 @@ function search() {
             docDiv.appendChild(notFoundEl)
         }
 
-
         for (let i = 0; i < searchResult.length; i++) {
             //change textpreview to display substring where searchTerm is
             if(searchResult[i].Text.toLowerCase().includes(searchTerm)) {
@@ -61,8 +76,9 @@ function search() {
                 let textIndex = cleanText.toLowerCase().search(searchTerm);
                 let slicedText = cleanText.substring(textIndex, (textIndex + 25));
                 searchResult[i].textPreview = slicedText;
+                loadAside(searchResult);
             } 
-            loadAside(searchResult);
+            
 
         }
         inSearchMode = true;

@@ -6,7 +6,6 @@
     margin: 2em 2em 2em 2em;
     outline: none;
     min-height: calc(100vh - 4em - 2.5em - 4em);
-    /* background-color: lightblue; */
     width: calc(100vw - (2 * 2em));
     overflow-wrap: break-word;
 }
@@ -110,12 +109,8 @@
     background-color: transparent;
     font-size: 1.3em;
     border-bottom: 3px dashed gray;
-    /* overflow: visible; */
 }
 
-/* .doc-title:hover {
-    border: 1px solid gray;
-} */
 
 .doc-title:focus {
     outline: none;
@@ -132,8 +127,6 @@
 #btnUnderline {
     text-decoration-line: underline;
 }
-
-
 
 #btnH1 {
     font-size: 2em;
@@ -225,7 +218,6 @@
     outline: none;
 }
 
-/* Content styles */
 ul {
     margin: 0.25em 1em;
 }
@@ -238,9 +230,7 @@ li {
     margin-left: 1em;
 }
 
-/* Default heading styles 
-https://stackoverflow.com/questions/5410066/what-are-the-default-font-sizes-in-pixels-for-the-html-heading-tags-h1-h2#5410145 
-*/
+/* Default heading styles in editor */
 h1 {
     display: block;
     font-size: 2em;
@@ -267,7 +257,6 @@ h3,
     margin-block-end: 1em;
 }
 
-/* Create btn */
 #createDoc {
     border-radius: 100%;
     padding: 10px;
